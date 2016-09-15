@@ -1,0 +1,15 @@
+{
+    "version": "0.1.0",
+    "command": "gulp watch",
+    "isShellCommand": true,
+    "args": [
+    ],
+    "tasks": [
+        {
+            "taskName": "frugallon-watch",
+            "args": [],
+            "isBuildCommand": true,
+            "isWatching": true
+        }
+    ]
+}

@@ -1,0 +1,121 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the imports which make up the design of this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+
+// @import "../pages/getting-started/getting-started";
+
+// @import "../pages/list/list";
+
+@import "animate";
+
+/*
+* BUG: https://github.com/driftyco/ionic/issues/5556
+* Currently we have this on, just remove the "xx-" if we 
+* decide not to show the product-name in the tabs
+*/
+xxion-tabs ion-navbar-section { display: none; }
+
+.content {
+}
+
+/* On content rather than page, otherwise we'll lose the tabs at the bottom of the page */
+ion-content {
+	background-image: radial-gradient(ellipse farthest-corner at center, #FFFFFF 0%, #9CE5F4 100%);
+}
+/* HACK:
+ * Bug introduced in ionic beta.10 where the "ion-content" takes 100% of the height.  It _should_ have 
+ * a margin to compensate for the other header, but doesn't appear to be working :-(
+ * The ".container" is so we only apply on page level "ion-content", e.g. we don't want to apply it on the 
+ * settings screen.
+ */
+ion-content.container {
+  margin-top: 5.5rem;
+}
+
+ion-label.no-left-offset {
+  margin-left: 0;
+}
+
+ion-icon.large:before {
+	font-size: xx-large;
+}
+
+.error-message {
+	font-size: smaller;
+	font-weight: bold;
+	background-color: #F3B45B;
+	padding: 0.75em;
+	color: #222; 
+}
+.fl { float: left; }
+.fr { float: right; }
+.fr::after {clear: both;}
+.clr, .clear { clear: both; }
+.ib { display: inline-block; }
+
+.mandatory {
+	color: red;
+	font-size: 3rem;
+	display: inline-block;
+}
+.fru-mandatory ion-input {
+  float: left;
+  width: 94%;
+}
+.fru-mandatory .mandatory {
+  margin-top: 1rem;	/* moves inline with the control */
+  float: right;
+}
+.mpg-bad  { color: red; }
+.mpg-ok   { color: orange; }
+.mpg-good { color: green; }
+
+.mpgbadge-bad  { background-color: #fd5050; color: #fff; }
+.mpgbadge-ok   { background-color: #ff7900; color: #fff; }
+.mpgbadge-good { background-color: #3d7d1e; color: #fff; }
+
+
+ion-item {
+  background-color: #DDF9FF;
+}
+ion-input[type="text"], 
+ion-input[type="number"],
+ion-input[type="tel"] {
+  background-color: #DDF9FF;
+  font-size: 2rem;
+}
+ion-input.number input[type="text"], 
+ion-input.number input[type="number"],
+ion-input.number input[type="tel"] {
+  text-align: right;
+}
+
+ion-input {
+  padding-left: 1em;
+  border: solid 1px #ddd;
+}
+ion-input.ng-valid {
+  border-left: 5px solid #42A948;
+}
+ion-input.ng-invalid {
+  border-left: 5px solid #a94442;
+}
+ion-label {
+  /* Otherwise the label can't be see validation indicator */ 
+  margin-left: 1em; 
+}
+form div {
+  margin-bottom: 1rem;
+}
+
+
+.slow   { -webkit-animation-duration: 1.5s; animation-duration: 1.5s; }
+.medium { -webkit-animation-duration: 1s; animation-duration: 1s; }
+.fast   { -webkit-animation-duration: 0.5s; animation-duration: 0.5s; }
+
+
