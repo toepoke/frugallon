@@ -1,4 +1,6 @@
 {
+  "name": "frugallon",
+  "description": "frugallon: An Ionic project",
   "scripts": {
     "testxx": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test",
     "test": "karma start test/karma.config.js",
@@ -55,10 +57,10 @@
     "tslint": "^3.14.0",
     "tslint-eslint-rules": "^1.3.0",
     "typescript": "^1.8.10",
-    "typings": "^1.3.2"
+    "typings": "^1.3.2",
+    "ionic-gulp-tslint": "^1.0.0",
+    "tslint-ionic-rules": "0.0.4"
   },
-  "name": "frugallon",
-  "description": "frugallon: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",
