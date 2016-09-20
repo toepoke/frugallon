@@ -1,3 +1,8 @@
+# General notes
+ - Change to use AutoDetect for the WebSql / Sqlite data storage
+ - Show on the about page what type is being used
+ - Add a "NUKE DATABASE" option on the settings page that restarts the app from afresh
+ - Moves filters into it's own table
 
 # Infrastructure
 * Refactor the data-tables to use a single typed class.  I think they all pretty much do the same thing. A couple of interfaces to hand over the "specifics" should sort it?
