@@ -1,7 +1,12 @@
+// Vendor imports
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { IONIC_DIRECTIVES, Toggle } from 'ionic-angular';
+
+// Core imports 
+
+// Application imports
+import { COMPONENT_STRATEGY } from "../../strategy";
 import { IAppState } from "../../bricks/stores/iapp-state";
-import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from "../../strategy";
 
 @Component({
 	selector: 'measurement-toggle', 

@@ -1,12 +1,13 @@
-// Shows a pretty graph of MPG performance over time
+// Vendor imports
 import { Component } from '@angular/core';
-
-import { Settings } from "../../bricks/models/settings";
-import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from "../../strategy";
-
 import { NavController, IONIC_DIRECTIVES } from 'ionic-angular';
-import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
 
+// Core imports 
+
+// Application imports
+import { ORCHESTRATOR_STRATEGY } from "../../strategy";
+import { Settings } from "../../bricks/models/settings";
+import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
 
 @Component({
 	changeDetection: ORCHESTRATOR_STRATEGY,

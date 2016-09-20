@@ -9,7 +9,7 @@ import { IFilterState, applyFilters } from '../../stores/ifilter-state';
 import * as ditto from '../../../core/helpers/ditto';
 import * as _ from '../../../core/helpers/underscore';
 import * as ACTIONS from "../../stores/actions/actions";
-
+ 
 @Injectable()
 export class FilterService {
 

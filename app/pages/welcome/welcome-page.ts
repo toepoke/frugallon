@@ -1,11 +1,15 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core"
+// Vendor imports
 import { NavController, Tabs } from 'ionic-angular';
-import { ePages } from "../pages";
-import { AppNavigation } from "../pages";
+import { Component, ChangeDetectionStrategy, ViewEncapsulation } from "@angular/core"
+
+// Core imports 
+
+// Application imports
 import { COMPONENT_STRATEGY } from "../../strategy";
 
-import * as ACTIONS from "../../bricks/stores/actions/actions";
-
+// Page imports
+import { ePages } from "../pages";
+import { AppNavigation } from "../pages";
 
 @Component({
 	changeDetection: COMPONENT_STRATEGY,

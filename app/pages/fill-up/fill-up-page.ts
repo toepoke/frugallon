@@ -1,32 +1,27 @@
+// Vendor imports
 import { Component, OnInit, OnChanges, ViewChild, AfterViewInit, ChangeDetectionStrategy, Type } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Page, IONIC_DIRECTIVES, NavController, Tabs } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppValidators } from '../../core/validators';
 
-import { FillUp, eFillUpType, Settings, Car, CarMaker } from '../../bricks/models';
-//import { FillsDb, CarsDb } from '../../bricks/services/db';
-
-import { DbCmdFailure } from '../../core/db2';
-import { CarDb } from "../../bricks/services/db2";
-import { FillUpService } from '../../bricks/services';
-
-import { TimeServer } from '../../core/services';
-import { IAppState } from '../../bricks/stores/iapp-state';
-import { ePages } from '../pages';
-import { AppActions } from '../../bricks/stores';
-import * as ACTIONS from '../../bricks/stores/actions/actions';
-
+// Core imports 
 import * as _ from '../../core/helpers/underscore';
 import * as ditto from '../../core/helpers/ditto';
-
-
+import { AppValidators, TimeServer, APP_PIPES } from '../../core';
 import { DigitPicker, Wizard, WizardStep, StepChangeEvent, eStepDirection } from '../../core/components';
-import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from '../../strategy';
-import { ProductNameIon, CarListIon, InputHintIon, AppHeaderIon, FillSummaryIon} from '../../bricks/components';
-import { APP_PIPES } from '../../core/pipes';
 
+// Application imports
+import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from '../../strategy';
+import { FillUp, eFillUpType, Settings, Car, CarMaker } from '../../bricks/models';
+import { DbCmdFailure, CarDb } from "../../bricks/services/db2";
+import { FillUpService } from '../../bricks/services';
+import { IAppState } from '../../bricks/stores/iapp-state';
+import { AppActions } from '../../bricks/stores';
+import { ProductNameIon, CarListIon, InputHintIon, AppHeaderIon, FillSummaryIon} from '../../bricks/components';
+
+// Page imports
+import { ePages } from '../pages';
 import { HistoryPage, TabsPage, AppNavigation } from '../pages';
 
 /**

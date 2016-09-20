@@ -1,24 +1,24 @@
+// Vendor imports
+import { Observable } from 'rxjs/Observable';
 import { Component, ViewEncapsulation, Injector, provide, Type, ViewChild } from "@angular/core";
+import { provideStore, Store, usePreMiddleware, usePostMiddleware, Action } from "@ngrx/store";
 import { IONIC_DIRECTIVES, ionicBootstrap, App, Platform, Nav, NavController, NavOptions, ViewController, SqlStorage } from 'ionic-angular';
 import { provideForms } from '@angular/forms';
-import { ProgressMessage } from "./core/components";
 
-import { AppMenuIon } from "./bricks/components";
-import { FillUpPage, HistoryPage, StatsPage, CarListPage, TabsPage, SettingsPage, WelcomePage } from "./pages/pages";
-import { CarDb, CarMakerDb, FillUpDb, SettingDb, MpgStatDb, DbProviders } from './bricks/services/db2';
-import { TimeServer } from "./core/services";
-import { FilterService, FillUpService } from "./bricks/services";
-import { ORCHESTRATOR_STRATEGY } from "./strategy";
-import { Observable } from 'rxjs/Observable';
-import { Settings, Car, FillUp } from "./bricks/models";
-import { appStateReducer, filterStateReducer, IFilterState , IAppState, FilterActions, AppActions } from "./bricks/stores";
-
+// Core imports
+import { TimeServer, ProgressMessage } from './core';
 import * as _ from "./core/helpers/underscore";
 import * as ditto from "./core/helpers/ditto";
 
-import { provideStore, Store, usePreMiddleware, usePostMiddleware, Action } from "@ngrx/store";
+// Application imports
 import * as ACTIONS from "./bricks/stores/actions/actions";
+import { AppMenuIon, FilterService, FillUpService, Settings, Car, FillUp } from './bricks'
+import { CarDb, CarMakerDb, FillUpDb, SettingDb, MpgStatDb, DbProviders } from './bricks';
+import { appStateReducer, filterStateReducer, IFilterState, IAppState, FilterActions, AppActions } from "./bricks";
 
+// Page imports 
+import { FillUpPage, HistoryPage, StatsPage, CarListPage, TabsPage, SettingsPage, WelcomePage } from "./pages/pages";
+import { ORCHESTRATOR_STRATEGY } from "./strategy";
 
 /* TESTS */
 import {run} from './app-runner';

@@ -1,13 +1,16 @@
+// Vendor imports
 import { Component, Type, ViewChild } from "@angular/core";
-import { Page, NavController, Platform, MenuController, Nav, Tab, Tabs } from 'ionic-angular';
+import { Page, NavParams, NavController, Platform, MenuController, Nav, Tab, Tabs } from 'ionic-angular';
 
+// Core imports 
+
+// Application imports
+import { COMPONENT_STRATEGY } from "../../strategy";
 import { Settings } from "../../bricks/models/settings";
 import { IAppState } from "../../bricks/stores/iapp-state";
-import * as ACTIONS from "../../bricks/stores/actions/actions";
-import { NavParams } from 'ionic-angular';
-import { COMPONENT_STRATEGY } from "../../strategy";
 import { ProductNameIon } from "../../bricks/components";
 
+// Page imports
 import { FillUpPage, HistoryPage, StatsPage, CarListPage} from "../pages";
 
 export enum ePages {

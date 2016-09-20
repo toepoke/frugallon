@@ -1,18 +1,22 @@
-import { ViewChild, Component, AfterContentInit } from "@angular/core";
-import { Settings, FillUp } from "../../bricks/models";
-import { IONIC_DIRECTIVES, Page, NavController, ViewController, Toggle, Events } from 'ionic-angular';
+// Vendor imports
 import { Store } from "@ngrx/store";
-import { IAppState } from "../../bricks/stores/iapp-state";
-//import { SettingsDb } from "../../bricks/services/db/settings-db";
-import { DbCmdFailure } from '../../core/db2';
-import { SettingDb } from "../../bricks/services/db2";
-
-import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
 import { Observable } from 'rxjs/Observable';
-import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from "../../strategy";
-import { AppActions } from '../../bricks/stores';
-import * as ACTIONS from "../../bricks/stores/actions/actions";
+import { ViewChild, Component, AfterContentInit } from "@angular/core";
+import { IONIC_DIRECTIVES, Page, NavController, ViewController, Toggle, Events } from 'ionic-angular';
+
+// Core imports 
 import * as _ from "../../core/helpers/underscore"; 
+import { DbCmdFailure } from '../../core/db2';
+
+// Application imports
+import { ORCHESTRATOR_STRATEGY } from "../../strategy";
+import { Settings, FillUp } from "../../bricks/models";
+import { SettingDb } from "../../bricks/services/db2";
+import { IAppState } from "../../bricks/stores/iapp-state";
+import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
+import { AppActions } from '../../bricks/stores';
+
+// Page imports
 import { MeasurementToggle } from "./measurement-toggle";
 
 @Component({

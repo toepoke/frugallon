@@ -1,14 +1,19 @@
+// Vendor imports
+import { Store } from "@ngrx/store";
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { IONIC_DIRECTIVES, Page, NavController, ViewController } from 'ionic-angular';
 import { LocalNotifications } from 'ionic-native';
-import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
-import { Observable } from 'rxjs/Observable';
-import { Store } from "@ngrx/store";
-import { IAppState } from "../../bricks/stores/iapp-state";
-import { COMPONENT_STRATEGY } from "../../strategy";
-import * as _ from "../../core/helpers/underscore";
-import * as ACTIONS from "../../bricks/stores/actions/actions";
 import * as moment from "moment";
+
+// Core imports 
+import * as _ from "../../core/helpers/underscore";
+
+// Application imports
+import { COMPONENT_STRATEGY } from "../../strategy";
+import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
+import { IAppState } from "../../bricks";
+import * as ACTIONS from "../../bricks/stores/actions/actions";
 
 @Component({
 	changeDetection: COMPONENT_STRATEGY,
