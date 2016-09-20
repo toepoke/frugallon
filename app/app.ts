@@ -5,7 +5,6 @@ import { ProgressMessage } from "./core/components";
 
 import { AppMenuIon } from "./bricks/components";
 import { FillUpPage, HistoryPage, StatsPage, CarListPage, TabsPage, SettingsPage, WelcomePage } from "./pages/pages";
-import { CarsDb, CarMakersDb, FillsDb, SettingsDb, MpgStatsDb } from "./bricks/services/db";
 import { CarDb, CarMakerDb, FillUpDb, SettingDb, MpgStatDb, DbProviders } from './bricks/services/db2';
 import { TimeServer } from "./core/services";
 import { FilterService, FillUpService } from "./bricks/services";
