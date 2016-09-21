@@ -357,7 +357,7 @@ export class MyApp {
 } 
 
 const DB_NAME: string = 'frugallon';
-const DB_PROVIDER: number = DbProviders.WEB_SQL;
+const DB_PROVIDER: number = DbProviders.DETECT;
 let carDb: CarDb = new CarDb(DB_NAME, DB_PROVIDER);
 let carMakerDb: CarMakerDb = new CarMakerDb(DB_NAME, DB_PROVIDER);
 let fillUpDb: FillUpDb = new FillUpDb(DB_NAME, DB_PROVIDER);

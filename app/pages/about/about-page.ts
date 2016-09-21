@@ -13,6 +13,7 @@ import * as _ from "../../core/helpers/underscore";
 import { COMPONENT_STRATEGY } from "../../strategy";
 import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
 import { IAppState } from "../../bricks";
+import { DbProviders, SettingDb } from '../../bricks/services/db2';
 import * as ACTIONS from "../../bricks/stores/actions/actions";
 
 @Component({
@@ -93,6 +94,13 @@ import * as ACTIONS from "../../bricks/stores/actions/actions";
 							{{(_app|async).dbVersion}}
 						</ion-badge>					
 					</ion-item>
+
+					<ion-item>
+						<span item-left>Database Type</span>
+						<ion-badge item-right class="badge">
+							{{_dbType}}
+						</ion-badge>					
+					</ion-item>
 					
 					<ion-item>
 						<span item-left>Platforms</span>
@@ -116,18 +124,19 @@ import * as ACTIONS from "../../bricks/stores/actions/actions";
 
 export class AboutPage {
 	private _app: Observable<IAppState> = null;
+	private _dbType: string = '';
 
 	constructor(
 		private _nav: NavController,
-		private _store: Store<IAppState>
+		private _store: Store<IAppState>,
+		private _settingDb: SettingDb
 	) {
-
 		this._app = <Observable<IAppState>> _store.select("appState");
 		this._app.subscribe((data: IAppState) => {
 
 		});
 		
-
+		this._dbType = DbProviders.getDescription(_settingDb.getActiveProvider());
 	}
 	
 	onBack(): void {
