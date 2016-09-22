@@ -264,7 +264,8 @@ export class EditCarPage {
 
 		// this._car = this._carsDb.saveCar(this._car);
 		let isNew: boolean = false;
-		isNew = (this._car.id >= 0);
+		isNew = (_.isNull(this._car.id) || this._car.id == 0);
+
 		this._carDb.save(this._car)
 			.then((saved: Car) => {
 				this._car = saved;
@@ -281,8 +282,6 @@ export class EditCarPage {
 			})
 		;
 		
-		// this._nav.pop();
-				
 	} // onFinish
 
 
@@ -309,11 +308,6 @@ export class EditCarPage {
 			// toggle on 
 			this._selectedType = type;
 		
-		// filter the manufacturer to the relevant type
-		// this._makes = this._carMakersDb
-		// 	.getMakers(this._selectedType)
-		// 	.map((cm) => cm.manufacturer)
-		// ;
 		this._carMakerDb.getByType(this._selectedType)
 			.then((makers: Array<CarMaker>) => {
 				this._makes = makers.map((cm: CarMaker) => cm.manufacturer);
@@ -478,7 +472,7 @@ export class EditCarPage {
 		switch (forStepName) {
 			case    "TYPE": this._title = `Type of vehicle?`;                                            break;
 			case    "MAKE": this._title = `What make of ${vehicleType}?`;                                break;
-			case   "MODEL": this._title = `What model of ${this._make.value} Model?`;                  break;
+			case   "MODEL": this._title = `What model of ${this._make.value} Model?`;                    break;
 			case  "COLOUR": this._title = `Pick a colour for your ${this._selectedType.toLowerCase()}:`; break;
 			case "MILEAGE": this._title = `Current mileage (optional):`;                                 break;
 		}
