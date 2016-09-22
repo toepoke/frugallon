@@ -26,11 +26,11 @@ export const filterStateReducer: Reducer<IFilterState> = (oldState: IFilterState
 
 		case FilterActions.INITIALISE_APP:
 			newState = ditto.updateItem(oldState, {
-				filtersActive: action.payload.filtersActive,
-				filteredYears: action.payload.filteredYears,
-				filteredJourneyTypes: action.payload.filteredJourneyTypes,
-				filteredMpgAverages: action.payload.filteredMpgAverages,
-				filteredCarIds: action.payload.filteredCarIds
+				filtersActive: action.payload.filters.filtersActive,
+				filteredYears: action.payload.filters.filteredYears,
+				filteredJourneyTypes: action.payload.filters.filteredJourneyTypes,
+				filteredMpgAverages: action.payload.filters.filteredMpgAverages,
+				filteredCarIds: action.payload.filters.filteredCarIds
 			})
 			break;
 

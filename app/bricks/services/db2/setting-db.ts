@@ -22,11 +22,6 @@ export class SettingDb extends TypedDb<Settings> {
 		return {
 			'id': DbTypes.PRIMARY_KEY,
 			'measurement': DbTypes.BOOLEAN,
-			'filtersActive': DbTypes.BOOLEAN,
-			'filteredYears': DbTypes.JSON,
-			'filteredJourneyTypes': DbTypes.JSON,
-			'filteredMpgAverages': DbTypes.JSON,
-			'filteredCarIds': DbTypes.JSON,
 			'debug': DbTypes.BOOLEAN,
 			'appVersion': DbTypes.NO_PERSIST,
 			'dbVersion': DbTypes.STRING,
@@ -35,20 +30,29 @@ export class SettingDb extends TypedDb<Settings> {
 		}
 	}
 
-	prime(): Promise<any> {
-		return super.createTable();
+	prime(): Promise<Settings> {
+		return super.createTable()
+			.then(() => this.load())
+			.then((loaded: Settings) => {
+				if (loaded == null) {
+					// first use, so create some sensible defaults
+					let defaults: Settings = Settings.getDefaults();
+					return super.save(defaults);
+				}
+
+				return loaded;
+			})
+		;
 	}
 
 	load(): Promise<Settings> {
 		return super.getByFilter('SELECT * FROM settings ORDER BY id DESC LIMIT 1;', [])
 			.then((loaded: Array<Settings>) => {
 				if (!ditto.any(loaded) ) {
-					// first time use, so make sure we have something to play with
-					let s: Settings = Settings.getDefaults();
-					return super.save(s);
-				} else {
-					return ditto.first(loaded);
+					return null;
 				}
+				
+				return ditto.first(loaded);
 			})
 		;
 	}

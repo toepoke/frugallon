@@ -12,8 +12,9 @@ import * as ditto from "./core/helpers/ditto";
 
 // Application imports
 import * as ACTIONS from "./bricks/stores/actions/actions";
-import { AppMenuIon, FilterService, FillUpService, Settings, Car, FillUp } from './bricks'
-import { CarDb, CarMakerDb, FillUpDb, SettingDb, MpgStatDb, DbProviders } from './bricks';
+import { AppMenuIon, FilterService, FillUpService, Settings, Car, FillUp, Filters } from './bricks'
+import { AppDatabase, DbProviders } from './bricks';
+import { CarDb, CarMakerDb, FillUpDb, SettingDb, FiltersDb, MpgStatDb } from './bricks';
 import { appStateReducer, filterStateReducer, IFilterState, IAppState, FilterActions, AppActions } from "./bricks";
 
 // Page imports 
@@ -69,11 +70,7 @@ export class MyApp {
 		private _timeServer: TimeServer,
 		private _filterService: FilterService,
 		private _fillUpService: FillUpService,
-		private _settingsDb: SettingDb,
-		private _fillsDb: FillUpDb,
-		private _carsDb: CarDb,
-		private _carMakerDb: CarMakerDb,
-		private _mpgStatDb: MpgStatDb
+		private _appDb: AppDatabase
 	) {
 		this._app$ = <Observable<IAppState>> _store.select("appState");
 		this._filter$ = <Observable<IFilterState>> _store.select("filterState");
@@ -115,7 +112,7 @@ export class MyApp {
 		
 		// this.primeDatabase();
 
-		this.primeDatabase()
+		this._appDb.primeDatabase()
 			.then(() => this.initialiseAppState() )
 			.catch((err: any) => console.error(err))
 		;
@@ -129,57 +126,6 @@ export class MyApp {
 
 
 	private initialiseAppState(): void {
-		// let currYear: number = null;
-		// let currSettings: Settings = null;
-		// let years: Array<number> = null;
-		// let selectedYear: number = null;
-
-		// currYear = this._timeServer.getCurrentTime().getFullYear();
-		// currSettings = this._settingsDb.loadSettings();
-		// // Fill in the platform specific stuff for the settings
-		// currSettings.platforms = this._platform.platforms();
-		// currSettings.isWeb = this._platform.is("mobileweb");
-		
-		// years = this._fillsDb.getYears();
-
-		// // show the latest data on start-up
-		// if (!currSettings.filtersActive && ditto.any(years)) {
-		// 	selectedYear = ditto.last(years);
-		// }
-
-
-		// let cars: Array<Car> = this._carsDb.getAllCars();
-
-		// this._store.dispatch({
-		// 	type: ACTIONS.INITIALISE_APP, 
-		// 	payload: {
-		// 		// app state
-		// 		debug: currSettings.debug,
-		// 		appVersion: currSettings.appVersion,
-		// 		dbVersion: currSettings.dbVersion,
-		// 		years: years,
-		// 		cars: cars,
-		// 		selectedYear: selectedYear,
-		// 		fills: new Array<FillUp>(),
-		// 		measurement: currSettings.measurement,
-		// 		measurementType: (currSettings.measurement ? "UK" : "US"),
-		// 		platforms: currSettings.platforms,
-		// 		isWeb: currSettings.isWeb,
-
-		// 		// filtering state
-		// 		filtersActive: currSettings.filtersActive,
-		// 		filteredYears: currSettings.filteredYears,
-		// 		filteredJourneyTypes: currSettings.filteredJourneyTypes,
-		// 		filteredMpgAverages: currSettings.filteredMpgAverages,
-		// 		filteredCarIds: currSettings.filteredCarIds
-		// 	}
-		// });
-
-		// // load the filtered or full history view as appropriate
-		// this.onFiltersActive(currSettings.filtersActive);
-
-		// this.refreshHistoryView(selectedYear);		
-
 		this.getInitialState()
 			.then((initState: any) => {
 				console.log(initState);
@@ -189,7 +135,7 @@ export class MyApp {
 					payload: initState
 				});
 				
-				this.onFiltersActive(initState.filtersActive);
+				this.onFiltersActive(initState.filters.filtersActive);
 				this.refreshHistoryView(initState.selectedYear);
 			})
 		;
@@ -207,11 +153,15 @@ export class MyApp {
 		return this._fillUpService.getYears()
 			.then((years: Array<number>) => {
 				initState.years = years;
-				return this._carsDb.getAll();
+				return this._appDb.carsDb.getAll();
 			})
 			.then((cars: Array<Car>) => {
 				initState.cars = cars;
-				return this._settingsDb.load();
+				return this._appDb.filtersDb.load();
+			})
+			.then((filters: Filters) => {
+				initState.filters = filters;
+				return this._appDb.settingsDb.load();
 			})
 			.then((settings: Settings) => {
 				// These don't really belong in settings table
@@ -224,14 +174,9 @@ export class MyApp {
 
 				initState.measurement = settings.measurement;
 				initState.measurementType = (settings.measurement ? 'UK' : 'US');
-				initState.filtersActive = settings.filtersActive;
-				initState.filteredYears = settings.filteredYears;
-				initState.filteredJourneyTypes = settings.filteredJourneyTypes;
-				initState.filteredMpgAverages = settings.filteredMpgAverages;
-				initState.filteredCarIds = settings.filteredCarIds;
 				
 				let selectedYear: number = this._timeServer.getCurrentTime().getFullYear();
-				if (!settings.filtersActive && ditto.any(initState.years)) {
+				if (!initState.filters.filtersActive && ditto.any(initState.years)) {
 					selectedYear = <number> ditto.last(initState.years);
 				}
 				initState.selectedYear = selectedYear;
@@ -248,36 +193,10 @@ export class MyApp {
 
 	} // getInitialState
 
-
-
-	/**  
-	 * @description - Loads data from the database that we'll need on first loading the application.
-	 */
-	//private primeDatabase(): void {
-		// this._carsDb.primeTable();
-		// this._settingsDb.primeTable();
-	//}
-
-	
-	private primeDatabase(): Promise<any> {
-		// TODO: add a "dbService" that abstracts it all out?
-		return this._carsDb.prime()
-			.then(() => this._fillsDb.createTable())
-			.then(() => this._settingsDb.prime())
-			.then(() => this._carMakerDb.prime())
-			.then(() => this._mpgStatDb.createTable())
-			.catch((err: any) => console.error("primeDatabase::", err))
-		;
-	}
-
 	private refreshHistoryView(selectedYear: number = null): void {
 		let filteredFills: Array<FillUp> = null;
 
 		if (this._currFilters.filtersActive) {
-			// filteredFills = this._filterService.getFilteredFills(this._currFilters, this._appState.measurement);
-			// this._store.dispatch(
-			// 	this._appActions.ShowFilteredView(filteredFills, null)
-			// );
 			this._filterService.getFilteredFills(this._currFilters, this._appState.measurement)
 				.then((filteredFills: Array<FillUp>) => {
 					this._store.dispatch(
@@ -288,14 +207,6 @@ export class MyApp {
 			;
 			
 		} else {
-			// if (selectedYear !== null) {
-			// 	// Have a year selected, so we'll show that one
-			// 	filteredFills = this._filterService.getFillsForYear(selectedYear);
-			// } else {
-			// 	// No selection, get the best bet (i.e. the latest year we have data for)
-			// 	filteredFills = this._filterService.getFillsForBestYear();
-			// }
-
 			if (_.isNull(selectedYear))
 				selectedYear = 2016;
 
@@ -309,26 +220,8 @@ export class MyApp {
 				})
 			;
 			
-
-			// this._filterService.getFillsForYear(selectedYear)
-			// 	.then((filteredFills: Array<FillUp>) => {
-			// 		this._appActions.ShowYearView(filteredFills, null, selectedYear);
-			// 		this._filterService.saveFilters(this._currFilters);
-			// 	})
-			// ;
-
-			// this._store.dispatch(
-			// 	this._appActions.ShowYearView(filteredFills, null, selectedYear) 
-			// );
-
-			// if (ditto.any(filteredFills)) {
-			// 	selectedYear = ditto.first(filteredFills).when.getFullYear();
-			// }
-
 		}		
-		
-		// this._filterService.saveFilters(this._currFilters);
-	
+			
 	} // refreshHistoryView
 
 
@@ -362,6 +255,7 @@ let carDb: CarDb = new CarDb(DB_NAME, DB_PROVIDER);
 let carMakerDb: CarMakerDb = new CarMakerDb(DB_NAME, DB_PROVIDER);
 let fillUpDb: FillUpDb = new FillUpDb(DB_NAME, DB_PROVIDER);
 let settingDb: SettingDb = new SettingDb(DB_NAME, DB_PROVIDER);
+let filtersDb: FiltersDb = new FiltersDb(DB_NAME, DB_PROVIDER);
 let mpgStatDb: MpgStatDb = new MpgStatDb(DB_NAME, DB_PROVIDER);
  
 // carDb.enableLogging();
@@ -381,14 +275,14 @@ ionicBootstrap(
 		provide(CarMakerDb, { useValue: carMakerDb } ),
 		provide(FillUpDb, { useValue: fillUpDb } ),
 		provide(SettingDb, { useValue: settingDb } ),
+		provide(FiltersDb, { useValue: filtersDb } ),
 		provide(MpgStatDb, { useValue: mpgStatDb } ),
-		// CarsDb, CarMakersDb, FillsDb, SettingsDb, MpgStatsDb,
-		//CarDb, CarMakerDb, FillUpsDb, SettingDb, MpgStatDb,
+		AppDatabase,
 		FillUpService,
 		TimeServer, FilterService, FilterActions, AppActions
 	], {
 		tabbarPlacement: 'bottom'
 	}
 ).catch((err: any) => {
-	debugger;
+	;
 });

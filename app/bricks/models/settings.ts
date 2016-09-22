@@ -11,14 +11,6 @@ export class Settings {
 	 */
 	measurement: boolean = true;
 
-	// filters
-	filtersActive: boolean;
-	filteredYears: Array<number> = Array<number>();
-	filteredJourneyTypes: Array<eFillUpType> = new Array<eFillUpType>();
-	filteredMpgAverages: Array<number> = new Array<number>();
-	filteredCarIds: Array<number> = new Array<number>();
-
-
 	/** Flags whether we're running in debug mode */
 	debug: boolean = false;
 
