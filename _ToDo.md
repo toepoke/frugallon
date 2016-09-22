@@ -1,12 +1,7 @@
 # General notes
- - Change to use AutoDetect for the WebSql / Sqlite data storage
- - Show on the about page what type is being used
- - Add a "NUKE DATABASE" option on the settings page that restarts the app from afresh
- - Moves filters into it's own table
+*
 
 # Infrastructure
-* Refactor the data-tables to use a single typed class.  I think they all pretty much do the same thing. A couple of interfaces to hand over the "specifics" should sort it?
-	- Perhaps revisit this when we look at using SQLLite instead?	
 * When we add GetSentry have an "info" item which reports unlisted vehicles to add to our database
 
 # Refactorings ...
@@ -17,16 +12,14 @@
 # History
 * Add an ionic slidy menu thing to the history list to bring up an "edit this trip" thing
 	- See http://ionicframework.com/docs/v2/components/#sliding-list
-* Add a "clear storage" option in settings, include warning dialog about losing all data	
 
 # New data
 - On a final [optional] step in the wizard Add "Comment" field so peeps can put in "Filled tyres"
-	- Also add a set of radio buttons for journey types, e.g. "Commuting" or "Motorway" or "Combination"
 - Add trip number and average mpg when trip was recorded 
 	- (so we can show what the average mpg was at the time, and see how we improve over time)
 
 # Reminders
-Develop reminders as a separate "entity" so a reminder doesn't _have to be_ for a car.
+Develop reminders as a separate "entity" so a reminder doesn't _have_to_be_ for a car.
 - MOT test reminders
 - Car tax reminder (inc n/a as they're tax exempt)
 - Next service reminder (every X months, or every Y miles, whichever comes first)
@@ -58,31 +51,31 @@ Random notes for getting cordova up and running
 
 # Icon usage
 icon name="xyz" - These are the icons we're using, and what for
-	-	"funnel"                  = Filter (of what the user sees)
-	- "car"                     = Car
-	- "arrow-dropdown"          = Expand detail (of trip)
-	- "arrow-dropup"            = Contract detail (of trip)
-	- "happy" / "sad" / "heart" = MPG (under 30 = "sad", over 30 = "happy" - US equivalent of 30 is 24.98
-	- "speedometer"             = Miles of trip
-	- "color-fill"              = Litres filled
-	- "cash"                    = Price of trip / price per litre
-	- "globe"                   = Total vehicle mileage
-	- "information"             = Tooltips / info hints
-	- "backspace"               = Delete entry in UI (digit picker)
-	- "arrow-back"              = Segment list previous year
-	- "arrow-forward"           = Segment list next year
-	- "checkmark"               = Tickmark (used on add car wizard)
-	- "beaker"                  = NOT USED
-	- "flask"                   = NOT USED
-	- "disc"                    = NOT USED
-	- "fastforward"             = NOT USED
-	- "pulse"                   = NOT USED
-	- "ribbon"                  = NOT USED
+	<br/>-	"funnel"                  = Filter (of what the user sees)
+	<br/>- "car"                     = Car
+	<br/>- "arrow-dropdown"          = Expand detail (of trip)
+	<br/>- "arrow-dropup"            = Contract detail (of trip)
+	<br/>- "happy" / "sad" / "heart" = MPG (under 30 = "sad", over 30 = "happy" - US equivalent of 30 is 24.98
+	<br/>- "speedometer"             = Miles of trip
+	<br/>- "color-fill"              = Litres filled
+	<br/>- "cash"                    = Price of trip / price per litre
+	<br/>- "globe"                   = Total vehicle mileage
+	<br/>- "information"             = Tooltips / info hints
+	<br/>- "backspace"               = Delete entry in UI (digit picker)
+	<br/>- "arrow-back"              = Segment list previous year
+	<br/>- "arrow-forward"           = Segment list next year
+	<br/>- "checkmark"               = Tickmark (used on add car wizard)
+	<br/>- "beaker"                  = NOT USED
+	<br/>- "flask"                   = NOT USED
+	<br/>- "disc"                    = NOT USED
+	<br/>- "fastforward"             = NOT USED
+	<br/>- "pulse"                   = NOT USED
+	<br/>- "ribbon"                  = NOT USED
 
-Credits
-=======
-Petrol pump - https://www.iconfinder.com/icons/71849/bulk_fuel_gas_petrol_station_icon#size=26
-Car - https://www.iconfinder.com/icons/83150/by_car_icon#size=256
-Splash screen car - https://stocksnap.io/photo/ST0Y7XFYJU
+# Credits
+* Petrol pump - https://www.iconfinder.com/icons/71849/bulk_fuel_gas_petrol_station_icon#size=26
+* Car - https://www.iconfinder.com/icons/83150/by_car_icon#size=256
+* Splash screen car - https://stocksnap.io/photo/ST0Y7XFYJU
 
-	
+# Git Notes	
+* 

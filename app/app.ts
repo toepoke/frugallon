@@ -128,7 +128,6 @@ export class MyApp {
 	private initialiseAppState(): void {
 		this.getInitialState()
 			.then((initState: any) => {
-				console.log(initState);
 
 				this._store.dispatch({
 					type: ACTIONS.INITIALISE_APP,
