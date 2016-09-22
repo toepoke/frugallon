@@ -31,6 +31,10 @@ export class FillUpDb extends TypedDb<FillUp> {
 		}
 	}
 
+	public prime(): Promise<any> {
+		return super.createTable();
+	}
+
 	getYears(): Promise<Array<number>> {
 		return this.queryAsync('SELECT DISTINCT substr([when],1,4) Year FROM ' + this.tableName + ' ORDER BY 1', [])
 			.then((success: DbCmdSuccess) => {		

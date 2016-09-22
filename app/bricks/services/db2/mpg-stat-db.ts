@@ -30,6 +30,10 @@ export class MpgStatDb extends TypedDb<MpgStat> {
 		}
 	}
 
+	public prime(): Promise<any> {
+		return super.createTable();
+	}
+
 	public getStatsForCar(forCarId: number): Promise<Array<MpgStat>> {
 		let args: Array<number> = [forCarId];
 
