@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from "@ngrx/store";
-//import { FillsDb, SettingsDb } from '../db';
 import { FiltersDb, FillUpDb, DbCmdFailure } from "../db2";
 import { FillUp, Filters } from '../../models';
 import { TimeServer } from '../../../core/services';

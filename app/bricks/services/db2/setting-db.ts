@@ -12,8 +12,6 @@ export class SettingDb extends TypedDb<Settings> {
 		provider: number
 	) {
 		super(SettingDb.getSchema(), dbName, 'settings', provider);
-		// TODO: useWebSql flag needs dep injecting somehow ...
-		// TODO: Do we even need the webSql flag?  Doesn't SQLite hide this from us?
 	}
 
 	static getSchema(): any {

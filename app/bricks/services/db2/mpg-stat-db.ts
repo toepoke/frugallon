@@ -13,8 +13,6 @@ export class MpgStatDb extends TypedDb<MpgStat> {
 		provider: number
 	) {
 		super(MpgStatDb.getSchema(), dbName, 'mpg_stats', provider);
-		// TODO: useWebSql flag needs dep injecting somehow ...
-		// TODO: Do we even need the webSql flag?  Doesn't SQLite hide this from us?
 	}
 
 	static getSchema(): any {

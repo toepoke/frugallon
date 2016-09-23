@@ -103,7 +103,6 @@ export class FillSummaryIon {
 			
 		this._mpg = this.fillUp.getMpg(this.measurement);
 		this._stats = this.fillUp.getMpgStats(this.measurement);
-		//this._happyRating = this.getHappyRating();
 		this._happyRating = this._stats.getHappiness(this._mpg);
 		this._isUnderAverage = this._stats.isUnderAverage(this._mpg);
 		this._isAverage = this._stats.isAverage(this._mpg);

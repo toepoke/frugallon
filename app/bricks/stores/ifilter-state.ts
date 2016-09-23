@@ -14,10 +14,8 @@ export interface IFilterState {
 	/** @description - Filter by average mpg (-1 = bad, 0 = neutral, 1 = good) (empty => show all) */
 	filteredMpgAverages: Array<number>;
 
+	/** @description - Filter by car */
 	filteredCarIds: Array<number>;
-
-	// TODO: Convert mpgAverage: Array<NUMBER> to a defined type
-	// TODO: car filters
 
 }
 

@@ -18,6 +18,4 @@ export class YearDb extends TypedDb<number> {
 		}
 	}
 
-	
-
 }

@@ -178,22 +178,6 @@ export class HistoryPage {
 	 * back to where they were 
 	 */
 	onRemoveFilters() {
-		// let filteredFills: Array<FillUp> = null;
-		// let selectedYear: number = null;
-
-		// this._store.dispatch(
-		// 	this._filterActions.FiltersActiveUpdate(false)
-		// );
-
-		// filteredFills = this._filterService.getFilteredFills(this._currFilters, this._app.measurement);
-		// if (ditto.any(filteredFills)) {
-		// 	selectedYear = ditto.first(filteredFills).when.getFullYear();
-		// }
-
-		// this._store.dispatch(
-		// 	this._appActions.ShowYearView(filteredFills, null, selectedYear)
-		// );
-
 		this._filterService.getFilteredFills(this._currFilters, this._app.measurement)
 			.then((filteredFills: Array<FillUp>) => {
 				let selectedYear: number = null;
@@ -215,11 +199,6 @@ export class HistoryPage {
 	 * @param - forYear - year of history to be shown
 	 */
 	private showHistoryForYear(forYear: number): void {
-		// let cars: Array<Car> = this._app.cars;
-		// let fills: Array<FillUp> = this._fillsDb.getFillUps()
-		// 	.filter((f:FillUp) => f.when.getFullYear() == forYear)
-		// ;
-
 		this._fillUpService.getForYear(forYear)
 			.then((fills: Array<FillUp>) => {
 				this._store.dispatch(
@@ -228,11 +207,7 @@ export class HistoryPage {
 			})
 		;
 
-		// this._store.dispatch(
-		// 	this._appActions.ShowYearView(fills, null, forYear)
-		// );
-
-	}
+	} // showHistoryForYear
 
 
 	/**
@@ -273,9 +248,6 @@ export class HistoryPage {
 	 * Navs to the fill-up wizard
 	 */
 	gotoFillUp(): void {
-		// AppNavigation.toFillUp(this._nav);
-		// this._nav.setRoot(TabsPage, {tabIndex: 0});
-		
 		this._tabs.select(ePages.FillUp);
 	}
 

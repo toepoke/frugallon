@@ -5,7 +5,6 @@ import { IONIC_DIRECTIVES, Content } from "ionic-angular";
 import { Car, CarMaker } from "../../models";
 import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from "../../../strategy";
 import { APP_PIPES } from "../../../core/pipes";
-// import { AzList, AzSelectedItem } from "../../../core/components";
 import * as _ from "../../../core/helpers/underscore";
 
 @Component({

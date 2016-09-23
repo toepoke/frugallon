@@ -262,7 +262,6 @@ export class EditCarPage {
 		this._car.colour = this._selectedColour;
 		this._car.mileage = Number(this._mileage.value);		
 
-		// this._car = this._carsDb.saveCar(this._car);
 		let isNew: boolean = false;
 		isNew = (_.isNull(this._car.id) || this._car.id == 0);
 

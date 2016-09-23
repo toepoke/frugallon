@@ -69,10 +69,6 @@ export class TabsPage {
 	 * the change to the rest of the application.
 	 */
 	onChange(tab: Tab): void {
-		// this._appStore.dispatch(
-		// 	ACTIONS.PageChange(tab.root, tab.index)
-		// );		
-		
 	}
 
 	onPageDidEnter(): void {

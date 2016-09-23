@@ -12,8 +12,6 @@ export class CarMakerDb extends TypedDb<CarMaker> {
 		provider: number
 	) {
 		super(CarMakerDb.getSchema(), dbName, 'car_makers', provider);
-		// TODO: useWebSql flag needs dep injecting somehow ...
-		// TODO: Do we even need the webSql flag?  Doesn't SQLite hide this from us?
 	}
 
 	/**
