@@ -17,16 +17,10 @@ export class SettingDb extends TypedDb<Settings> {
 	}
 
 	static getSchema(): any {
-		// TODO: Once we're finished move out "debug", "appVersion", "platforms", "isWeb"
-		//       To some kind of "system" class
 		return {
 			'id': DbTypes.PRIMARY_KEY,
 			'measurement': DbTypes.BOOLEAN,
-			'debug': DbTypes.BOOLEAN,
-			'appVersion': DbTypes.NO_PERSIST,
-			'dbVersion': DbTypes.STRING,
-			'platforms': DbTypes.NO_PERSIST,
-			'isWeb': DbTypes.BOOLEAN
+			'dbVersion': DbTypes.STRING
 		}
 	}
 

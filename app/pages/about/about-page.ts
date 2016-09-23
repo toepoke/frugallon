@@ -2,7 +2,7 @@
 import { Store } from "@ngrx/store";
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IONIC_DIRECTIVES, Page, NavController, ViewController } from 'ionic-angular';
+import { IONIC_DIRECTIVES, Page, NavController, ViewController, Platform } from 'ionic-angular';
 import { LocalNotifications } from 'ionic-native';
 import * as moment from "moment";
 
@@ -105,7 +105,7 @@ import * as ACTIONS from "../../bricks/stores/actions/actions";
 					<ion-item>
 						<span item-left>Platforms</span>
 						<div item-right>
-							<div text-right *ngFor="let p of (_app|async).platforms">
+							<div text-right *ngFor="let p of _platformNames">
 								<ion-badge class="badge">
 									{{p}}
 								</ion-badge>
@@ -125,9 +125,11 @@ import * as ACTIONS from "../../bricks/stores/actions/actions";
 export class AboutPage {
 	private _app: Observable<IAppState> = null;
 	private _dbType: string = '';
+	private _platformNames: Array<string> = null;
 
 	constructor(
 		private _nav: NavController,
+		private _platforms: Platform,
 		private _store: Store<IAppState>,
 		private _settingDb: SettingDb
 	) {
@@ -137,6 +139,7 @@ export class AboutPage {
 		});
 		
 		this._dbType = DbProviders.getDescription(_settingDb.getActiveProvider());
+		this._platformNames = this._platforms.platforms();
 	}
 	
 	onBack(): void {

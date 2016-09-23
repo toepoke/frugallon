@@ -4,9 +4,6 @@ export interface IAppState {
 	appVersion: string;
 	dbVersion: string;
 
-	/** @description - Flags whether we're running in debug mode or not */
-	debug: boolean;
-
 	/** @description - Collection of years we have history for */
 	years: Array<number>;
 	
@@ -24,10 +21,6 @@ export interface IAppState {
 
 	/** @description - Car being edited */
 	editingCar: Car;
-
-	platforms: Array<string>;
-	
-	isWeb: boolean;
 
 	measurement: boolean;
 	measurementType: string;

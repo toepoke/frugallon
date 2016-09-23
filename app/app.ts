@@ -54,6 +54,7 @@ import {run} from './app-runner';
 
 export class MyApp {
 	@ViewChild(Nav) nav: Nav;
+	static APP_VERSION: string = "0.0.1";
   _rootPage: any = WelcomePage;
 	_message: string = "";
 	_filter$: Observable<IFilterState> = null;
@@ -117,11 +118,6 @@ export class MyApp {
 			.catch((err: any) => console.error(err))
 		;
 		
-
-		// this._store.dispatch(
-		// 	this._appActions.HideMessage()
-		// );
-
   } // initializeApp
 
 
@@ -141,13 +137,9 @@ export class MyApp {
 
 	} // initialiseAppState
 
-	// TODO: Should return IAppState (IAppState shouldn't have filters, we have the separate filters slice)
+
 	private getInitialState(): Promise<any> {
 		let initState: any = {};
-
-		// // We delay populating fills until later on, and emit an action once we know the
-		// // appropriate year to show
-		// initState.fills = new Array<FillUp>();
 
 		return this._fillUpService.getYears()
 			.then((years: Array<number>) => {
@@ -164,13 +156,8 @@ export class MyApp {
 			})
 			.then((settings: Settings) => {
 				// These don't really belong in settings table
-				initState.debug = settings.debug;
-				initState.appVersion = settings.appVersion;
+				initState.appVersion = MyApp.APP_VERSION;
 				initState.dbVersion = settings.dbVersion;
-				initState.isWeb = settings.isWeb;
-				initState.platforms = settings.platforms;
-				// These don't really belong in settings table
-
 				initState.measurement = settings.measurement;
 				initState.measurementType = (settings.measurement ? 'UK' : 'US');
 				
@@ -180,7 +167,6 @@ export class MyApp {
 				}
 				initState.selectedYear = selectedYear;
 
-				// return this._fillsDb.getForYear(selectedYear);
 				return this._fillUpService.getForYear(selectedYear);
 			})
 			.then((fills: Array<FillUp>) => {
