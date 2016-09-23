@@ -3,7 +3,7 @@ import { Store, Action } from "@ngrx/store";
 import { IAppState, AppActions } from "../../stores";
 import { FillUp, Car, MpgStat } from "../../models";
 import { FillUpDb, CarDb, MpgStatDb } from "../db2/";
-
+import { IFilterState } from '../..';
 import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../../core/db2/";
 import * as _ from "../../../core/helpers/underscore";
 import * as ditto from "../../../core/helpers/ditto";
@@ -79,6 +79,46 @@ export class FillUpService {
 			})
 		;
 	}
+
+	public getFiltered(filters: IFilterState, activeMeasurement: boolean): Promise<Array<FillUp>> {
+		// TODO: Get MPG filters working again
+		return this._fillDb.getFiltered(filters.filteredYears, filters.filteredJourneyTypes, filters.filteredCarIds, activeMeasurement)
+			// .then((fills: Array<FillUp>) => {
+			// 	return this.applyMPGFilter(fills, filters.filteredMpgAverages, activeMeasurement);
+			// })
+			.then((fills: Array<FillUp>) => {
+				let promises: Array<any> = [];
+				fills.forEach((fill: FillUp) => {
+					promises.push( this.resolveFkObjects(fill) );
+				});
+				return Promise.all(promises);
+			})
+		;
+	}
+
+	private applyMPGFilter(fills: Array<FillUp>, mpgAverage: Array<number>, measurement: boolean): Array<FillUp> {
+		let filtered: Array<FillUp> = null;
+
+		filtered = fills.filter((f: FillUp) => {
+			let mpg: number = f.getMpg(measurement);
+			let stats: MpgStat = f.getMpgStats(measurement);
+			let include: boolean = false;
+
+			mpgAverage.forEach((avg: number) => {
+				if (avg < 0 && stats.isUnderAverage(mpg))
+					include = true;
+				else if (avg == 0 && stats.isAverage(mpg))
+					include = true;
+				else if (avg > 0 && stats.isAboveAverage(mpg))
+					include = true; 
+			});
+			
+			return include;
+		});
+
+		return filtered;
+	}
+	
 
 	public getYears(): Promise<Array<number>> {
 		return this._fillDb.getYears();

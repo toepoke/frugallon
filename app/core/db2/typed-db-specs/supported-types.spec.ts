@@ -293,7 +293,7 @@ describe('All datatype tests', () => {
 		typesDb.save(o)
 			.then((saved: AllTypes) => {
 				// then read back to ensure it was saved
-				return typesDb.getByFilter('SELECT * FROM ' + typesDb.tableName + ' WHERE substr(aDate, 1, 4) = ?', ['1971']);
+				return typesDb.getByFilter('SELECT * FROM ' + typesDb.tableName + ' WHERE CAST(substr(aDate, 1, 4) AS INTEGER) = ?', [1971]);
 			})
 			.then((results: Array<AllTypes>) => {
 				expect(results).not.toBeNull();

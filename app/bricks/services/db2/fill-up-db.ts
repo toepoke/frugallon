@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { SQLite } from 'ionic-native';
 import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../../core/db2/";
-import { FillUp } from "../../models/fill-up";
+import { FillUp, eFillUpType } from "../../models/fill-up";
 import * as _ from "../../../core/helpers/underscore";
 import * as ditto from "../../../core/helpers/ditto";
 
@@ -58,11 +58,31 @@ export class FillUpDb extends TypedDb<FillUp> {
 		;
 	}
 
+	public getFiltered(yearFilters: Array<number>, journeyFilters: Array<eFillUpType>, carFilters: Array<number>, activeMeasurement: boolean): Promise<Array<FillUp>> {
+		let sql: string = '';
+		let args: Array<any> = [];
+
+		sql += 'SELECT * FROM ' + this._tableName + ' ';
+		sql += 'WHERE ';
+		sql += '(';
+		sql +=   'CAST(substr([when],1,4) AS INTEGER) IN (' + yearFilters.join(',') + ')';
+		sql += ') AND (';
+		sql +=   'fillType IN (' + journeyFilters.join(',') + ')';
+		sql += ') AND (';
+		sql +=   'carId IN (' + carFilters.join(',') + ')';
+		sql += ')';
+
+console.log(sql);
+
+		return this.getByFilter(sql, args);
+	}
+
 	public getForYear(year: number): Promise<Array<FillUp>> {
-		// Note: 
-		// As "substr" returns a string we have to convert "year" to a string in the arguments.
-		// Otherwise we don't get a match!
-		return this.getByFilter('SELECT * FROM ' + this._tableName + ' WHERE substr([when],1,4) = ?', [year.toString()]);
+		return this.getByFilter(
+			'SELECT * FROM ' + this._tableName + 
+			' WHERE CAST(substr([when],1,4) AS INTEGER) = ?', 
+			[year]
+		);
 	}
 
 	public getAll(): Promise<Array<FillUp>> {
