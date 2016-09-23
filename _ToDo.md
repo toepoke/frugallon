@@ -1,5 +1,8 @@
 # General notes
-*
+* orientationchange event - http://www.quirksmode.org/blog/archives/2013/11/orientationchan.html
+* creating a "for loop" directive in angular2 - http://www.bennadel.com/blog/3076-creating-an-index-loop-structural-directive-in-angular-2-beta-14.htm?utm_campaign=NG-Newsletter&utm_medium=email&utm_source=NG-Newsletter_146
+* Use moment.js for when the last fill up took place rather than the embedded date?
+* Year picker on history page should be slideable, as you would expect for a mobile
 
 # Infrastructure
 * When we add GetSentry have an "info" item which reports unlisted vehicles to add to our database
@@ -34,12 +37,6 @@ Develop reminders as a separate "entity" so a reminder doesn't _have_to_be_ for 
 		+ Table view (as is)
 		+ Stats view showing pretty graphs
 	- Advantage of this being we can inherit the same filters on the same view ! 
-
-
-# General notes
-	- orientationchange event - http://www.quirksmode.org/blog/archives/2013/11/orientationchan.html
-	- creating a "for loop" directive in angular2 - http://www.bennadel.com/blog/3076-creating-an-index-loop-structural-directive-in-angular-2-beta-14.htm?utm_campaign=NG-Newsletter&utm_medium=email&utm_source=NG-Newsletter_146
-	- Use moment.js for when the last fill up took place rather than the embedded date?
 
 # Plugins
 Random notes for getting cordova up and running
