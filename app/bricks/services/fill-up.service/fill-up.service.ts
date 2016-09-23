@@ -4,7 +4,6 @@ import { IAppState, AppActions } from "../../stores";
 import { FillUp, Car, MpgStat } from "../../models";
 import { FillUpDb, CarDb, MpgStatDb, YearDb } from "../db2/";
 
-// maybe
 import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../../core/db2/";
 import * as _ from "../../../core/helpers/underscore";
 import * as ditto from "../../../core/helpers/ditto";

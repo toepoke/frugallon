@@ -1,26 +1,25 @@
+// Vendor imports
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy, Type } from "@angular/core";
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Page, NavController, NavParams, Icon, IONIC_DIRECTIVES, TextInput, Content } from 'ionic-angular';
 
-import { Settings } from "../../bricks/models";
-import { Store } from "@ngrx/store";
-import { IAppState } from "../../bricks/stores/iapp-state";
-import { Observable } from "rxjs/Observable";
-import * as ACTIONS from "../../bricks/stores/actions/actions";
-
-import { Car, CarMaker } from "../../bricks/models";
-// import { CarMakersDb, CarsDb } from "../../bricks/services/db";
-import { DbCmdFailure } from '../../core/db2';
-import { CarMakerDb, CarDb } from "../../bricks/services/db2";
-
-import { ColourPickerIon, ColourSet } from "../../bricks/components";
-import { COMPONENT_STRATEGY } from "../../strategy";
-
+// Core imports 
 import { AppValidators } from "../../core/validators";
 import { Wizard, WizardStep, eStepDirection, StepChangeEvent, DigitPicker } from "../../core/components";
 import { AzList, AzSelectedItem, AzGroup } from "../../core/components";
 import * as _ from "../../core/helpers/underscore";
 import * as ditto from "../../core/helpers/ditto";
+
+// Application imports
+import { COMPONENT_STRATEGY } from "../../strategy";
+import { Car, CarMaker, Settings } from "../../bricks/models";
+import { IAppState } from "../../bricks";
+import { AppActions } from '../../bricks/stores/actions/app-actions'; 
+import { DbCmdFailure, CarMakerDb, CarDb } from "../../bricks/services/db2";
+import { ColourPickerIon, ColourSet } from "../../bricks/components";
+
 
 @Component({
 	changeDetection: COMPONENT_STRATEGY,
@@ -188,6 +187,7 @@ export class EditCarPage {
 		private _store: Store<IAppState>, 
 		private _carMakerDb: CarMakerDb,
 		private _carDb: CarDb,
+		private _appActions: AppActions,
 		fb: FormBuilder
 	) {
 		this._vehicleTypes = Car.getTypes();
@@ -262,10 +262,18 @@ export class EditCarPage {
 		this._car.colour = this._selectedColour;
 		this._car.mileage = Number(this._mileage.value);		
 
-		// this._car = this._carsDb.saveCar(this._car);
+		let isNew: boolean = false;
+		isNew = (_.isNull(this._car.id) || this._car.id == 0);
+
 		this._carDb.save(this._car)
 			.then((saved: Car) => {
 				this._car = saved;
+				if (isNew) {
+					this._store.dispatch(this._appActions.CarAdd(saved));
+				}
+				else {
+					this._store.dispatch(this._appActions.CarSave(saved));
+				}
 				this._nav.pop();
 			})
 			.catch((fail: DbCmdFailure) => {
@@ -273,8 +281,6 @@ export class EditCarPage {
 			})
 		;
 		
-		// this._nav.pop();
-				
 	} // onFinish
 
 
@@ -301,11 +307,6 @@ export class EditCarPage {
 			// toggle on 
 			this._selectedType = type;
 		
-		// filter the manufacturer to the relevant type
-		// this._makes = this._carMakersDb
-		// 	.getMakers(this._selectedType)
-		// 	.map((cm) => cm.manufacturer)
-		// ;
 		this._carMakerDb.getByType(this._selectedType)
 			.then((makers: Array<CarMaker>) => {
 				this._makes = makers.map((cm: CarMaker) => cm.manufacturer);
@@ -335,15 +336,12 @@ export class EditCarPage {
 		
 		this._make.updateValue(selected.selectedValue);
 		
-		// Find the set of models
-		// selectedManufacturer = this._carMakersDb.findMaker(this._selectedType, selected.selectedValue);
-
 		this._carMakerDb.getByMaker(this._selectedType, selected.selectedValue)
 			.then((maker: CarMaker) => {
-				if (_.isNull(selectedManufacturer)) {
-					throw new Error(`EditCarPage::onSelectedMake - Could not find manufacturer for type("${this._selectedType}", manufacturer("${selectedManufacturer})")`);
+				if (_.isNull(maker)) {
+					throw new Error(`EditCarPage::onSelectedMake - Could not find manufacturer for type("${selected.selectedValue}")`);
 				}
-				this._models = selectedManufacturer.models;
+				this._models = maker.models;
 				
 				// we have the make, now ask for the model
 				this._wizard.goNext();
@@ -473,7 +471,7 @@ export class EditCarPage {
 		switch (forStepName) {
 			case    "TYPE": this._title = `Type of vehicle?`;                                            break;
 			case    "MAKE": this._title = `What make of ${vehicleType}?`;                                break;
-			case   "MODEL": this._title = `What model of ${this._make.value} Model?`;                  break;
+			case   "MODEL": this._title = `What model of ${this._make.value} Model?`;                    break;
 			case  "COLOUR": this._title = `Pick a colour for your ${this._selectedType.toLowerCase()}:`; break;
 			case "MILEAGE": this._title = `Current mileage (optional):`;                                 break;
 		}

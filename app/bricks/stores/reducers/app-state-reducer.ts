@@ -16,8 +16,6 @@ import { AppActions } from '../actions/app-actions'
 //	cars: Array<Car> = new Array<Car>();
 // 	dbVersion: string = "";
 // 	fills: Array<FillUp> = new Array<FillUp>();
-//  isWeb: booean;
-//  platforms: Array<string>;
 // 	selectedYear: number = null;
 //  editingCar: Car = null;
 // 	years: Array<number> = new Array<number>();
@@ -29,14 +27,11 @@ export const appStateReducer: Reducer<IAppState> = (oldState: IAppState, action:
 	switch (action.type) {
 		case ACTIONS.INITALISE_NGRX:
 			newState = {
-				debug: null,
 				appVersion: "",
 				dbVersion: "",
 				years: new Array<number>(),
 				cars: new Array<Car>(),
 				fills: new Array<FillUp>(),
-				platforms: new Array<string>(),
-				isWeb: false,
 				selectedYear: 0,
 				editingCar: null,
 				measurement: false,
@@ -48,7 +43,6 @@ export const appStateReducer: Reducer<IAppState> = (oldState: IAppState, action:
 			
 		case ACTIONS.INITIALISE_APP:
 			newState = ditto.updateItem(oldState, {
-				debug: action.payload.debug,
 				appVersion: action.payload.appVersion,
 				dbVersion: action.payload.dbVersion,
 				years: <Array<number>>action.payload.years,
@@ -56,9 +50,7 @@ export const appStateReducer: Reducer<IAppState> = (oldState: IAppState, action:
 				selectedYear: action.payload.selectedYear,
 				fills: action.payload.fills,
 				measurement: action.payload.measurement,
-				measurementType: action.payload.measurementType,
-				platforms: action.payload.platforms,
-				isWeb: action.payload.isWeb
+				measurementType: action.payload.measurementType
 			});
 			return newState;
 

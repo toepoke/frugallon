@@ -1,18 +1,22 @@
-import { ViewChild, Component, AfterContentInit } from "@angular/core";
-import { Settings, FillUp } from "../../bricks/models";
-import { IONIC_DIRECTIVES, Page, NavController, ViewController, Toggle, Events } from 'ionic-angular';
+// Vendor imports
 import { Store } from "@ngrx/store";
-import { IAppState } from "../../bricks/stores/iapp-state";
-//import { SettingsDb } from "../../bricks/services/db/settings-db";
-import { DbCmdFailure } from '../../core/db2';
-import { SettingDb } from "../../bricks/services/db2";
-
-import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
 import { Observable } from 'rxjs/Observable';
-import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from "../../strategy";
-import { AppActions } from '../../bricks/stores';
-import * as ACTIONS from "../../bricks/stores/actions/actions";
+import { ViewChild, Component, AfterContentInit } from "@angular/core";
+import { IONIC_DIRECTIVES, Page, Alert, AlertController, NavController, ViewController, Toggle, Events } from 'ionic-angular';
+
+// Core imports 
 import * as _ from "../../core/helpers/underscore"; 
+import { DbCmdFailure } from '../../core/db2';
+
+// Application imports
+import { ORCHESTRATOR_STRATEGY } from "../../strategy";
+import { Settings, FillUp } from "../../bricks/models";
+import { AppDatabase } from "../../bricks/services/db2";
+import { IAppState } from "../../bricks/stores/iapp-state";
+import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
+import { AppActions } from '../../bricks/stores';
+
+// Page imports
 import { MeasurementToggle } from "./measurement-toggle";
 
 @Component({
@@ -33,7 +37,9 @@ import { MeasurementToggle } from "./measurement-toggle";
 			[measurement-type]="(_app|async)?.measurementType" 
 			(on-toggle)="_onToggle($event)">
 		</measurement-toggle>
-		
+
+		<button full danger (click)="shouldNukeDatabase()">Nuke Database</button>
+
 		<ion-toolbar position="bottom">
 			<div text-right>
 				<button light type="submit" (click)="onCancel()">Cancel</button>
@@ -53,11 +59,11 @@ export class SettingsPage {
 	private _app: Observable<IAppState> = null;
 	
 	constructor(
-		private _nav: NavController, 
+		private _nav: NavController,
+		private _alerter: AlertController, 
 		private _store: Store<IAppState>,
 		private _appActions: AppActions,
-		// private _settingsDb: SettingsDb,
-		private _settingDb: SettingDb,
+		private _appDb: AppDatabase,
 		private _events: Events
 	) {
 		this._app = <Observable<IAppState>> _store.select("appState");
@@ -78,6 +84,43 @@ export class SettingsPage {
 			this._appActions.ChangeMeasurement(newValue)
 		);
 	}
+
+	shouldNukeDatabase(): void {
+		let confirm: Alert = this._alerter.create({
+			title: "Nuke Database?",
+			message: "Are you sure you want to start afresh?",
+			buttons: [
+				{
+					text: "Yes",
+					handler: () => {
+						this.nukeDatabase();
+					}
+				}, {
+					text: "No"
+				}
+			]
+		});
+		confirm.present();
+	}
+
+	nukeDatabase(): void {
+		this._appDb.nukeDatabase()
+			.then(() => this._appDb.primeDatabase())
+			.then(() => {
+				let acknowledge: Alert = this._alerter.create({
+					title: "Nuked",
+					message: "Application has been restarted",
+					buttons: [{
+						text: "Ok",
+						handler: () => {
+							this._nav.pop();
+						}
+					}]
+				});
+				acknowledge.present();
+			})
+		;
+	}
 	
 	onCancel(): void {
 		// Cancelling, so put it back to what it was
@@ -93,18 +136,7 @@ export class SettingsPage {
 	}
 	
 	onSave(): void {
-		// let s: Settings = this._settingsDb.loadSettings();
-		// s.measurement = this._newMeasurement;
-		// this._settingsDb.saveSettings(s);		
-		
-		// this._nav.pop().then((result) => {
-		// 	this._store.dispatch(
-		// 		this._appActions.ChangeMeasurement(s.measurement)
-		// 	);
-
-		// });
-
-		this._settingDb.load()
+		this._appDb.settingsDb.load()
 			.then((settings: Settings) => {
 				settings.measurement = this._newMeasurement;
 				return this._nav.pop();

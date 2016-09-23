@@ -1,18 +1,25 @@
+// Vendor imports
+import { Observable } from 'rxjs/Observable';
+import { Store } from "@ngrx/store";
 import { Component, OnInit, OnChanges, ChangeDetectionStrategy, Input } from "@angular/core";
 import { Page, NavController, NavParams, IONIC_DIRECTIVES } from 'ionic-angular';
-import { Settings } from "../../bricks/models";
-import * as ACTIONS from "../../bricks/stores/actions/actions";
+
+// Core imports 
 import * as _ from "../../core/helpers/underscore";
 import * as ditto from "../../core/helpers/ditto";
-import { Observable } from 'rxjs/Observable';
 
+// Application imports
 import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from "../../strategy";
-import { Store } from "@ngrx/store";
-import { IAppState, AppActions } from "../../bricks/stores";
-import { EditCarPage } from "./edit-car-page";
-import { AppNavigation } from "../app-navigation";
-import { Car, CarMaker } from "../../bricks/models";
+import { Car, CarMaker, Settings } from "../../bricks/models";
+import { IAppState } from "../../bricks/stores";
+import { AppActions } from '../../bricks/stores/actions/app-actions';
 import { CarListIon, ProductNameIon, AppHeaderIon } from "../../bricks/components";
+import * as ACTIONS from "../../bricks/stores/actions/actions";
+
+// Page imports
+import { AppNavigation } from "../app-navigation";
+import { EditCarPage } from "./edit-car-page";
+
 
 @Component({
 	changeDetection: ORCHESTRATOR_STRATEGY,

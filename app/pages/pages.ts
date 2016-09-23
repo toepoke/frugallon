@@ -1,5 +1,4 @@
 // Pages
-export { BasePage } from "./_base-page/base-page";
 export { AboutPage } from "./about/about-page";
 export { EditCarPage } from "./cars/edit-car-page";
 export { CarListPage } from "./cars/car-list-page";

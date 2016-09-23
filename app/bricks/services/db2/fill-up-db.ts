@@ -13,8 +13,6 @@ export class FillUpDb extends TypedDb<FillUp> {
 		provider: number
 	) {
 		super(FillUpDb.getSchema(), dbName, 'fill_ups', provider);
-		// TODO: useWebSql flag needs dep injecting somehow ...
-		// TODO: Do we even need the webSql flag?  Doesn't SQLite hide this from us?
 	}
 
 	static getSchema(): any {
@@ -29,6 +27,10 @@ export class FillUpDb extends TypedDb<FillUp> {
 			'price': DbTypes.DECIMAL,
 			'when': DbTypes.DATE
 		}
+	}
+
+	public prime(): Promise<any> {
+		return super.createTable();
 	}
 
 	getYears(): Promise<Array<number>> {

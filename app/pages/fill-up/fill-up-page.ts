@@ -1,32 +1,27 @@
+// Vendor imports
 import { Component, OnInit, OnChanges, ViewChild, AfterViewInit, ChangeDetectionStrategy, Type } from '@angular/core';
 import { REACTIVE_FORM_DIRECTIVES, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Page, IONIC_DIRECTIVES, NavController, Tabs } from 'ionic-angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { AppValidators } from '../../core/validators';
 
-import { FillUp, eFillUpType, Settings, Car, CarMaker } from '../../bricks/models';
-//import { FillsDb, CarsDb } from '../../bricks/services/db';
-
-import { DbCmdFailure } from '../../core/db2';
-import { CarDb } from "../../bricks/services/db2";
-import { FillUpService } from '../../bricks/services';
-
-import { TimeServer } from '../../core/services';
-import { IAppState } from '../../bricks/stores/iapp-state';
-import { ePages } from '../pages';
-import { AppActions } from '../../bricks/stores';
-import * as ACTIONS from '../../bricks/stores/actions/actions';
-
+// Core imports 
 import * as _ from '../../core/helpers/underscore';
 import * as ditto from '../../core/helpers/ditto';
-
-
+import { AppValidators, TimeServer, APP_PIPES } from '../../core';
 import { DigitPicker, Wizard, WizardStep, StepChangeEvent, eStepDirection } from '../../core/components';
-import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from '../../strategy';
-import { ProductNameIon, CarListIon, InputHintIon, AppHeaderIon, FillSummaryIon} from '../../bricks/components';
-import { APP_PIPES } from '../../core/pipes';
 
+// Application imports
+import { COMPONENT_STRATEGY, ORCHESTRATOR_STRATEGY } from '../../strategy';
+import { FillUp, eFillUpType, Settings, Car, CarMaker } from '../../bricks/models';
+import { DbCmdFailure, CarDb } from "../../bricks/services/db2";
+import { FillUpService } from '../../bricks/services';
+import { IAppState } from '../../bricks/stores/iapp-state';
+import { AppActions } from '../../bricks/stores';
+import { ProductNameIon, CarListIon, InputHintIon, AppHeaderIon, FillSummaryIon} from '../../bricks/components';
+
+// Page imports
+import { ePages } from '../pages';
 import { HistoryPage, TabsPage, AppNavigation } from '../pages';
 
 /**
@@ -74,9 +69,7 @@ export class FillUpPage {
 		private _tabs: Tabs,
 		private _store: Store<IAppState>,
 		private _appActions: AppActions,
-		//private _fillsDb: FillUpDb,
 		private _fillUpService: FillUpService,
-		//private _carsDb: CarDb,
 		private _carDb: CarDb,
 		private _timeServer: TimeServer,
 		fb: FormBuilder 
@@ -92,7 +85,6 @@ export class FillUpPage {
 				this._measurement = data.measurement;
 				this._currentFillUp = new FillUp();
 				if (data.cars.length === 1) {
-					//let defaultCar: Car = ditto.first(data.cars);
 					this._currentCar = data.cars[0];
 				}
 			}
@@ -277,39 +269,6 @@ export class FillUpPage {
 				// TODO: 
 			})
 		;
-
-
-		// this._fillsDb.addFillUp(this._currentFillUp);
-
-		// if (!_.isNull(this._currentCar.mileage)) {
-		// 	// update the recorded mileage
-		// 	this._carsDb.saveCar(this._currentCar);
-		// } 
-		
-		// // and show the history year for the fill-up we've just recorded
-		// let forYear: number = this._currentFillUp.when.getFullYear();
-		// let newYears: Array<number> = this._fillsDb.getYears();
-		// let newFills: Array<FillUp> = this._fillsDb.getFillUps()
-		// 	.filter((f:FillUp) => f.when.getFullYear() == forYear)
-		// ;
-		
-		// // Reset the wizard for next time
-		// this.onCancel(wiz);
-
-
-		// this._store.dispatch(
-		// 	this._appActions.ShowYearView(newFills, newYears, forYear)
-		// );
-
-
-		// this._store.dispatch({
-		// 	type: AppActions.TOGGLE_HISTORY_ITEM,
-		// 	payload: this._currentFillUp.id
-		// });
-		
-
-		// // AppNavigation.toHistory(this._nav);
-		// this._tabs.select(ePages.History);
 		
 	} // onFinish 
 	
@@ -389,7 +348,6 @@ export class FillUpPage {
 				f.price = _.toPounds( _.getRandom(50, 120) );	// 50p - £1.20
 				f.when = new Date(year, month, day, hour, min);
 				
-				// this._fillsDb.addFillUp(f);
 				this._fillUpService.addFillUp(f);
 
 				// use a different car next time if we can
@@ -403,19 +361,6 @@ export class FillUpPage {
 			
 		} // for year
 
-		// // as we're only mocking data, just use this year,
-		// let thisYear: number = this._timeServer.getCurrentTime().getFullYear();
-		// let fills: Array<FillUp> = this._fillsDb.getFillUps()
-		// 	.filter((f:FillUp) => f.when.getFullYear() == thisYear)
-		// ;		
-
-		// // TODO: Fix the below
-		// let years: Array<number> = this._fillsDb.getYears();
-		// this._store.dispatch(
-		// 	this._appActions.ShowYearView(fills, years, thisYear)
-		// );
-
-		// AppNavigation.toHistory(this._nav);
 		this._tabs.select(ePages.History);
 
 	} // fillHistory
@@ -427,11 +372,8 @@ export class FillUpPage {
 			this.createCar("Audi", "80", "green", 270666)
 		];
 		this._carDb.bulkInsert(cars);
-
-		// this._carsDb.addCar( this.createCar("Ford", "Mondeo", "blueviolet", 12345 ) );
-		// this._carsDb.addCar( this.createCar("VW", "Golf", "darkslateblue", 172498) );
-		// this._carsDb.addCar( this.createCar("Audi", "80", "green", 270666));
-	}
+		
+	} // fillCars
 	
 	private createCar(make: string, model: string, colour: string, mileage: number = 0): Car {
 		let c: Car = new Car();

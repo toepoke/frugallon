@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
-import { IONIC_DIRECTIVES, Page, NavController, ViewController } from 'ionic-angular';
-import { LocalNotifications } from 'ionic-native';
-import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
-import { Observable } from 'rxjs/Observable';
+// Vendor imports
 import { Store } from "@ngrx/store";
-import { IAppState } from "../../bricks/stores/iapp-state";
-import { COMPONENT_STRATEGY } from "../../strategy";
-import * as _ from "../../core/helpers/underscore";
-import * as ACTIONS from "../../bricks/stores/actions/actions";
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { IONIC_DIRECTIVES, Page, NavController, ViewController, Platform } from 'ionic-angular';
+import { LocalNotifications } from 'ionic-native';
 import * as moment from "moment";
+
+// Core imports 
+import * as _ from "../../core/helpers/underscore";
+
+// Application imports
+import { COMPONENT_STRATEGY } from "../../strategy";
+import { ProductNameIon, AppHeaderIon } from "../../bricks/components";
+import { IAppState } from "../../bricks";
+import { DbProviders, SettingDb } from '../../bricks/services/db2';
+import * as ACTIONS from "../../bricks/stores/actions/actions";
 
 @Component({
 	changeDetection: COMPONENT_STRATEGY,
@@ -88,11 +94,18 @@ import * as moment from "moment";
 							{{(_app|async).dbVersion}}
 						</ion-badge>					
 					</ion-item>
+
+					<ion-item>
+						<span item-left>Database Type</span>
+						<ion-badge item-right class="badge">
+							{{_dbType}}
+						</ion-badge>					
+					</ion-item>
 					
 					<ion-item>
 						<span item-left>Platforms</span>
 						<div item-right>
-							<div text-right *ngFor="let p of (_app|async).platforms">
+							<div text-right *ngFor="let p of _platformNames">
 								<ion-badge class="badge">
 									{{p}}
 								</ion-badge>
@@ -111,18 +124,22 @@ import * as moment from "moment";
 
 export class AboutPage {
 	private _app: Observable<IAppState> = null;
+	private _dbType: string = '';
+	private _platformNames: Array<string> = null;
 
 	constructor(
 		private _nav: NavController,
-		private _store: Store<IAppState>
+		private _platforms: Platform,
+		private _store: Store<IAppState>,
+		private _settingDb: SettingDb
 	) {
-
 		this._app = <Observable<IAppState>> _store.select("appState");
 		this._app.subscribe((data: IAppState) => {
 
 		});
 		
-
+		this._dbType = DbProviders.getDescription(_settingDb.getActiveProvider());
+		this._platformNames = this._platforms.platforms();
 	}
 	
 	onBack(): void {

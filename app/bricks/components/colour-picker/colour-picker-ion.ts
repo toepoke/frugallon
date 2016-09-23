@@ -75,10 +75,6 @@ export class ColourPickerIon implements OnInit {
 	 * to iterate over.  
 	 */	
 	getColours(): IterableIteratorShim<string> {
-		// let tmpStr: string = _.removeWhitespace(this.colours);	// remove any rubbish
-		// let arrColours: Array<string> = tmpStr.split(",");
-		
-		// return arrColours;
 		return this.colours.keys();
 	}
 	
