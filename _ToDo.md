@@ -1,5 +1,4 @@
 # General notes
-* have typed overrides of database files (i.e. on load we return typed objects that have methods)
 * orientationchange event - http://www.quirksmode.org/blog/archives/2013/11/orientationchan.html
 * creating a "for loop" directive in angular2 - http://www.bennadel.com/blog/3076-creating-an-index-loop-structural-directive-in-angular-2-beta-14.htm?utm_campaign=NG-Newsletter&utm_medium=email&utm_source=NG-Newsletter_146
 * Use moment.js for when the last fill up took place rather than the embedded date?
