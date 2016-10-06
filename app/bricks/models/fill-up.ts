@@ -32,6 +32,12 @@ export class FillUp {
 	/** @description - Stats model of "carId" */
 	metricStats: MpgStat = null;
 	imperialStats: MpgStat = null;
+
+	/** @description - MPG (UK) achieved in this trip */
+	metricMpg: number = null;
+
+	/** @description - MPG (US) achieved in this trip */
+	imperialMpg: number = null;
 	
 	/** @description Number of miles travelled in this trip */
 	miles: number = null;
@@ -61,6 +67,8 @@ export class FillUp {
 		this.litres = null;
 		this.price = null;
 		this.when = new Date();
+		this.metricMpg = null;
+		this.imperialMpg = null;
 	}
 	
 	
@@ -77,6 +85,8 @@ export class FillUp {
 		cln.litres = Number(f.litres);
 		cln.price = Number(f.price);
 		cln.when = f.when;
+		cln.imperialMpg = f.imperialMpg;
+		cln.metricMpg = f.metricMpg;
 		return cln;
 	}
 	
@@ -156,10 +166,29 @@ export class FillUp {
 
 
 	/**
+	 * Gets the appropriate MPG figure for the active measurement;
+	 * @param measurementType - true gets metric (UK), false gets imperial (US). 
+	 */
+	getMpg(measurementType: boolean = true/*UK*/): number {
+		this.refreshMpgFigures();
+
+		if (measurementType) {
+			return this.metricMpg;
+		} else {
+			return this.imperialMpg;
+		}
+	}
+
+	refreshMpgFigures(): void {
+		this.metricMpg = this.calculateMpg(true/*UK*/);
+		this.imperialMpg = this.calculateMpg(false/*US*/);
+	}
+
+	/**
 	 * Calculates the Miles Per Gallon (MPG) for the "FillUp"
 	 * @param measurementType - true uses metric (UK) calc, false uses imperial (US). 
 	 */
-	getMpg(measurementType: boolean = true/*UK*/): number {
+	private calculateMpg(measurementType: boolean): number {
 		let mpg: number = 0;
 		let fraction: number = 0;
 		

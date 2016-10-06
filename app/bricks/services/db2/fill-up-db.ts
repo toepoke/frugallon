@@ -20,11 +20,13 @@ export class FillUpDb extends TypedDb<FillUp> {
 			'id': DbTypes.PRIMARY_KEY,
 			'carId': DbTypes.INTEGER,
 			'fillType': DbTypes.INTEGER,
-			'metricStats': DbTypes.FOREIGN_KEY_OBJECT,
-			'imperialStats': DbTypes.FOREIGN_KEY_OBJECT,
+			'metricStats': DbTypes.NO_PERSIST,
+			'imperialStats': DbTypes.NO_PERSIST,
 			'miles': DbTypes.DECIMAL,
 			'litres': DbTypes.DECIMAL,
 			'price': DbTypes.DECIMAL,
+			'metricMpg': DbTypes.DECIMAL,
+			'imperialMpg': DbTypes.DECIMAL,
 			'when': DbTypes.DATE
 		}
 	}
@@ -71,8 +73,6 @@ export class FillUpDb extends TypedDb<FillUp> {
 		sql += ') AND (';
 		sql +=   'carId IN (' + carFilters.join(',') + ')';
 		sql += ')';
-
-console.log(sql);
 
 		return this.getByFilter(sql, args);
 	}

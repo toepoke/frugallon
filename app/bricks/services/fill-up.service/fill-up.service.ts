@@ -47,6 +47,10 @@ export class FillUpService {
 		if (_.isNull(fu.car))
 			throw new Error("FillsDb::addFillUp - fu must have an associated car.");
 		
+		// ensure mpg figures are calculated appropriately
+		fu.metricMpg = fu.getMetricMpg();
+		fu.imperialMpg = fu.getImperialMpg();
+
 		return this.resolveCarFk(fu)
 			.then((withCar: FillUp) => 
 				this.resolveCarStats(withCar)
