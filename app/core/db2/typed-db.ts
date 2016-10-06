@@ -91,6 +91,12 @@ export class TypedDb<T> extends BaseDb {
 		});
 		sql += '\n);';
 
+		// Ensure we have a primary key defined
+		let pkField: TypedField = this._fields.find((value: TypedField) => value.isId);
+		if (pkField === null || pkField == undefined) {
+			return Promise.reject(`${this.tableName} has no ID/Primary Key defined.`);
+		}
+
 		return super.executeAsync(sql, null);
 	}
 
