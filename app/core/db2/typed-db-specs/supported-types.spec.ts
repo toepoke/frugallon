@@ -342,7 +342,7 @@ describe('All datatype tests', () => {
 			'ma': 'Marge',
 			'pa': 'Homer'
 		};
-
+ 
 		typesDb.save(o)
 			.then((saved: AllTypes) => {
 
@@ -351,7 +351,7 @@ describe('All datatype tests', () => {
 			})
 			.then((got: AllTypes) => {
 				expect(got).not.toBeNull();
-				expect(got.aNonPersistedObject).toBeNull();
+				expect(got.aNonPersistedObject).toBeUndefined();
 				return done();
 			})
 			.catch((err: DbCmdFailure) => {
@@ -381,7 +381,7 @@ describe('All datatype tests', () => {
 				expect(got.aJson).toBeNull();
 				expect(got.aDate).toBeNull();
 				expect(got.aFkObject).toBeNull();
-				expect(got.aNonPersistedObject).toBeNull();
+				expect(got.aNonPersistedObject).toBeUndefined();
 				
 				return done();
 			})
