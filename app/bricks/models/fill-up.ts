@@ -38,7 +38,7 @@ export class FillUp {
 
 	/** @description - MPG (US) achieved in this trip */
 	imperialMpg: number = null;
-	
+
 	/** @description Number of miles travelled in this trip */
 	miles: number = null;
 	

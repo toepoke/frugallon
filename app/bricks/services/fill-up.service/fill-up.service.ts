@@ -86,7 +86,8 @@ export class FillUpService {
 
 	public getFiltered(filters: IFilterState, activeMeasurement: boolean): Promise<Array<FillUp>> {
 		// TODO: Get MPG filters working again
-		return this._fillDb.getFiltered(filters.filteredYears, filters.filteredJourneyTypes, filters.filteredCarIds, activeMeasurement)
+		
+		return this._fillDb.getFiltered(filters.filteredYears, filters.filteredJourneyTypes, filters.filteredCarIds, filters.filteredMpgAverages, activeMeasurement)
 			// .then((fills: Array<FillUp>) => {
 			// 	return this.applyMPGFilter(fills, filters.filteredMpgAverages, activeMeasurement);
 			// })

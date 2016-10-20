@@ -60,7 +60,12 @@ export class FillUpDb extends TypedDb<FillUp> {
 		;
 	}
 
-	public getFiltered(yearFilters: Array<number>, journeyFilters: Array<eFillUpType>, carFilters: Array<number>, activeMeasurement: boolean): Promise<Array<FillUp>> {
+	/**
+	 * yearFilters: Years to show
+	 * journeyFilters: Types of journey to show ()
+	 * mpgAverages: (-1 = bad, 0 = neutral, 1 = good) (empty => show all)
+	 */
+	public getFiltered(yearFilters: Array<number>, journeyFilters: Array<eFillUpType>, carFilters: Array<number>, mpgAverages: Array<number>, activeMeasurement: boolean): Promise<Array<FillUp>> {
 		let sql: string = '';
 		let args: Array<any> = [];
 
