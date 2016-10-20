@@ -202,6 +202,8 @@ export class FillUpPage {
 				miles: Number(this._miles.value),
 				litres: Number(this._litres.value),
 				price: poundsPrice,
+				metricMpg: this._currentFillUp.getMetricMpg(),
+				imperialMpg: this._currentFillUp.getImperialMpg(),
 				when: this._timeServer.getCurrentTime()
 			});
 

@@ -54,14 +54,14 @@ export class CarMakerDb extends TypedDb<CarMaker> {
 	 * Gets all car makers by type (car, bike, lorry, etc).
 	 */
 	getByType(type: string): Promise<Array<CarMaker>> {
-		return super.getByFilter('SELECT * FROM ' + this._tableName + ' WHERE type = ?', [type]);
+		return this.getByFilter('SELECT * FROM ' + this._tableName + ' WHERE type = ?', [type]);
 	}
 
 	/**
 	 * 
 	 */
 	getByMaker(type: string, manufacturer: string): Promise<CarMaker> {
-		return super.getByFilter('SELECT * FROM ' + this._tableName + ' WHERE type = ? AND manufacturer = ?', [type, manufacturer])
+		return this.getByFilter('SELECT * FROM ' + this._tableName + ' WHERE type = ? AND manufacturer = ?', [type, manufacturer])
 			.then((hits: Array<CarMaker>) => {
 				if (ditto.any(hits))
 					return ditto.first(hits);
@@ -69,6 +69,36 @@ export class CarMakerDb extends TypedDb<CarMaker> {
 					return null;
 			})
 		;
+	}
+
+	public getAll(): Promise<Array<CarMaker>> {
+		return super.getAll()
+			.then((srcs: Array<CarMaker>) => this.toTypedList(srcs))
+		;
+	}
+
+	public getById(id: number): Promise<CarMaker> {
+		return super.getById(id)
+			.then((src: CarMaker) => this.toTyped(src))
+		;
+	}
+
+	public getByFilter(sql: string, args: Array<any>): Promise<Array<CarMaker>> {
+		return super.getByFilter(sql, args)
+			.then((srcs: Array<CarMaker>) => this.toTypedList(srcs))
+		;
+	}
+
+	protected toTyped(src: CarMaker): CarMaker {
+		return ditto.updateItem(new CarMaker(), src);
+	}
+
+	protected toTypedList(srcs: Array<CarMaker>): Array<CarMaker> {
+		let newItems: Array<CarMaker> = new Array<CarMaker>();
+		srcs.forEach((i: CarMaker) => {
+			newItems.push(this.toTyped(i));
+		});
+		return newItems;
 	}
 	
 

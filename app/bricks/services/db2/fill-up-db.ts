@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { SQLite } from 'ionic-native';
 import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../../core/db2/";
-import { FillUp } from "../../models/fill-up";
+import { FillUp, eFillUpType } from "../../models/fill-up";
 import * as _ from "../../../core/helpers/underscore";
 import * as ditto from "../../../core/helpers/ditto";
 
@@ -20,11 +20,13 @@ export class FillUpDb extends TypedDb<FillUp> {
 			'id': DbTypes.PRIMARY_KEY,
 			'carId': DbTypes.INTEGER,
 			'fillType': DbTypes.INTEGER,
-			'metricStats': DbTypes.FOREIGN_KEY_OBJECT,
-			'imperialStats': DbTypes.FOREIGN_KEY_OBJECT,
+			'metricStats': DbTypes.NO_PERSIST,
+			'imperialStats': DbTypes.NO_PERSIST,
 			'miles': DbTypes.DECIMAL,
 			'litres': DbTypes.DECIMAL,
 			'price': DbTypes.DECIMAL,
+			'metricMpg': DbTypes.DECIMAL,
+			'imperialMpg': DbTypes.DECIMAL,
 			'when': DbTypes.DATE
 		}
 	}
@@ -58,11 +60,34 @@ export class FillUpDb extends TypedDb<FillUp> {
 		;
 	}
 
+	/**
+	 * yearFilters: Years to show
+	 * journeyFilters: Types of journey to show ()
+	 * mpgAverages: (-1 = bad, 0 = neutral, 1 = good) (empty => show all)
+	 */
+	public getFiltered(yearFilters: Array<number>, journeyFilters: Array<eFillUpType>, carFilters: Array<number>, mpgAverages: Array<number>, activeMeasurement: boolean): Promise<Array<FillUp>> {
+		let sql: string = '';
+		let args: Array<any> = [];
+
+		sql += 'SELECT * FROM ' + this._tableName + ' ';
+		sql += 'WHERE ';
+		sql += '(';
+		sql +=   'CAST(substr([when],1,4) AS INTEGER) IN (' + yearFilters.join(',') + ')';
+		sql += ') AND (';
+		sql +=   'fillType IN (' + journeyFilters.join(',') + ')';
+		sql += ') AND (';
+		sql +=   'carId IN (' + carFilters.join(',') + ')';
+		sql += ')';
+
+		return this.getByFilter(sql, args);
+	}
+
 	public getForYear(year: number): Promise<Array<FillUp>> {
-		// Note: 
-		// As "substr" returns a string we have to convert "year" to a string in the arguments.
-		// Otherwise we don't get a match!
-		return this.getByFilter('SELECT * FROM ' + this._tableName + ' WHERE substr([when],1,4) = ?', [year.toString()]);
+		return this.getByFilter(
+			'SELECT * FROM ' + this._tableName + 
+			' WHERE CAST(substr([when],1,4) AS INTEGER) = ?', 
+			[year]
+		);
 	}
 
 	public getAll(): Promise<Array<FillUp>> {

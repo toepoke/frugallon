@@ -38,7 +38,7 @@ export class SettingDb extends TypedDb<Settings> {
 	}
 
 	load(): Promise<Settings> {
-		return super.getByFilter('SELECT * FROM settings ORDER BY id DESC LIMIT 1;', [])
+		return this.getByFilter('SELECT * FROM settings ORDER BY id DESC LIMIT 1;', [])
 			.then((loaded: Array<Settings>) => {
 				if (!ditto.any(loaded) ) {
 					return null;
@@ -48,5 +48,23 @@ export class SettingDb extends TypedDb<Settings> {
 			})
 		;
 	}
+
+	public getByFilter(sql: string, args: Array<any>): Promise<Array<Settings>> {
+		return super.getByFilter(sql, args)
+			.then((srcs: Array<Settings>) => this.toTypedList(srcs))
+		;
+	}
+
+	protected toTyped(src: Settings): Settings {
+		return ditto.updateItem(new Settings(), src);
+	}
+
+	protected toTypedList(srcs: Array<Settings>): Array<Settings> {
+		let newItems: Array<Settings> = new Array<Settings>();
+		srcs.forEach((i: Settings) => {
+			newItems.push(this.toTyped(i));
+		});
+		return newItems;
+	}	
 
 }

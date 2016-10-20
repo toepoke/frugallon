@@ -4,7 +4,7 @@ import { FiltersDb, FillUpDb, DbCmdFailure } from "../db2";
 import { FillUp, Filters } from '../../models';
 import { TimeServer } from '../../../core/services';
 import { FillUpService } from '../fill-up.service/fill-up.service';
-import { IFilterState, applyFilters } from '../../stores/ifilter-state';
+import { IFilterState } from '../../stores/ifilter-state';
 import * as ditto from '../../../core/helpers/ditto';
 import * as _ from '../../../core/helpers/underscore';
 import * as ACTIONS from "../../stores/actions/actions";
@@ -24,13 +24,15 @@ export class FilterService {
 
 	public getFilteredFills(filters: IFilterState, activeMeasurement: boolean): Promise<Array<FillUp>> {
 
-		// TODO: getAll could be improved by apply the filters here!
-		return this._fillUpService.getAll()
-			.then((fills: Array<FillUp>) => {
-				let filtered: Array<FillUp> = applyFilters(fills, filters, activeMeasurement);
-				return filtered;
-			})
-		;
+		// // TODO: getAll could be improved by apply the filters here!
+		// return this._fillUpService.getAll()
+		// 	.then((fills: Array<FillUp>) => {
+		// 		let filtered: Array<FillUp> = applyFilters(fills, filters, activeMeasurement);
+		// 		return filtered;
+		// 	})
+		// ;
+
+		return this._fillUpService.getFiltered(filters, activeMeasurement);
 	}
 
 

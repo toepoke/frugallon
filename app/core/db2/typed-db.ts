@@ -91,6 +91,12 @@ export class TypedDb<T> extends BaseDb {
 		});
 		sql += '\n);';
 
+		// Ensure we have a primary key defined
+		let pkField: TypedField = this._fields.find((value: TypedField) => value.isId);
+		if (pkField === null || pkField == undefined) {
+			return Promise.reject(`${this.tableName} has no ID/Primary Key defined.`);
+		}
+
 		return super.executeAsync(sql, null);
 	}
 
@@ -405,13 +411,17 @@ export class TypedDb<T> extends BaseDb {
 
 			newField = new TypedField(key, dbType, modelType);
 
-			if (i === 0)
-				newField.isFirst = true;
-			else if (i === schemaKeys.length-1) 
-				newField.isLast = true;
-
 			this._fields.push(newField);
 		}
+
+		// Remove any fields we don't want persisting
+		this._fields = this._fields.filter((f: TypedField) => {
+			return f.modelType !== DbTypes.NO_PERSIST;
+		});
+
+		// Mark out the first and last fields to make life easier later ...
+		this._fields[0].isFirst = true;
+		this._fields[this._fields.length-1].isLast = true;
 
 		// flag if we have a primary key id or not
 		let idField: TypedField = this._fields.find((item: TypedField) => {
