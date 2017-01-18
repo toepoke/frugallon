@@ -3,23 +3,23 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-about',
+  selector: 'page-car-list',
   template:
 `
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      CAR LIST
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <p>ABOUT</p>
+  <p>CAR LIST</p>
 </ion-content>
 `  
 })
-export class AboutPage {
+export class CarListPage {
 
   constructor(public navCtrl: NavController) {
 
