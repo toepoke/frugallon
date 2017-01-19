@@ -11,6 +11,8 @@ import { AppDatabase, DbProviders } from '../bricks/';
 import { CarMakerDb } from '../bricks/db2/car-maker-db';
 import { CarDb } from '../bricks/db2/car-db';
 import { SettingDb } from '../bricks/db2/setting-db';
+import { MpgStatDb } from '../bricks/db2/mpg-stat-db';
+import { FillUpDb } from '../bricks/db2/fill-up-db';
 
 
 const DB_NAME: string = 'frugallon';
@@ -19,6 +21,8 @@ const DB_PROVIDER: number = DbProviders.DETECT;
 let carMakerDb: CarMakerDb = new CarMakerDb(DB_NAME, DB_PROVIDER);
 let carDb: CarDb = new CarDb(DB_NAME, DB_PROVIDER);
 let settingDb: SettingDb = new SettingDb(DB_NAME, DB_PROVIDER);
+let mpgStatDb: MpgStatDb = new MpgStatDb(DB_NAME, DB_PROVIDER);
+let fillUpDb: FillUpDb = new FillUpDb(DB_NAME, DB_PROVIDER);
 
 @NgModule({
   declarations: [
@@ -48,7 +52,13 @@ let settingDb: SettingDb = new SettingDb(DB_NAME, DB_PROVIDER);
     { provide: CarMakerDb, useValue: carMakerDb },
     { provide: CarDb, useValue: carDb },
     { provide: SettingDb, useValue: settingDb },
+    { provide: MpgStatDb, useValue: mpgStatDb },
+    { provide: FillUpDb, useValue: fillUpDb },
     AppDatabase
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+}
+
+
