@@ -1,19 +1,9 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { FillUpPage } from '../pages/fill-up/fill-up';
-import { HistoryPage } from '../pages/history/history';
-import { RemindersPage } from '../pages/reminders/reminders';
-import { CarListPage } from '../pages/car-list/car-list';
-import { TabsPage } from '../pages/tabs/tabs';
-import { AppDatabase, DbProviders } from '../bricks/';
-import { CarMakerDb } from '../bricks/db2/car-maker-db';
-import { CarDb } from '../bricks/db2/car-db';
-import { SettingDb } from '../bricks/db2/setting-db';
-import { MpgStatDb } from '../bricks/db2/mpg-stat-db';
-import { FillUpDb } from '../bricks/db2/fill-up-db';
-import { FiltersDb } from '../bricks/db2/filters-db';
+import { AboutPage, FillUpPage, HistoryPage, RemindersPage, CarListPage, TabsPage } from '../pages';
+import { AppDatabase, DbProviders } from '../bricks/db2';
+import { CarMakerDb, CarDb, SettingDb, MpgStatDb, FillUpDb, FiltersDb } from '../bricks/db2';
 
 
 const DB_NAME: string = 'frugallon';
