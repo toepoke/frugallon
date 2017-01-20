@@ -5,4 +5,4 @@ export { FillUp } from './fill-up';
 export { MpgStat } from './mpg-stat';
 export { MpgStats } from './mpg-stats';
 export { Settings } from './settings';
-// export { Filters } from './filters';
+export { Filters } from './filters';

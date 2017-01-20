@@ -13,6 +13,7 @@ import { CarDb } from '../bricks/db2/car-db';
 import { SettingDb } from '../bricks/db2/setting-db';
 import { MpgStatDb } from '../bricks/db2/mpg-stat-db';
 import { FillUpDb } from '../bricks/db2/fill-up-db';
+import { FiltersDb } from '../bricks/db2/filters-db';
 
 
 const DB_NAME: string = 'frugallon';
@@ -23,6 +24,7 @@ let carDb: CarDb = new CarDb(DB_NAME, DB_PROVIDER);
 let settingDb: SettingDb = new SettingDb(DB_NAME, DB_PROVIDER);
 let mpgStatDb: MpgStatDb = new MpgStatDb(DB_NAME, DB_PROVIDER);
 let fillUpDb: FillUpDb = new FillUpDb(DB_NAME, DB_PROVIDER);
+let filtersDb: FiltersDb = new FiltersDb(DB_NAME, DB_PROVIDER);
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ let fillUpDb: FillUpDb = new FillUpDb(DB_NAME, DB_PROVIDER);
     { provide: SettingDb, useValue: settingDb },
     { provide: MpgStatDb, useValue: mpgStatDb },
     { provide: FillUpDb, useValue: fillUpDb },
+    { provide: FiltersDb, useValue: filtersDb },
     AppDatabase
   ]
 })

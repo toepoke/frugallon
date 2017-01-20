@@ -5,6 +5,7 @@ import { CarDb } from './car-db';
 import { SettingDb } from './setting-db';
 import { FillUpDb } from './fill-up-db';
 import { MpgStatDb } from './mpg-stat-db';
+import { FiltersDb } from './filters-db';
 
 @Injectable() 
 export class AppDatabase {
@@ -13,7 +14,8 @@ export class AppDatabase {
 		private _carDb: CarDb,
 		private _settingDb: SettingDb,
 		private _fillUpDb: FillUpDb,
-		private _mpgStatDb: MpgStatDb
+		private _mpgStatDb: MpgStatDb,
+		private _filtersDb: FiltersDb
 	) {
  
 	}
@@ -24,6 +26,7 @@ export class AppDatabase {
 			.then(() => this._settingDb.prime())
 			.then(() => this._fillUpDb.prime())
 			.then(() => this._mpgStatDb.prime())
+			.then(() => this._filtersDb.prime())
 			.catch((err: any) => console.error("primeDb::", err))
 		;
 	}
@@ -34,6 +37,7 @@ export class AppDatabase {
 			.then(() => this._settingDb.dropTable())
 			.then(() => this._fillUpDb.dropTable())
 			.then(() => this._mpgStatDb.dropTable())
+			.then(() => this._filtersDb.dropTable())
 			.catch((err: any) => console.error("nukeDb::", err))
 		;
 	}
