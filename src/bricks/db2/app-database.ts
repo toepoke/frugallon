@@ -10,12 +10,12 @@ import { FiltersDb } from './filters-db';
 @Injectable() 
 export class AppDatabase {
 	constructor(
-		private _carMakerDb: CarMakerDb,
-		private _carDb: CarDb,
-		private _settingDb: SettingDb,
-		private _fillUpDb: FillUpDb,
-		private _mpgStatDb: MpgStatDb,
-		private _filtersDb: FiltersDb
+		public _carMakerDb: CarMakerDb,
+		public _carDb: CarDb,
+		public _settingDb: SettingDb,
+		public _fillUpDb: FillUpDb,
+		public _mpgStatDb: MpgStatDb,
+		public _filtersDb: FiltersDb
 	) {
  
 	}
