@@ -6,8 +6,10 @@ import * as _ from "../../../core/helpers/underscore";
 // Dependencies
 import { IAppState } from "../iapp-state";
 import { Settings, Car, FillUp, eFillUpType, MpgStat } from "../../models";
-import * as ACTIONS from "../actions/actions";
 import { AppActions } from '../actions/app-actions'
+
+export const INITALISE_NGRX: string = "@@ngrx/INIT";
+export const INITIALISE_APP: string = "INITIALISE_APP";
 
 // Data Shape Reminder
 // ====================
@@ -25,7 +27,7 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 	let newState: IAppState = null;
 
 	switch (action.type) {
-		case ACTIONS.INITALISE_NGRX:
+		case INITALISE_NGRX:
 			newState = {
 				appVersion: "",
 				dbVersion: "",
@@ -41,7 +43,7 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 			};
 		return newState;
 			
-		case ACTIONS.INITIALISE_APP:
+		case INITIALISE_APP:
 			newState = ditto.updateItem(oldState, {
 				appVersion: action.payload.appVersion,
 				dbVersion: action.payload.dbVersion,

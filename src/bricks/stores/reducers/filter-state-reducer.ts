@@ -6,7 +6,6 @@ import * as _ from "../../../core/helpers/underscore";
 // Dependencies
 import { IFilterState } from "../ifilter-state";
 import { Car, FillUp, eFillUpType, MpgStat } from "../../models";
-import * as ACTIONS from "../actions/actions";
 import { FilterActions } from '../actions/filter-actions';
 import { AppActions } from '../actions/app-actions';
 
