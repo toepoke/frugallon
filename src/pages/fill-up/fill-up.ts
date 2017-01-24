@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
+import { ProductNameIon } from "../../bricks/components";
 
 @Component({
   selector: 'page-fill-up',
   template: 
 `
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar text-center>
+    <product-name-ion></product-name-ion>
   </ion-navbar>
 </ion-header>
 
@@ -32,3 +33,5 @@ export class FillUpPage {
   }
 
 }
+
+// <app-header-ion [show-main-menu]="true"></app-header-ion>

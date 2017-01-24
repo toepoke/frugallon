@@ -7,15 +7,13 @@ import { NavController } from 'ionic-angular';
   template:
 `
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      CAR LIST
-    </ion-title>
+  <ion-navbar text-center>
+    <product-name-ion></product-name-ion>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <p>CAR LIST</p>
+  <p>My Cars (CAR LIST)</p>
 </ion-content>
 `  
 })

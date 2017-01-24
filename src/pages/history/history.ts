@@ -7,10 +7,8 @@ import { NavController } from 'ionic-angular';
   template:
 `
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      History
-    </ion-title>
+  <ion-navbar text-center>
+    <product-name-ion></product-name-ion>
   </ion-navbar>
 </ion-header>
 
