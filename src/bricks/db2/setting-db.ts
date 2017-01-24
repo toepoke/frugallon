@@ -1,8 +1,7 @@
-import { Injectable } from "@angular/core";
-import { SQLite } from 'ionic-native';
-import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../core/typed-db/";
-import { Settings } from "../models";
-import * as ditto from "../../core/helpers/ditto";
+import { Injectable } from '@angular/core';
+import { TypedDb, DbTypes } from '../../core/typed-db/';
+import { Settings } from '../models';
+import * as ditto from '../../core/helpers/ditto';
 
 @Injectable()
 export class SettingDb extends TypedDb<Settings> {

@@ -14,7 +14,6 @@
  * @param updates - Set of JSON updates to applies to the object copy
  */
 export function updateItem<T>(current: T, updates: any): T {
-	let dataItems: T = null;
 	let propItems: T = null;
 	
 	// This whole __proto__ thang copies over the methods too :-)

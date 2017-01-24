@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { SQLite } from 'ionic-native';
-import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../core/typed-db/";
+import { TypedDb, DbTypes } from "../../core/typed-db/";
 import { Car } from "../models";
 import * as ditto from "../../core/helpers/ditto";
 import * as _ from "../../core/helpers/underscore";

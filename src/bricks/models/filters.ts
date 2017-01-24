@@ -1,6 +1,5 @@
-import { Injectable } from "@angular/core";
-import { eFillUpType } from "./fill-up-type";
-import { Car } from './car';
+import { Injectable } from '@angular/core';
+import { eFillUpType } from './fill-up-type';
 
 @Injectable()
 export class Filters {

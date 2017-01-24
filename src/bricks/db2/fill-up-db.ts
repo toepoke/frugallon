@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SQLite } from 'ionic-native';
-import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from '../../core/typed-db/';
+import { TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from '../../core/typed-db/';
 import { FillUp } from '../models';
 import { eFillUpType } from '../models';
-import * as _ from '../../core/helpers/underscore';
 import * as ditto from '../../core/helpers/ditto';
 
 @Injectable()

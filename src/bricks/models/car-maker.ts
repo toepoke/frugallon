@@ -1,4 +1,3 @@
-import * as _ from "../../core/helpers/underscore";
 
 /**
  * Models a maker of cars, e.g. "Ford" which has a set of models, e.g. Focus, Mondeo, etc.

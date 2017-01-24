@@ -1,5 +1,4 @@
-import { Injectable, ChangeDetectionStrategy } from "@angular/core";
-import { Car } from './car';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Settings {

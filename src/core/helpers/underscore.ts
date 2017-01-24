@@ -21,6 +21,7 @@ export function isNull(o: any): boolean {
 	return !isPresent(o);
 }
 
+
 /**
  * Returns true if object "o" is not null (or undefined), i.e. there's a proper object there 
  * Returns false otherwise
@@ -28,6 +29,7 @@ export function isNull(o: any): boolean {
 export function isPresent(o: any): boolean {
 	return o !== undefined && o !== null;
 }
+
 
 /**
  * Returns true if "o" is undefined, null or any empty string
@@ -42,6 +44,7 @@ export function isNullOrEmpty(o: string): boolean {
 	return false;
 }
 
+
 /**
  * Returns ture if "n" is consider a number
  * Returns false otherwise
@@ -55,7 +58,20 @@ export function isNumeric(n: string): boolean {
 	let convert: any = Number(n);
 	return !isNaN(convert);
 }
+
+
+/**
+ * Returns true if string is to be considered a decimal.
+ */
+export function isDecimal(n: string): boolean {
+	if (!isNumeric(n))
+		return false;
+
+	// yeah, not really internationally compaible, but hey ho!
+	return n.indexOf('.') > -1;
+}
 	
+
 /**
  * Returns a random number between "lower" and "upper" (if defined)
  */	
@@ -65,8 +81,6 @@ export function getRandom(lower: number, upper: number = 20000) {
 
 	return Math.floor(Math.random()*(upper-lower+1)+lower);
 }
-
-
 
 
 /**

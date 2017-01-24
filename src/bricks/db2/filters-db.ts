@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { SQLite } from 'ionic-native';
-import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../core/typed-db/";
+import { TypedDb, DbTypes } from "../../core/typed-db/";
 import { Filters } from "../models/filters";
 import * as ditto from "../../core/helpers/ditto";
 

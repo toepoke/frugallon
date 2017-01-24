@@ -285,7 +285,6 @@ export class TypedDb<T> extends BaseDb {
 			let partial: Array<T> = new Array<T>();
 			let start: number = 0;
 			let end: number = 0;
-			let total: number = 0;
 
 			while (start < objects.length) {
 				end = (start + MAX_ITEMS);
@@ -400,7 +399,7 @@ export class TypedDb<T> extends BaseDb {
 	 */
 	private evaluateSchema(): void {
 		let schemaKeys: Array<string> = Object.keys(this._schema);
-		let columns: string = '';
+
 		this._fields = new Array<TypedField>();
 
 		for (let i: number = 0; i < schemaKeys.length; i++) {
@@ -613,7 +612,6 @@ export class TypedDb<T> extends BaseDb {
 		let sql: string = "", updates: string = "";
 		let value: any = null;		
 		let args: Array<any> = new Array<any>();
-		let sqlInserts: Array<string> = new Array<string>();
 		let sqlUpdates: Array<string> = new Array<string>();
 
 		this._fields.forEach((item: TypedField, index: number) => {
@@ -654,31 +652,6 @@ export class TypedDb<T> extends BaseDb {
 		;
 	}
 
-
-	/**
-	 * Returns ture if "n" is consider a number
-	 * Returns false otherwise
-	 */
-	private isNumeric(n: string): boolean {
-		if (n === null || n === undefined)
-			return false;
-		if (n == '')
-			return false;
-
-		let convert: any = Number(n);
-		return !isNaN(convert);
-	}
-
-	/**
-	 * Returns true if string is to be considered a decimal.
-	 */
-	private isDecimal(n: string): boolean {
-		if (!this.isNumeric(n))
-			return false;
-
-		// yeah, not really internationally compaible, but hey ho!
-		return n.indexOf('.') > -1;
-	}
 
 	/**
 	 * Helper method to establish if the given object is null or undefined.
