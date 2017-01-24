@@ -4,7 +4,13 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
+// Core
+import { TimeService } from '../core/services';
+import * as ditto from '../core/helpers/ditto';
+
 import { IAppState, IFilterState, AppActions, FilterActions } from '../bricks/stores';
+import { FilterService, FillUpService } from '../bricks/services';
+import { Car, FillUp, Settings, Filters } from '../bricks/models';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { AppDatabase } from '../bricks/db2/app-database';
@@ -26,6 +32,7 @@ export class MyApp {
     platform: Platform,
     private _store: Store<any>,
     private _appActions: AppActions, private _filterActions: FilterActions,
+    private _timeService: TimeService, private _filterService: FilterService, private _fillUpService: FillUpService,
     private _appDb: AppDatabase
   ) {
     platform.ready().then(() => {
@@ -43,15 +50,52 @@ export class MyApp {
 
     this._appDb.primeDb()
       .then(() => console.log("database primed."))
-      // .then(() => {
-        // TODO: Get initial state
-      // })
+      .then(() => this.getInitialState() )
+      .then((x: IAppState) => {
+        console.log(x);
+        return null;
+      })
       .catch((err: any) => console.error(err))
     ;
   }
 
-  // private getInitialState(): Promise<any> {
-    // TODO: Get initial state
-  // }
+	private getInitialState(): Promise<any> {
+		let initState: any = {};
 
+		return this._fillUpService.getYears()
+			.then((years: Array<number>) => {
+				initState.years = years;
+				return this._appDb._carDb.getAll();
+			})
+			.then((cars: Array<Car>) => {
+				initState.cars = cars;
+				return this._appDb._filtersDb.load();
+			})
+			.then((filters: Filters) => {
+				initState.filters = filters;
+				return this._appDb._settingDb.load();
+			})
+			.then((settings: Settings) => {
+				// These don't really belong in settings table
+				initState.appVersion = MyApp.APP_VERSION;
+				initState.dbVersion = settings.dbVersion;
+				initState.measurement = settings.measurement;
+				initState.measurementType = (settings.measurement ? 'UK' : 'US');
+				
+				let selectedYear: number = this._timeService.getCurrentTime().getFullYear();
+				if (!initState.filters.filtersActive && ditto.any(initState.years)) {
+					selectedYear = <number> ditto.last(initState.years);
+				}
+				initState.selectedYear = selectedYear;
+
+				return this._fillUpService.getForYear(selectedYear);
+			})
+			.then((fills: Array<FillUp>) => {
+				initState.fills = fills;
+				return initState;
+			})
+			.catch((err: any) => console.error(err))
+		;
+
+	} // getInitialState
 }

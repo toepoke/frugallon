@@ -1,1 +1,1 @@
-export { TimeService } from './time.service.ts';
+export { TimeService } from './time.service';

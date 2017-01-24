@@ -1,2 +1,2 @@
-export { FilterService } from './filter.service.ts';
-export { FillUpService } from './fill-up.service.ts';
+export { FilterService } from './filter.service';
+export { FillUpService } from './fill-up.service';

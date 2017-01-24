@@ -2,6 +2,9 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
+// Core
+import { TimeService } from '../core/services';
+
 import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '../bricks/stores';
 import { AppDatabase, DbProviders } from '../bricks/db2';
 import { FilterService, FillUpService } from '../bricks/services/';
@@ -19,6 +22,13 @@ let settingDb: SettingDb = new SettingDb(DB_NAME, DB_PROVIDER);
 let mpgStatDb: MpgStatDb = new MpgStatDb(DB_NAME, DB_PROVIDER);
 let fillUpDb: FillUpDb = new FillUpDb(DB_NAME, DB_PROVIDER);
 let filtersDb: FiltersDb = new FiltersDb(DB_NAME, DB_PROVIDER);
+
+carDb.enableLogging();
+carMakerDb.enableLogging();
+fillUpDb.enableLogging();
+settingDb.enableLogging();
+mpgStatDb.enableLogging();
+filtersDb.enableLogging();
 
 @NgModule({
   declarations: [
@@ -57,7 +67,7 @@ let filtersDb: FiltersDb = new FiltersDb(DB_NAME, DB_PROVIDER);
     { provide: FiltersDb, useValue: filtersDb },
     AppDatabase,
     AppActions, FilterActions,
-    FilterService, FillUpService    
+    TimeService, FilterService, FillUpService    
   ]
 })
 export class AppModule {
