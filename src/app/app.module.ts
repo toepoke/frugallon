@@ -6,7 +6,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { TimeService } from '../core/services';
 
 // Components
-import { ProductNameIon, AppHeaderIon } from '../bricks/components';
+//import { ProductNameIon, AppHeaderIon } from '../bricks/components';
+import { BricksModule } from '../bricks/bricks.module';
 
 import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '../bricks/stores';
 import { AppDatabase, DbProviders } from '../bricks/db2';
@@ -41,18 +42,18 @@ filtersDb.enableLogging();
     HistoryPage,
     RemindersPage,
     CarListPage,    
-    TabsPage,
-    ProductNameIon, AppHeaderIon
+    TabsPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
     StoreModule.provideStore(
       { appState: appStateReducer },
       { filterState: filterStateReducer }
-    )
+    ),
+    BricksModule
   ],
   exports: [
-    ProductNameIon, AppHeaderIon
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
