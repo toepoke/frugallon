@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Car, FillUp, eFillUpType, MpgStat, MpgStats } from "../../models";
-import { IAppState } from "../iapp-state";
+import { Car, FillUp, MpgStats } from "../../models";
 
 /**
  * Set of actions for acting upon the application UI state.

@@ -5,7 +5,7 @@ import * as _ from "../../../core/helpers/underscore";
 
 // Dependencies
 import { IAppState } from "../iapp-state";
-import { Settings, Car, FillUp, eFillUpType, MpgStat } from "../../models";
+import { Car, FillUp } from "../../models";
 import { AppActions } from '../actions/app-actions'
 
 export const INITALISE_NGRX: string = "@@ngrx/INIT";

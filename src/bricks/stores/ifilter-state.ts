@@ -1,5 +1,4 @@
-import { eFillUpType, FillUp, MpgStat, Car } from "../models";
-import * as ditto from "../../core/helpers/ditto";
+import { eFillUpType, } from "../models";
 
 export interface IFilterState {
 	/** @description - Filters are on or off */

@@ -56,33 +56,33 @@ export class FilterService {
 		;	
 	}
 
-	/**
-	 * @description - Finds the most appropriate year of history to show on start up
-	 * @param(years) - List of years we currently have stored
-	 * @returns - If we have the current year in the history, the current year is returned.
-	 *            Otherwise the most recent year of history is returned.
-	 */
-	private establishSelectedYear(years: Array<number>): number {
-		let currYear: number = this._timeServer.getCurrentTime().getFullYear();
+	// /**
+	//  * @description - Finds the most appropriate year of history to show on start up
+	//  * @param(years) - List of years we currently have stored
+	//  * @returns - If we have the current year in the history, the current year is returned.
+	//  *            Otherwise the most recent year of history is returned.
+	//  */
+	// private establishSelectedYear(years: Array<number>): number {
+	// 	let currYear: number = this._timeServer.getCurrentTime().getFullYear();
 
-		if (ditto.empty(years)) {
-			// user hasn't used the app yet, so use this year as a starter
-			return currYear;
-		}
+	// 	if (ditto.empty(years)) {
+	// 		// user hasn't used the app yet, so use this year as a starter
+	// 		return currYear;
+	// 	}
 		
-		// cool we have some years recorded, but which should we show
-		let selectedYear: number = null;
+	// 	// cool we have some years recorded, but which should we show
+	// 	let selectedYear: number = null;
 		
-		// Is the current year in our list (we may not have had a fill up yet)
-		selectedYear = years.find((y) => y === currYear);
+	// 	// Is the current year in our list (we may not have had a fill up yet)
+	// 	selectedYear = years.find((y) => y === currYear);
 		
-		if (_.isNull(selectedYear)) {
-			// haven't got the current year, so use the final year instead
-			selectedYear = ditto.last(years);
-		}
+	// 	if (_.isNull(selectedYear)) {
+	// 		// haven't got the current year, so use the final year instead
+	// 		selectedYear = ditto.last(years);
+	// 	}
 
-		return selectedYear;		
-	} 
+	// 	return selectedYear;		
+	// } 
 	
 
 }

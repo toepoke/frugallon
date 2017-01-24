@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Car, FillUp, eFillUpType, MpgStat } from "../../models";
-import { IFilterState } from "../ifilter-state";
+import { Car, eFillUpType } from "../../models";
 
 /**
  * Set of actions for filtering details of fill-ups.

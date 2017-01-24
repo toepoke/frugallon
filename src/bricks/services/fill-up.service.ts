@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store, Action } from "@ngrx/store";
 
 // Core
-import { BaseDb, TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from "../../core/typed-db/";
+import { TypedDb, DbCmdFailure } from "../../core/typed-db/";
 import * as _ from "../../core/helpers/underscore";
 import * as ditto from "../../core/helpers/ditto";
 
@@ -103,28 +103,28 @@ export class FillUpService {
 		;
 	}
 
-	private applyMPGFilter(fills: Array<FillUp>, mpgAverage: Array<number>, measurement: boolean): Array<FillUp> {
-		let filtered: Array<FillUp> = null;
+	// private applyMPGFilter(fills: Array<FillUp>, mpgAverage: Array<number>, measurement: boolean): Array<FillUp> {
+	// 	let filtered: Array<FillUp> = null;
 
-		filtered = fills.filter((f: FillUp) => {
-			let mpg: number = f.getMpg(measurement);
-			let stats: MpgStat = f.getMpgStats(measurement);
-			let include: boolean = false;
+	// 	filtered = fills.filter((f: FillUp) => {
+	// 		let mpg: number = f.getMpg(measurement);
+	// 		let stats: MpgStat = f.getMpgStats(measurement);
+	// 		let include: boolean = false;
 
-			mpgAverage.forEach((avg: number) => {
-				if (avg < 0 && stats.isUnderAverage(mpg))
-					include = true;
-				else if (avg == 0 && stats.isAverage(mpg))
-					include = true;
-				else if (avg > 0 && stats.isAboveAverage(mpg))
-					include = true; 
-			});
+	// 		mpgAverage.forEach((avg: number) => {
+	// 			if (avg < 0 && stats.isUnderAverage(mpg))
+	// 				include = true;
+	// 			else if (avg == 0 && stats.isAverage(mpg))
+	// 				include = true;
+	// 			else if (avg > 0 && stats.isAboveAverage(mpg))
+	// 				include = true; 
+	// 		});
 			
-			return include;
-		});
+	// 		return include;
+	// 	});
 
-		return filtered;
-	}
+	// 	return filtered;
+	// }
 	
 
 	public getYears(): Promise<Array<number>> {
