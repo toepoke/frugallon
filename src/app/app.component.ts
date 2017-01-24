@@ -7,7 +7,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { AppDatabase } from '../bricks/db2/app-database';
 
 @Component({
-  templateUrl: 'app.html'
+  template: 
+  `<ion-nav [root]="rootPage"></ion-nav>`
 })
 export class MyApp {
   rootPage = TabsPage;
