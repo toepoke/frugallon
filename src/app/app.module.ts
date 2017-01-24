@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { appStateReducer, filterStateReducer } from '../bricks/stores';
+import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '../bricks/stores';
 import { MyApp } from './app.component';
 import { AboutPage, FillUpPage, HistoryPage, RemindersPage, CarListPage, TabsPage } from '../pages';
 import { AppDatabase, DbProviders } from '../bricks/db2';
@@ -53,7 +53,8 @@ let filtersDb: FiltersDb = new FiltersDb(DB_NAME, DB_PROVIDER);
     { provide: MpgStatDb, useValue: mpgStatDb },
     { provide: FillUpDb, useValue: fillUpDb },
     { provide: FiltersDb, useValue: filtersDb },
-    AppDatabase
+    AppDatabase,
+    AppActions, FilterActions
   ]
 })
 export class AppModule {
