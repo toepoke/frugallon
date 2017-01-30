@@ -11,7 +11,8 @@ import * as ditto from '../core/helpers/ditto';
 import { IAppState, IFilterState, AppActions, FilterActions } from '../bricks/stores';
 import { FilterService, FillUpService } from '../bricks/services';
 import { Car, FillUp, Settings, Filters } from '../bricks/models';
-import { TabsPage } from '../pages/tabs/tabs';
+//import { TabsPage } from '../pages/tabs/tabs';
+import { IllustrationsPage } from '../pages/_illustrations/illustrations';
 
 import { AppDatabase } from '../bricks/db2/app-database';
 
@@ -22,7 +23,8 @@ import { AppDatabase } from '../bricks/db2/app-database';
 export class MyApp {
 	static APP_VERSION: string = "0.0.1";
 
-  _rootPage = TabsPage;
+//  _rootPage = TabsPage;
+  _rootPage = IllustrationsPage;
 
 	_filter$: Observable<IFilterState> = null;
 	_app$: Observable<IAppState> = null;
