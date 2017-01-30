@@ -1,19 +1,28 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from 'ionic-angular';
 
-import { BaseDb, DbProviders, DbCmdSuccess, DbCmdFailure, TypedDb, DbTypes } from './typed-db';
+import { AzList, DigitPickerIon, SegmentList, Wizard, WizardStep } from './components/'
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
+		IonicModule
 	],
 	declarations: [
+		AzList,
+		DigitPickerIon,
+		SegmentList,
+		Wizard,
+		WizardStep
 	],
 	exports: [
-
-
+		AzList,
+		DigitPickerIon,
+		SegmentList,
+		Wizard,
+		WizardStep
 	]
 })
 export class CoreModule {
-
 }

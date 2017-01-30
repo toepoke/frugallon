@@ -7,13 +7,14 @@ import { TimeService } from '../core/services';
 
 // Components
 //import { ProductNameIon, AppHeaderIon } from '../bricks/components';
+import { CoreModule } from '../core/core.module';
 import { BricksModule } from '../bricks/bricks.module';
 
 import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '../bricks/stores';
 import { AppDatabase, DbProviders } from '../bricks/db2';
 import { FilterService, FillUpService } from '../bricks/services/';
 import { CarMakerDb, CarDb, SettingDb, MpgStatDb, FillUpDb, FiltersDb } from '../bricks/db2';
-import { AboutPage, FillUpPage, HistoryPage, RemindersPage, CarListPage, TabsPage } from '../pages';
+import { IllustrationsPage, AboutPage, FillUpPage, HistoryPage, RemindersPage, CarListPage, TabsPage } from '../pages';
 import { MyApp } from './app.component';
 
 
@@ -37,6 +38,7 @@ filtersDb.enableLogging();
 @NgModule({
   declarations: [
     MyApp,
+    IllustrationsPage,
     AboutPage,
     FillUpPage,
     HistoryPage,
@@ -50,6 +52,7 @@ filtersDb.enableLogging();
       { appState: appStateReducer },
       { filterState: filterStateReducer }
     ),
+    CoreModule,
     BricksModule
   ],
   exports: [
@@ -58,6 +61,7 @@ filtersDb.enableLogging();
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    IllustrationsPage,
     AboutPage,
     FillUpPage,
     HistoryPage,
