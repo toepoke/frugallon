@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from 'ionic-angular';
+import { CoreModule } from '../core/core.module';
 
-import { ProductNameIon } from './components';
+import { ProductNameIon, CarListIon } from './components';
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
+		IonicModule,
+		CoreModule
 	],
 	declarations: [
-		ProductNameIon
+		ProductNameIon,
+		CarListIon
 	],
 	exports: [
-		ProductNameIon
+		ProductNameIon,
+		CarListIon
 	]
 })
 export class BricksModule {
