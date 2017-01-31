@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
+import { FormBuilder, FormGroup, FormControl }  from '@angular/forms'
 import { AzSelectedItem, Wizard } from '../../core/components';
+import { TimeService } from '../../core/services';
+import { CoreValidators } from '../../core/validators/'
 
 @Component({
   selector: 'page-illustrations',
@@ -40,6 +41,25 @@ import { AzSelectedItem, Wizard } from '../../core/components';
       (finished)="onWizardFinish($event)"
       (cancelled)="onWizardCancel($event)">
 
+      <wizard-step [name]="'AGE'" [is-valid]="true">
+        <form [formGroup]="_ageForm" novalidate>
+          <ion-list>
+            <ion-item>
+              <ion-label>Age ({{_age.value | commafy}})</ion-label>
+              <ion-input type="number" formControlName="_age"></ion-input>
+            </ion-item>
+            <ion-item>					
+              <p *ngIf="_age.hasError('range')" class="error-message">
+                Between <strong>18</strong> and <strong>65</strong>.
+              </p>
+              <p *ngIf="_age.hasError('maxdecimals')" class="error-message">
+                No decimals please.
+              </p>
+            </ion-item>          
+          </ion-list>
+        </form>     
+      </wizard-step>        
+
       <wizard-step [name]="'GENDER'" [is-valid]="true">
         <ion-list>
           <ion-item>
@@ -48,15 +68,6 @@ import { AzSelectedItem, Wizard } from '../../core/components';
           </ion-item>
         </ion-list>      
       </wizard-step>
-
-      <wizard-step [name]="'AGE'" [is-valid]="true">
-        <ion-list>
-          <ion-item>
-            <ion-label>Age</ion-label>
-            <ion-input type="number"></ion-input>
-          </ion-item>
-        </ion-list>       
-      </wizard-step>        
 
     </wizard>
   </div>
@@ -80,7 +91,7 @@ import { AzSelectedItem, Wizard } from '../../core/components';
   </div>
 
   <div class="separator">
-    <ion-title>Pipes!</ion-title>
+    <ion-title>Pipes</ion-title>
     <ion-grid>
       <ion-row>
         <ion-col width-25 class="table-header">Value</ion-col>
@@ -133,11 +144,17 @@ import { AzSelectedItem, Wizard } from '../../core/components';
 export class IllustrationsPage {
   @ViewChild(Wizard) _wizard: Wizard = null;
 
-  // For Pipe testing
+  _ageForm: FormGroup = null; 
+  _age: FormControl = null; 
 
 
-  constructor(public navCtrl: NavController) {
-    
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _timeService: TimeService
+  ) {
+    this.runServiceTests();
+    this.createForms(_formBuilder);
+
     this._alphaItems = new Array<string>(
       ..."Abba,ACDC,Def Leppard,Deep Blue Sea".split(",")
     );
@@ -176,6 +193,20 @@ export class IllustrationsPage {
     console.log(`Wizard::Cancel ${evt}`);
   }
 
-  
+  protected runServiceTests() {
+    this._timeService.setCurrentTime(new Date('2000-01-01'));
+
+    console.log(this._timeService.getCurrentTime());
+  }
+
+  protected createForms(fb: FormBuilder): void {
+
+		this._age = new FormControl("", [
+			<any>CoreValidators.range(18, 65),
+			<any>CoreValidators.maxDecimals(0)
+		]);
+
+    this._ageForm = fb.group({ _age: this._age });
+  }
 
 }
