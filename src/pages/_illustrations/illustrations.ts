@@ -5,10 +5,15 @@ import { AzSelectedItem, Wizard } from '../../core/components';
 
 @Component({
   selector: 'page-illustrations',
+  
   styles: [`
     .separator {
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       border: solid 1px silver;
+    }
+    .table-header {
+      background-color: #387ef5;
+      color: #fff;
     }
   `],
   template:
@@ -74,11 +79,62 @@ import { AzSelectedItem, Wizard } from '../../core/components';
     <ion-title>???</ion-title>
   </div>
 
+  <div class="separator">
+    <ion-title>Pipes!</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-25 class="table-header">Value</ion-col>
+        <ion-col width-25 class="table-header">Applied</ion-col>
+        <ion-col width-50 class="table-header">Scenario</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-25>123456</ion-col>
+        <ion-col width-25>{{123456 | commafy}}</ion-col>
+        <ion-col width-50>Commafy</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-25>123.345</ion-col>
+        <ion-col width-25>{{123.345678 | fixed}}</ion-col>
+        <ion-col width-33>fixed (default)</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-25>123.345</ion-col>
+        <ion-col width-25>{{123.345678 | fixed:'3'}}</ion-col>
+        <ion-col width-50>fixed (3 points)</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-25>some string</ion-col>
+        <ion-col width-25>{{'some string' | nan}}</ion-col>
+        <ion-col width-50>nan - gives</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-25>123</ion-col>
+        <ion-col width-25>{{123 | nan}}</ion-col>
+        <ion-col width-50>nan - gives 123</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col width-25>123.456</ion-col>
+        <ion-col width-25>{{123.456 | poundify}}</ion-col>
+        <ion-col width-50>poundify gives £123.46</ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </div>  
+
 </ion-content>
 `  
 })
 export class IllustrationsPage {
   @ViewChild(Wizard) _wizard: Wizard = null;
+
+  // For Pipe testing
+
 
   constructor(public navCtrl: NavController) {
     
@@ -91,23 +147,23 @@ export class IllustrationsPage {
     console.log(this._alphaItems, this._years);
   }
 
-  private _alphaItems: Array<string> = null;
+  protected _alphaItems: Array<string> = null;
   public onSelectedAlphaItem(selected: AzSelectedItem): void {
     console.log(`Selected ${selected.selectedValue}`);
   }
 
-  private _digitPickerValue: number = 0;
+  protected _digitPickerValue: number = 0;
   public onDigitChanged(value: any): void {
     console.log(`Selected ${value}`);
   }
 
-  private _years: Array<string> = null;
+  protected _years: Array<string> = null;
   public onSegmentList_ChangeYear(value: string): void {
     console.log(`Selected ${value}`);
   }
 
-  private _step1gender: boolean = null;
-  private _step2age: number = null;
+  protected _step1gender: boolean = null;
+  protected _step2age: number = null;
   public onWizardStepChanged(evt): void {
     console.log(`Wizard::StepChanged ${evt}`);
   }
