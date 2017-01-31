@@ -5,7 +5,7 @@ import { TimeService } from '../../core/services';
 import { CoreValidators } from '../../core/validators/'
 
 @Component({
-  selector: 'page-illustrations',
+  selector: 'page-core-illustrations',
   
   styles: [`
     .separator {
@@ -141,7 +141,7 @@ import { CoreValidators } from '../../core/validators/'
 </ion-content>
 `  
 })
-export class IllustrationsPage {
+export class CoreIllustrationsPage {
   @ViewChild(Wizard) _wizard: Wizard = null;
 
   _ageForm: FormGroup = null; 

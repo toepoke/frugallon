@@ -1,4 +1,4 @@
-export { IllustrationsPage } from './_illustrations/illustrations';
+export { CoreIllustrationsPage } from './_illustrations/core-illustrations';
 export { AboutPage } from './about/about';
 export { FillUpPage } from './fill-up/fill-up';
 export { HistoryPage } from './history/history';
