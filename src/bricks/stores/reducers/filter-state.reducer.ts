@@ -4,7 +4,7 @@ import * as ditto from "../../../core/helpers/ditto";
 import * as _ from "../../../core/helpers/underscore";
 
 // Dependencies
-import { IFilterState } from "../ifilter-state";
+import { IFilterState } from "../ifilter.state";
 import { eFillUpType } from "../../models";
 import { FilterActions } from '../actions/filter.actions';
 import { AppActions } from '../actions/app.actions';
