@@ -2,7 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl }  from '@angular/forms'
 import { TimeService } from '../../core/services';
 import { CoreValidators } from '../../core/validators/'
-import { Car } from '../../bricks/models/car';
+import { Car, CarMaker } from '../../bricks/models';
+
 
 @Component({
   selector: 'page-core-illustrations',
@@ -51,11 +52,20 @@ import { Car } from '../../bricks/models/car';
     </ion-grid>
   </div>  
 
+  <div class="separator">
+    <ion-title>Car Makers</ion-title>
+    <car-picker-ion 
+      [car-makers]="_makers"
+      (on-change)="onMakerSelect($event)"
+    ></car-picker-ion>
+  </div>
+
 </ion-content>
 `  
 })
 export class BricksIllustrationsPage {
   protected _cars: Array<Car> = null;
+  protected _makers: Array<CarMaker> = null;
 
   constructor(
     private _formBuilder: FormBuilder
@@ -77,6 +87,12 @@ export class BricksIllustrationsPage {
     c.mileage = 23456;
     this._cars = new Array<Car>();
     this._cars.push( c );
+
+    
+    this._makers = new Array<CarMaker>();
+    this._makers.push( CarMaker.create("CAR", "Ford", "Mondeo,Capri,Focus,Orion"));
+    this._makers.push( CarMaker.create("CAR", "Audi", "A1,A2,A3,A4,A5,A6,A7,80"));
+    this._makers.push( CarMaker.create("CAR", "Austin", "Montego,Mini"));
   }
 
   protected onCarSelect(c: Car): void {
@@ -89,6 +105,10 @@ export class BricksIllustrationsPage {
 
   protected onCarDelete(c: Car): void {
     console.log(`Car Delete: ${c}`);
+  }
+
+  protected onMakerSelect(maker: any): void {
+    console.log(`Maker: ${maker}`);
   }
 
 }
