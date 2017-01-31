@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder }  from '@angular/forms'
-import { Car, CarMaker } from '../../bricks/models';
+import { Car, CarMaker, FillUp, eFillUpType } from '../../bricks/models';
 import { ColourSet } from '../../core/components';
 
 @Component({
@@ -27,6 +27,17 @@ import { ColourSet } from '../../core/components';
 <ion-content padding>
   <p>Bricks illustrations</p>
 
+  <div class="separator">
+    <ion-title>???</ion-title>
+  </div>  
+
+  <div class="separator">
+    <ion-title>Fill Summary</ion-title>
+    <fill-summary-ion
+      [fill-up]="_fillUp"
+      [car]="_fillUp.car"
+    ></fill-summary-ion>
+  </div>  
 
   <div class="separator">
     <ion-title>Car List</ion-title>
@@ -73,14 +84,36 @@ export class BricksIllustrationsPage {
   protected _cars: Array<Car> = null;
   protected _makers: Array<CarMaker> = null;
   protected _colours: ColourSet = null;
+  protected _fillUp: FillUp = null;
 
   constructor(
     private _formBuilder: FormBuilder
   ) {
     this.createForms(_formBuilder);
     this.createCars();
-    this.createColours();
+    this.createData();
   }
+
+  protected onCarSelect(c: Car): void {
+    console.log(`Car selected: ${c}`);
+  }
+
+  protected onCarEdit(c: Car): void {
+    console.log(`Car Edit: ${c}`);
+  }
+
+  protected onCarDelete(c: Car): void {
+    console.log(`Car Delete: ${c}`);
+  }
+
+  protected onMakerSelect(maker: any): void {
+    console.log(`Maker: ${maker}`);
+  }
+
+  protected onColourPick(selected: any): void {
+    console.log(`Colour: ${selected}`);
+  }
+
 
   protected createForms(fb: FormBuilder): void {
 
@@ -103,7 +136,7 @@ export class BricksIllustrationsPage {
     this._makers.push( CarMaker.create("CAR", "Austin", "Montego,Mini"));
   }
 
-  protected createColours(): void {
+  protected createData(): void {
 		let offBlue: string = "#A6AFF7";
 		let trans: string = "transparent";
 
@@ -129,26 +162,14 @@ export class BricksIllustrationsPage {
       [ "orangered", trans ],
       [ "sienna", trans ]
     ]);
-  }
 
-  protected onCarSelect(c: Car): void {
-    console.log(`Car selected: ${c}`);
-  }
-
-  protected onCarEdit(c: Car): void {
-    console.log(`Car Edit: ${c}`);
-  }
-
-  protected onCarDelete(c: Car): void {
-    console.log(`Car Delete: ${c}`);
-  }
-
-  protected onMakerSelect(maker: any): void {
-    console.log(`Maker: ${maker}`);
-  }
-
-  protected onColourPick(selected: any): void {
-    console.log(`Colour: ${selected}`);
+    this._fillUp = new FillUp();
+    this._fillUp.car = this._cars[0];
+    this._fillUp.fillType = eFillUpType.Commute;
+    this._fillUp.imperialMpg = 99;
+    this._fillUp.litres = 33;
+    this._fillUp.miles = 300;
+    this._fillUp.price = 108.7;
   }
 
 }
