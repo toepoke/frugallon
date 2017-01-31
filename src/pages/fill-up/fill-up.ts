@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
-import { ProductNameIon } from "../../bricks/components";
 
 @Component({
   selector: 'page-fill-up',

@@ -5,7 +5,7 @@ import * as _ from "../../../core/helpers/underscore";
 
 // Dependencies
 import { IFilterState } from "../ifilter-state";
-import { Car, FillUp, eFillUpType, MpgStat } from "../../models";
+import { eFillUpType } from "../../models";
 import { FilterActions } from '../actions/filter-actions';
 import { AppActions } from '../actions/app-actions';
 
@@ -155,7 +155,6 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 // Returns true if added
 // Returns false if removed
 function arrayToggle<T>(harry: Array<T>, value: T): Array<T> {
-	let exists: boolean = false;
 	let found: T = null;
 	let results: Array<T>;
 

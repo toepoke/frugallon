@@ -1,9 +1,6 @@
-import { Component, Input, Output, EventEmitter, ContentChildren, QueryList, ChangeDetectionStrategy, AfterContentInit } from '@angular/core';
-import { eStepDirection } from "./step-direction";
+import { Component, Input, Output, EventEmitter, ContentChildren, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { StepChangeEvent } from "./step-change-event";
 import { WizardStep } from "./wizard-step";
-import { NavController, Button, Content, Toolbar, Icon } from "ionic-angular";
-import * as _ from "../../helpers/underscore";
 
 @Component({
 	selector: 'wizard', 
@@ -104,7 +101,7 @@ export class Wizard {
 	/**
 	 * Initialises the wizard control. 
 	 */	
-	private ngAfterContentInit(): void {
+	protected ngAfterContentInit(): void {
 		if (this.initialStep && this.initialStep !== this._currentStep) {
 			// Wizard consumer wants to skip to a given step in the process
 			this._currentStep = this.initialStep;
@@ -143,7 +140,7 @@ export class Wizard {
 	/**
 	 * Returns the "WizardStep" at the given index. 
 	 */	
-	private getStep(atIndex: number): WizardStep {
+	protected getStep(atIndex: number): WizardStep {
 		this.readyGuard("getStep");
 
 		if (atIndex < 0 || atIndex > this._steps.length-1) {
@@ -206,7 +203,7 @@ export class Wizard {
 	/**
 	 * Ensures methods aren't called until control has been initialised 
 	 */	
-	private readyGuard(forMethod: string) {
+	protected readyGuard(forMethod: string) {
 		if (!this._isReady) {
 			// method should not be called until control has been initialised
 			throw new Error(`${forMethod} should not be called until the control has initialised.`);
@@ -263,7 +260,7 @@ export class Wizard {
 	/**
 	 * Instructs the callee the user has cancelled the wizard. 
 	 */	
-	private onCancel(): void {
+	protected onCancel(): void {
 		this.cancelled.emit(this);		
 	}
 	
@@ -271,7 +268,7 @@ export class Wizard {
 	/**
 	 * Flags whether the "Back" button should be available.
 	 */
-	private showBack(): boolean {
+	protected showBack(): boolean {
 		if (!this._isReady) {
 			// Don't take into account until control has initialised
 			return false;
@@ -284,7 +281,7 @@ export class Wizard {
 	/**
 	 * Flags whether the "Cancel" button should be available. 
 	 */
-	private showCancel(): boolean {
+	protected showCancel(): boolean {
 		if (!this._isReady) {
 			// Don't take into account until control is initialised	
 			return false;
@@ -297,7 +294,7 @@ export class Wizard {
 	/**
 	 * Flags whether the "Skip" button should be available.
 	 */
-	private showSkip(): boolean {
+	protected showSkip(): boolean {
 		if (!this._isReady) {
 			// Don't take into account until control is initialised
 			return false;
@@ -311,7 +308,7 @@ export class Wizard {
 	 * Flags whether the "Next" button should be shown.
 	 * (e.g. not appopriate on the final/finish step).
 	 */
-	private showNext(): boolean {
+	protected showNext(): boolean {
 		if (!this._isReady) {
 			// Don't take into account until control is initialised
 			return false;
@@ -336,7 +333,7 @@ export class Wizard {
 	 * Flags whether the "Finish" button should be shown.
 	 * (i.e. the final/finish step is active). 
 	 */	
-	private showFinish(): boolean {
+	protected showFinish(): boolean {
 		if (!this._isReady) {
 			// Don't take into account until control is initialised
 			return false;
@@ -349,7 +346,7 @@ export class Wizard {
 	/**
 	 * Fired to the callee when the "Finish" button is clicked. 
 	 */
-	private onFinish(): void {
+	protected onFinish(): void {
 		this.readyGuard("onFinish");
 		
 		this.finished.emit(this);
@@ -359,7 +356,7 @@ export class Wizard {
 	/**
 	 * Flags whether the current step is considered valid [by the callee].
 	 */
-	private isStepValid(): boolean {
+	protected isStepValid(): boolean {
 		if (!this._isReady) {
 			// Don't take into account until control is initialised
 			return false;

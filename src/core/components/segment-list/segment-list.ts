@@ -31,7 +31,6 @@ export class SegmentList implements OnInit {
 	@Input("prev-icon") prevIcon: string = "arrow-back";
 	@Output() select: EventEmitter<any> = new EventEmitter<any>();
 
-	private startingValue: number = 0;
 	private windowStart: number = 0;
 	private windowFinish: number = 0;
 	
@@ -79,7 +78,7 @@ export class SegmentList implements OnInit {
 	/**
 	 * Fired when the user hits one of the segment buttons
 	 */
-	private onSegmentChanged(btn: SegmentButton): void {
+	protected onSegmentChanged(btn: SegmentButton): void {
 		if (_.isNull(btn))
 			return;
 		if (_.isNull(btn.value))
@@ -109,7 +108,7 @@ export class SegmentList implements OnInit {
 	/**
 	 * Handles another segment being selected.
 	 */
-	private handleSegmentChange(value: string): void {
+	protected handleSegmentChange(value: string): void {
 		let selected: any = this.segments.find((s: any) => this.getValue(s) == value);
 
 		// And report back ...
@@ -120,7 +119,7 @@ export class SegmentList implements OnInit {
 	/**
 	 * Flags whether a given segment is inside the _viewable_ window of segments.
 	 */
-	private showSegment(index: number) {
+	protected showSegment(index: number) {
 		let show: boolean = false;
 		
 		if (index >= this.windowStart && index <= this.windowFinish) {
@@ -139,7 +138,7 @@ export class SegmentList implements OnInit {
 	 * (as we may wish to use it as a title of the section in the ui).
 	 * By default 1 is shown, but you can turn this off with the "showWhenSingle" input.
 	 */
-	private showControl(): boolean {
+	protected showControl(): boolean {
 		let show: boolean = true;
 		
 		if (!this.segments || this.segments.length === 0) {
@@ -162,7 +161,7 @@ export class SegmentList implements OnInit {
 	 * such that the navigation will never be used (so doesn't make sense to 
 	 * show it)
 	 */
-	private showNavigation(): boolean {
+	protected showNavigation(): boolean {
 		let show: boolean = true;
 		
 		if (this.segments.length <= this.maxVisible) {
@@ -177,7 +176,7 @@ export class SegmentList implements OnInit {
 	 * Flags whether the back arrow is enabled or disabled.
 	 * If the _front_ of the window is already in view, there's nothing to go back to.
 	 */
-	private enablePrev(): boolean {
+	protected enablePrev(): boolean {
 		let show: boolean = true;
 
 		if (this.segments.length <= this.maxVisible) {
@@ -199,7 +198,7 @@ export class SegmentList implements OnInit {
 	 * Flags whether the forward arrow is enabled or disabled.
 	 * If the _end_ of the window is already in view, there's nothing to move forward into.
 	 */
-	private enableNext(): boolean {
+	protected enableNext(): boolean {
 		let show: boolean = true;
 
 		if (this.segments.length <= this.maxVisible) {
@@ -220,7 +219,7 @@ export class SegmentList implements OnInit {
 	/**
 	 * Moves the viewable _window_ back one step
 	 */
-	private goPrev(backBy: number = 1): void {
+	protected goPrev(backBy: number = 1): void {
 		if (!this.enablePrev()) {
 			// already at start of list and window
 			return;
@@ -236,7 +235,7 @@ export class SegmentList implements OnInit {
 	/**
 	 * Moves the viewable _window_ forward one step
 	 */
-	private goNext(forwardBy: number = 1): void {
+	protected goNext(forwardBy: number = 1): void {
 		if (!this.enableNext()) {
 			// already at end of list and window
 			return;
@@ -254,7 +253,7 @@ export class SegmentList implements OnInit {
 	 * only want to see 3 at a time (see "maxVisible" input) our _viewable_ window
 	 * could be items 11..13 or 1..3, etc.
 	 */
-	private calcWindow(): void {
+	protected calcWindow(): void {
 		for (let i: number=0; i < this.segments.length; i++) {
 			let curr: any = this.segments[i];
 			

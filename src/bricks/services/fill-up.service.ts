@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store, Action } from "@ngrx/store";
 
 // Core
-import { TypedDb, DbCmdFailure } from "../../core/typed-db/";
+import { DbCmdFailure } from "../../core/typed-db/";
 import * as _ from "../../core/helpers/underscore";
 import * as ditto from "../../core/helpers/ditto";
 
