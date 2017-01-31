@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder }  from '@angular/forms'
 import { Car, CarMaker } from '../../bricks/models';
-import { ColourSet } from '../../bricks/components';
+import { ColourSet } from '../../core/components';
 
 @Component({
   selector: 'page-core-illustrations',

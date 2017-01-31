@@ -12,3 +12,4 @@ export { WizardStep } from './wizard/wizard-step';
 export { StepChangeEvent } from './wizard/step-change-event';
 export { Wizard } from './wizard/wizard';
 
+export { ColourPickerIon, ColourSet } from './colour-picker-ion/colour-picker-ion';
