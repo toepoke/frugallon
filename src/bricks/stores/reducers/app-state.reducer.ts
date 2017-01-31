@@ -6,7 +6,7 @@ import * as ditto from "../../../core/helpers/ditto";
 // Dependencies
 import { IAppState } from "../iapp-state";
 import { Car, FillUp } from "../../models";
-import { AppActions } from '../actions/app-actions'
+import { AppActions } from '../actions/app.actions'
 
 export const INITALISE_NGRX: string = "@@ngrx/INIT";
 export const INITIALISE_APP: string = "INITIALISE_APP";

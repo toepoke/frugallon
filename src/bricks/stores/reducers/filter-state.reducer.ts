@@ -6,8 +6,8 @@ import * as _ from "../../../core/helpers/underscore";
 // Dependencies
 import { IFilterState } from "../ifilter-state";
 import { eFillUpType } from "../../models";
-import { FilterActions } from '../actions/filter-actions';
-import { AppActions } from '../actions/app-actions';
+import { FilterActions } from '../actions/filter.actions';
+import { AppActions } from '../actions/app.actions';
 
 export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilterState, action: Action) => {
 	let newState: IFilterState = null;
