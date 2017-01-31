@@ -1,9 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl }  from '@angular/forms'
-import { TimeService } from '../../core/services';
-import { CoreValidators } from '../../core/validators/'
+import { FormBuilder }  from '@angular/forms'
 import { Car, CarMaker } from '../../bricks/models';
-
+import { ColourSet } from '../../bricks/components';
 
 @Component({
   selector: 'page-core-illustrations',
@@ -41,6 +39,14 @@ import { Car, CarMaker } from '../../bricks/models';
   </div>
 
   <div class="separator">
+    <ion-title>Colour Picker</ion-title>
+    <colour-picker-ion
+      [colours]="_colours"
+      (on-select)="onColourPick($event)"
+    ></colour-picker-ion>
+  </div>  
+
+  <div class="separator">
     <ion-title>Pipes</ion-title>
     <ion-grid>
       <ion-row>
@@ -66,12 +72,14 @@ import { Car, CarMaker } from '../../bricks/models';
 export class BricksIllustrationsPage {
   protected _cars: Array<Car> = null;
   protected _makers: Array<CarMaker> = null;
+  protected _colours: ColourSet = null;
 
   constructor(
     private _formBuilder: FormBuilder
   ) {
     this.createForms(_formBuilder);
     this.createCars();
+    this.createColours();
   }
 
   protected createForms(fb: FormBuilder): void {
@@ -95,6 +103,34 @@ export class BricksIllustrationsPage {
     this._makers.push( CarMaker.create("CAR", "Austin", "Montego,Mini"));
   }
 
+  protected createColours(): void {
+		let offBlue: string = "#A6AFF7";
+		let trans: string = "transparent";
+
+    this._colours = new Map<string,string>([
+      [ "black", trans ],
+      [ "white", offBlue ],
+      [ "grey", trans ],
+      [ "blue", trans ],
+      [ "red", trans ],
+      [ "darkorange", trans ],
+      [ "yellow", offBlue ],
+      [ "green", trans ],
+      [ "brown", trans ],
+      [ "blueviolet", trans ],
+      [ "firebrick", trans ],
+      [ "hotpink", trans ],
+      [ "cadetblue", trans ],
+      [ "darkslateblue", trans ],
+      [ "crimson", trans ],
+      [ "darkgoldenrod", trans ],
+      [ "gold", trans ],
+      [ "lemonchiffon", offBlue ],
+      [ "orangered", trans ],
+      [ "sienna", trans ]
+    ]);
+  }
+
   protected onCarSelect(c: Car): void {
     console.log(`Car selected: ${c}`);
   }
@@ -109,6 +145,10 @@ export class BricksIllustrationsPage {
 
   protected onMakerSelect(maker: any): void {
     console.log(`Maker: ${maker}`);
+  }
+
+  protected onColourPick(selected: any): void {
+    console.log(`Colour: ${selected}`);
   }
 
 }
