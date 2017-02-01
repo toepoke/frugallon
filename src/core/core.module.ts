@@ -5,34 +5,34 @@ import { IonicModule } from 'ionic-angular';
 import { AzList, DigitPickerIon, SegmentList, Wizard, WizardStep, ColourPickerIon } from './components/'
 import { CommafyPipe, FixedPipe, NanPipe, PoundifyPipe } from './pipes';
 
+const COMPONENTS: any[] = [
+	AzList,
+	DigitPickerIon,
+	SegmentList,
+	Wizard,
+	WizardStep,
+	ColourPickerIon
+];
+
+const PIPES: any[] = [
+	CommafyPipe,
+	FixedPipe,
+	NanPipe,
+	PoundifyPipe
+];
+
 @NgModule({
 	imports: [
 		CommonModule,
 		IonicModule
 	],
 	declarations: [
-		AzList,
-		DigitPickerIon,
-		SegmentList,
-		Wizard,
-		WizardStep,
-		CommafyPipe,
-		FixedPipe,
-		NanPipe,
-		PoundifyPipe,
-		ColourPickerIon
+		COMPONENTS,
+		PIPES
 	],
 	exports: [
-		AzList,
-		DigitPickerIon,
-		SegmentList,
-		Wizard,
-		WizardStep,
-		CommafyPipe,
-		FixedPipe,
-		NanPipe,
-		PoundifyPipe,
-		ColourPickerIon
+		COMPONENTS,
+		PIPES
 	]
 })
 export class CoreModule {

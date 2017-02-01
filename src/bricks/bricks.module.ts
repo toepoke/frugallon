@@ -5,6 +5,14 @@ import { CoreModule } from '../core/core.module';
 
 import { ProductNameIon, CarListIon, CarPickerIon, FillSummaryIon, FillListIon } from './components';
 
+const COMPONENTS: any[] = [
+	ProductNameIon,
+	CarListIon,
+	CarPickerIon,
+	FillSummaryIon,
+	FillListIon
+];
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -12,18 +20,10 @@ import { ProductNameIon, CarListIon, CarPickerIon, FillSummaryIon, FillListIon }
 		CoreModule
 	],
 	declarations: [
-		ProductNameIon,
-		CarListIon,
-		CarPickerIon,
-		FillSummaryIon,
-		FillListIon
+		COMPONENTS
 	],
 	exports: [
-		ProductNameIon,
-		CarListIon,
-		CarPickerIon,
-		FillSummaryIon,
-		FillListIon
+		COMPONENTS
 	]
 })
 export class BricksModule {
