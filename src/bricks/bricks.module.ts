@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 import { CoreModule } from '../core/core.module';
 
-import { ProductNameIon, CarListIon, CarPickerIon, FillSummaryIon } from './components';
+import { ProductNameIon, CarListIon, CarPickerIon, FillSummaryIon, FillListIon } from './components';
 
 @NgModule({
 	imports: [
@@ -15,13 +15,15 @@ import { ProductNameIon, CarListIon, CarPickerIon, FillSummaryIon } from './comp
 		ProductNameIon,
 		CarListIon,
 		CarPickerIon,
-		FillSummaryIon
+		FillSummaryIon,
+		FillListIon
 	],
 	exports: [
 		ProductNameIon,
 		CarListIon,
 		CarPickerIon,
-		FillSummaryIon
+		FillSummaryIon,
+		FillListIon
 	]
 })
 export class BricksModule {

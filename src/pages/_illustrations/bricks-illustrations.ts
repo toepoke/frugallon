@@ -4,7 +4,7 @@ import { Car, CarMaker, FillUp, eFillUpType } from '../../bricks/models';
 import { ColourSet } from '../../core/components';
 
 @Component({
-  selector: 'page-core-illustrations',
+  selector: 'page-bricks-illustrations',
   
   styles: [`
     .separator {
@@ -29,6 +29,14 @@ import { ColourSet } from '../../core/components';
 
   <div class="separator">
     <ion-title>???</ion-title>
+  </div>  
+
+  <div class="separator">
+    <ion-title>Fill List</ion-title>
+    <fill-list-ion
+      [history]="_history"
+      [show-fills]="true"
+    ></fill-list-ion>
   </div>  
 
   <div class="separator">
