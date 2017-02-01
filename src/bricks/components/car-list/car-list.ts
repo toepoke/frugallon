@@ -1,5 +1,5 @@
 import { Component, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
-import { Car, CarMaker } from "../../models";
+import { Car } from "../../models";
 
 // [style.backgroundColor]="c.backgroundColour()"
 

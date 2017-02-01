@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output, SimpleChange } from '@angular/core';
-import { FillUp, eFillUpType, Settings, Car, MpgStat } from "../../models";
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { FillUp, eFillUpType, Car, MpgStat } from "../../models";
 import * as _ from "../../../core/helpers/underscore";
 
 // TODO: [style.backgroundColor]="car.backgroundColour()" 

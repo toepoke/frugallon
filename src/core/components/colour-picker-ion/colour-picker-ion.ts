@@ -1,5 +1,4 @@
-import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChange } from '@angular/core';
-import { NavController, Button, List, Item, Content, Toolbar } from "ionic-angular";
+import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import * as _ from "../../../core/helpers/underscore";
 
 @Component({
