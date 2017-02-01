@@ -22,7 +22,7 @@ import * as _ from "../../helpers/underscore";
 	`
 })
 
-export class SegmentList implements OnInit {
+export class SegmentListIon implements OnInit {
 	@Input() segments: Array<any> = new Array<any>();
 	@Input("selected-value") selectedValue: string = "";	// KeyItem.Value
 	@Input("show-when-single") showWhenSingle: boolean = true;

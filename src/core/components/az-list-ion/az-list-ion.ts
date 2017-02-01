@@ -31,7 +31,7 @@ import { AzSelectedItem } from "./az-selected-item";
  * @remarks: Master ionic component:
  *   http://ionicframework.com/docs/v2/components/#list-dividers 
  */
-export class AzList implements OnInit {
+export class AzListIon implements OnInit {
 	@Input() items: Array<string> = null;
 	@Output() onSelect: EventEmitter<AzSelectedItem> = new EventEmitter<AzSelectedItem>();
 

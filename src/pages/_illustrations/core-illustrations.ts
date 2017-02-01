@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl }  from '@angular/forms'
-import { AzSelectedItem, Wizard } from '../../core/components';
+import { AzSelectedItem, WizardIon } from '../../core/components';
 import { TimeService } from '../../core/services';
 import { CoreValidators } from '../../core/validators/'
 
@@ -142,7 +142,7 @@ import { CoreValidators } from '../../core/validators/'
 `  
 })
 export class CoreIllustrationsPage {
-  @ViewChild(Wizard) _wizard: Wizard = null;
+  @ViewChild(WizardIon) _wizard: WizardIon = null;
 
   _ageForm: FormGroup = null; 
   _age: FormControl = null; 

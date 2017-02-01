@@ -64,7 +64,7 @@ import { WizardStep } from "./wizard-step";
 `,
 })
 
-export class Wizard {
+export class WizardIon {
 	@ContentChildren(WizardStep) _steps: QueryList<WizardStep>;
 	/** Flags user can cancel out of the wizard at any time */
 	@Input("allow-cancel") allowCancel: boolean = false;
@@ -76,10 +76,10 @@ export class Wizard {
 	@Input("initial-step") initialStep: number = 0;
 	
 	/** Fired when the "Finish" button is clicked */
-	@Output() finished: EventEmitter<Wizard> = new EventEmitter<Wizard>();
+	@Output() finished: EventEmitter<WizardIon> = new EventEmitter<WizardIon>();
 
 	/** Fired when the "Cancel" button is clicked - "allowCancel" must be true. */
-	@Output() cancelled: EventEmitter<Wizard> = new EventEmitter<Wizard>();
+	@Output() cancelled: EventEmitter<WizardIon> = new EventEmitter<WizardIon>();
 	
 	/** Fired whent the step is changed (e.g. user hits "Next" or "Back"), 
 	  * either by the user or programatically. */

@@ -1,15 +1,15 @@
-export { AzGroup } from './az-list/az-group';
-export { AzSelectedItem } from './az-list/az-selected-item';
-export { AzList } from './az-list/az-list';
+export { AzGroup } from './az-list-ion/az-group';
+export { AzSelectedItem } from './az-list-ion/az-selected-item';
+export { AzListIon } from './az-list-ion/az-list-ion';
 
-export { DigitPickerIon } from './digit-picker/digit-picker-ion';
+export { DigitPickerIon } from './digit-picker-ion/digit-picker-ion';
 
-export { KeyItem } from './segment-list/key-item';
-export { SegmentList } from './segment-list/segment-list';
+export { KeyItem } from './segment-list-ion/key-item';
+export { SegmentListIon } from './segment-list-ion/segment-list-ion';
 
-export { eStepDirection } from './wizard/step-direction';
-export { WizardStep } from './wizard/wizard-step';
-export { StepChangeEvent } from './wizard/step-change-event';
-export { Wizard } from './wizard/wizard';
+export { eStepDirection } from './wizard-ion/step-direction';
+export { WizardStep } from './wizard-ion/wizard-step';
+export { StepChangeEvent } from './wizard-ion/step-change-event';
+export { WizardIon } from './wizard-ion/wizard-ion';
 
 export { ColourPickerIon, ColourSet } from './colour-picker-ion/colour-picker-ion';
