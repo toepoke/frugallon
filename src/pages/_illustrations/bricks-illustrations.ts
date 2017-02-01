@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder }  from '@angular/forms'
 import { Car, CarMaker, FillUp, eFillUpType } from '../../bricks/models';
 import { ColourSet } from '../../core/components';
