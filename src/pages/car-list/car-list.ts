@@ -26,7 +26,7 @@ import { NavController } from 'ionic-angular';
 		</ion-navbar>
 	</ion-header>
   
-  <ion-content padding>
+  <ion-content padding class="background">
     <p>My Cars (CAR LIST)</p>
   </ion-content>
 `  

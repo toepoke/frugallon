@@ -1,0 +1,201 @@
+<ion-header>
+	<ion-navbar>
+
+		<button ion-button text-left [menuToggle]="menu1">
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		
+		<ion-title text-center>
+			<product-name-ion></product-name-ion>
+		</ion-title>
+		
+		<ion-buttons end>
+			<button ion-button text-right menuToggle="menu2" disabled>
+				<!-- No icon and disabled so the logo still appears in the middle correctly -->
+			</button>
+		</ion-buttons>
+
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content class="background">
+
+	<!--<wizard #wiz 
+		[allow-cancel]="true"
+		(step-changed)="onStepChange($event)"
+		(step-skipped)="onStepSkip($event)" 
+		(finished)="onFinish($event)"
+		(cancelled)="onCancel($event)"
+	>
+		<wizard-step [name]="'CAR'" [is-valid]="_currentCar"> 
+			<ion-label>
+				Which car are you filling?
+			</ion-label>
+
+			<car-list-ion
+				[cars]="_myCars"
+				[allow-select]="true"
+				(on-select)="_onSelectCar($event)">
+			</car-list-ion>
+			
+			<p *ngIf="_currentCar" text-center>
+				You have <strong>{{_currentCar.toString()}}</strong> selected.
+			</p>
+			<div>					
+				<p *ngIf="!_currentCar" class="error-message">
+					A car must be selected.
+				</p>
+			</div>
+			
+		</wizard-step>
+
+		<wizard-step [name]="'MILES'" [is-valid]="_milesForm.valid">
+			<form [formGroup]="_milesForm" novalidate>
+				<div class="fru-mandatory">					
+					<ion-label [class.error]="!_miles.valid">
+						Miles this trip:
+					</ion-label>
+					/*
+						Note this is type="tel" rather than "number" because ag2 will barf if
+						we enter "12." in the digit picker because it sees "12." as an invalid number
+						when applying the model to the view
+					*/
+					<ion-input type="tel" class="number" formControlName="_miles"></ion-input>
+					<span class="mandatory">*</span>
+					<div class="clr"></div>
+				</div>
+				<div>
+					<digit-picker [value]="_miles.value" (changed)="onChange($event)"></digit-picker>
+				</div>
+				<div>					
+					<p *ngIf="_miles.hasError('required')" class="error-message">
+						Mileage is required.
+					</p>
+					<p *ngIf="_miles.hasError('range')" class="error-message">
+						Between <strong>1</strong> and <strong>9,999</strong>.
+					</p>
+					<p *ngIf="_miles.hasError('maxdecimals')" class="error-message">
+						Only to 2 decimal places.
+					</p>
+				</div>
+			</form>
+		</wizard-step>
+		
+		<wizard-step [name]="'LITRES'" [is-valid]="_litresForm.valid">
+			<form [formGroup]="_litresForm" novalidate>
+				<div class="fru-mandatory">		
+					<ion-label [class.error]="!_litres.valid">
+						Litres filled:
+					</ion-label>
+					<ion-input type="tel" class="number" formControlName="_litres"></ion-input>
+					<span class="mandatory">*</span>
+					<div class="clr"></div>
+				</div>
+				<div>
+					<digit-picker [value]="_litres.value" (changed)="onChange($event)"></digit-picker>
+				</div>
+				<div>					
+					<p *ngIf="_litres.hasError('required')" class="error-message">
+						Litres are required.
+					</p>
+					<p *ngIf="_litres.hasError('range')" class="error-message">
+						Between <strong>1</strong> and <strong>9,999</strong>.
+					</p>
+					<p *ngIf="_litres.hasError('maxdecimals')" class="error-message">
+						Only to 2 decimal places.
+					</p>
+				</div>
+			</form>
+		</wizard-step>
+		
+		<wizard-step [name]="'PRICE'" [allow-skip]="true" [is-valid]="_priceForm.valid">
+			<form [formGroup]="_priceForm" novalidate>
+				<div>					
+					<ion-label [class.error]="!_price.valid">
+						<div class="fl ib">Price per litre:</div>
+						<div class="fr ib">
+							<input-hint-ion>optional (pence)</input-hint-ion>
+						</div>
+					</ion-label>
+					<ion-input type="tel" class="number" formControlName="_price"></ion-input>
+				</div>
+				<div>
+					<digit-picker [value]="_price.value" (changed)="onChange($event)"></digit-picker>
+				</div>
+				<div>					
+					<p *ngIf="_price.hasError('range')" class="error-message">
+						Between <strong>1</strong> and <strong>&pound;10</strong>.
+					</p>
+					<p *ngIf="_price.hasError('maxdecimals')" class="error-message">
+						Only to 2 decimal places.
+					</p>
+				</div>
+			</form>
+		</wizard-step>
+
+		<wizard-step [name]="'MILEAGE'" [allow-skip]="true" [is-valid]="_mileageForm.valid">
+			<form [formGroup]="_mileageForm" novalidate>
+				<div>					
+					<ion-label>
+						<div class="fl ib">Mileage:</div>
+						<div class="fr ib">
+							<input-hint-ion>optional (includes {{_mileage.value | commafy}} fill-up miles)</input-hint-ion>
+						</div>
+					</ion-label>
+					<ion-input type="tel" class="number" formControlName="_mileage"></ion-input>
+				</div>
+				<div>
+					<digit-picker [value]="_mileage.value" (changed)="onChange($event)"></digit-picker>
+				</div>
+				<div>					
+					<p *ngIf="_mileage.hasError('range')" class="error-message">
+						Between <strong>1</strong> and <strong>3,000,000</strong>.
+					</p>
+					<p *ngIf="_mileage.hasError('maxdecimals')" class="error-message">
+						Only to 2 decimal places.
+					</p>
+				</div>
+			</form>
+		</wizard-step>		
+
+		<wizard-step [name]="'TYPE'" [allow-skip]="true">
+			<div>
+				<ion-label>
+					<div class="fl ib">Type of trip?</div>
+					<div class="fr ib">
+						<input-hint-ion>optional (pence)</input-hint-ion>
+					</div>
+				</ion-label>
+				<ion-list>
+					<ion-item *ngFor="let t of _fillTypes" (click)="_onSelectType(t)">
+						{{_getFillTypeDescription(t)}}
+						<ion-icon *ngIf="t === _selectedFillUpType" name="checkmark" item-right></ion-icon>
+					</ion-item>
+				</ion-list>
+			</div>
+		</wizard-step>
+		
+		<wizard-step [name]="'SUMMARY'">
+			<fill-summary-ion 
+				[fill-up]="_currentFillUp"
+				[car]="_currentCar"			
+				[measurement]="_measurement"
+			></fill-summary-ion>
+		</wizard-step>
+	</wizard>
+
+	<ion-row style="margin-top: 10rem" center>
+		<ion-col>
+			<button small (click)="cheat(wiz)">Cheat</button>
+		</ion-col>
+		<ion-col></ion-col>
+		<ion-col>
+			<button small danger (click)="fillHistory(wiz)">Add history</button>
+		</ion-col>
+		<ion-col>
+			<button small danger (click)="fillCars(wiz)">Add cars</button>
+		</ion-col>
+	</ion-row>-->
+
+</ion-content>		

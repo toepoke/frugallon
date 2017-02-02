@@ -76,3 +76,7 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+.background {
+	background-image: radial-gradient(ellipse farthest-corner at center, #FFFFFF 0%, #9CE5F4 100%);
+}
