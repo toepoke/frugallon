@@ -11,22 +11,34 @@ import * as ditto from '../core/helpers/ditto';
 import { IAppState, IFilterState, AppActions, FilterActions } from '../bricks/stores';
 import { FilterService, FillUpService } from '../bricks/services';
 import { Car, FillUp, Settings, Filters } from '../bricks/models';
-// import { TabsPage } from '../pages/tabs/tabs';
+import { MainMenuIon, FilterMenuIon } from '../bricks/components';
+import { TabsPage } from '../pages/tabs/tabs';
 // import { CoreIllustrationsPage } from '../pages/_illustrations/core-illustrations';
-import { BricksIllustrationsPage } from '../pages/_illustrations/bricks-illustrations';
+// import { BricksIllustrationsPage } from '../pages/_illustrations/bricks-illustrations';
 
 import { AppDatabase } from '../bricks/db2/app-database';
 
 @Component({
   template: 
-  `<ion-nav [root]="_rootPage"></ion-nav>`
+`
+	<ion-menu [content]="content" id="menu1">
+		<main-menu-ion></main-menu-ion>
+	</ion-menu>
+
+	<ion-menu [content]="content" id="menu2" side="right">
+		<filter-menu-ion></filter-menu-ion>
+	</ion-menu>
+	
+
+	<ion-nav [root]="_rootPage" #content></ion-nav>
+`
 })
 export class MyApp {
 	static APP_VERSION: string = "0.0.1";
 
-//  _rootPage = TabsPage;
+	_rootPage = TabsPage;
   // _rootPage = CoreIllustrationsPage;
-	_rootPage = BricksIllustrationsPage;
+	// _rootPage = BricksIllustrationsPage;
 
 	_filter$: Observable<IFilterState> = null;
 	_app$: Observable<IAppState> = null;
@@ -55,8 +67,8 @@ export class MyApp {
     this._appDb.primeDb()
       .then(() => console.log("database primed."))
       .then(() => this.getInitialState() )
-      .then((x: IAppState) => {
-        console.log(x);
+      .then((initState: IAppState) => {
+				console.warn("Initial state:", initState);
         return null;
       })
       .catch((err: any) => console.error(err))

@@ -5,7 +5,7 @@ import { COMPONENT_STRATEGY } from "../../../strategy";
 	selector: "product-name-ion",
 	changeDetection: COMPONENT_STRATEGY,
 	styles: [
-` body { background-color: blue !important }
+`
 	.title {
 		font-family: "Century Gothic";
 	}
