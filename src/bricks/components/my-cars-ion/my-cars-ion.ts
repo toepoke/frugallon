@@ -24,7 +24,7 @@ import { Car } from "../../models";
 `,
 }) 
 			
-export class CarListIon {
+export class MyCarsIon {
 	// When setting the button text, remember to surround the [select-button-text] input with quotes, e.g.
 	// 	[select-button-text]="'SELECT'"
 	// Otherwise ag2 will think you're referencing a variable called SELECT
