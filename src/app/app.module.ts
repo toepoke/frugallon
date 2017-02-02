@@ -14,7 +14,7 @@ import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '
 import { AppDatabase, DbProviders } from '../bricks/db2';
 import { FilterService, FillUpService } from '../bricks/services/';
 import { CarMakerDb, CarDb, SettingDb, MpgStatDb, FillUpDb, FiltersDb } from '../bricks/db2';
-import { CoreIllustrationsPage, BricksIllustrationsPage, AboutPage, FillUpPage, HistoryPage, RemindersPage, CarListPage, TabsPage } from '../pages';
+import { CoreIllustrationsPage, BricksIllustrationsPage, AboutPage, FillUpPage, HistoryPage, RemindersPage, MyCarsPage, TabsPage } from '../pages';
 import { MyApp } from './app.component';
 
 
@@ -35,17 +35,21 @@ settingDb.enableLogging();
 mpgStatDb.enableLogging();
 filtersDb.enableLogging();
 
+const PAGES: any[] = [
+  MyApp,
+  CoreIllustrationsPage,
+  BricksIllustrationsPage,
+  AboutPage,
+  FillUpPage,
+  HistoryPage,
+  RemindersPage,
+  MyCarsPage,
+  TabsPage
+];
+
 @NgModule({
   declarations: [
-    MyApp,
-    CoreIllustrationsPage,
-    BricksIllustrationsPage,
-    AboutPage,
-    FillUpPage,
-    HistoryPage,
-    RemindersPage,
-    CarListPage,    
-    TabsPage
+    PAGES
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -61,15 +65,7 @@ filtersDb.enableLogging();
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    CoreIllustrationsPage,
-    BricksIllustrationsPage,
-    AboutPage,
-    FillUpPage,
-    HistoryPage,
-    RemindersPage,
-    CarListPage,
-    TabsPage
+    PAGES
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

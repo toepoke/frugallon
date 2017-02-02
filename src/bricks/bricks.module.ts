@@ -5,7 +5,7 @@ import { CoreModule } from '../core/core.module';
 
 import { 
 	ProductNameIon,
-	MyCarsIon, 
+	CarListIon, 
 	CarPickerIon, 
 	FillSummaryIon, 
 	FillListIon, 
@@ -15,7 +15,7 @@ import {
 
 const COMPONENTS: any[] = [
 	ProductNameIon,
-	MyCarsIon,
+	CarListIon,
 	CarPickerIon,
 	FillSummaryIon,
 	FillListIon,

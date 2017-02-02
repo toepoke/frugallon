@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FillUpPage } from '../fill-up/fill-up';
 import { HistoryPage } from '../history/history';
 import { RemindersPage } from '../reminders/reminders';
-import { CarListPage } from '../car-list/car-list';
+import { MyCarsPage } from '../my-cars/my-cars';
 
 @Component({
   template:
@@ -22,7 +22,7 @@ export class TabsPage {
   tab1Root: any = FillUpPage;
   tab2Root: any = HistoryPage;
   tab3Root: any = RemindersPage;
-  tab4Root: any = CarListPage;
+  tab4Root: any = MyCarsPage;
 
   constructor() {
 

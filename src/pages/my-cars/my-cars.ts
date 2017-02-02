@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-car-list',
+  selector: 'page-my-cars',
   template:
 `
 	<ion-header>
@@ -31,7 +31,7 @@ import { NavController } from 'ionic-angular';
   </ion-content>
 `  
 })
-export class CarListPage {
+export class MyCarsPage {
 
   constructor(public navCtrl: NavController) {
 
