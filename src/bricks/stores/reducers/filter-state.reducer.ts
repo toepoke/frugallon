@@ -13,7 +13,7 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 	let newState: IFilterState = null;
 
 	switch (action.type) {
-		case '@@ngrx/INIT':
+		case AppActions.INITIALISE_NGRX:
 			newState = {
 				filtersActive: false,
 				filteredYears: new Array<number>(),
@@ -23,7 +23,7 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 			}
 			break;
 
-		case FilterActions.INITIALISE_APP:
+		case AppActions.INITIALISE_APP:
 			newState = ditto.updateItem(oldState, {
 				filtersActive: action.payload.filters.filtersActive,
 				filteredYears: action.payload.filters.filteredYears,

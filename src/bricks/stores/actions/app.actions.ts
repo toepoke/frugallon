@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Car, FillUp, MpgStats } from "../../models";
 import { IAppState } from '../iapp.state';
-
+//@ngrx/store/init
 /**
  * Set of actions for acting upon the application UI state.
  */
 @Injectable()
 export class AppActions {
+
+	// Fired by ngrx
+	static INITIALISE_NGRX: string = "@ngrx/store/init";
+
 
 	static INITIALISE_APP: string = "INITIALISE_APP";
 	public InitialiseApp(initialState: IAppState): Action {

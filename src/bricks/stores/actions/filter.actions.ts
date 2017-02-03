@@ -8,11 +8,6 @@ import { Car, eFillUpType } from "../../models";
 @Injectable()
 export class FilterActions {
 
-//	static INITIALISE_NGRX: string = '@@ngrx/INIT';
-
-	static INITIALISE_APP: string = 'INITIALISE_APP';
-
-
 	// TODO: SHOW_HISTORY
 
 	static FILTERS_ACTIVE_UPDATE: string = 'FILTERS_ACTIVE_UPDATE';

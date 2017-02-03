@@ -8,9 +8,6 @@ import { IAppState } from "../iapp.state";
 import { Car, FillUp, eFillUpType } from "../../models";
 import { AppActions } from '../actions/app.actions'
 
-export const INITALISE_NGRX: string = "@@ngrx/INIT";
-export const INITIALISE_APP: string = "INITIALISE_APP";
-
 // Data Shape Reminder
 // ====================
 // class AppState {
@@ -27,7 +24,7 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 	let newState: IAppState = null;
 
 	switch (action.type) {
-		case INITALISE_NGRX:
+		case AppActions.INITIALISE_NGRX:
 			newState = {
 				appVersion: "",
 				dbVersion: "",
@@ -44,7 +41,7 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 			};
 		return newState;
 			
-		case INITIALISE_APP:
+		case AppActions.INITIALISE_APP:
 			newState = ditto.updateItem(oldState, {
 				appVersion: action.payload.appVersion,
 				dbVersion: action.payload.dbVersion,
