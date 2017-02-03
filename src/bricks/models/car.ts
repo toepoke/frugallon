@@ -1,3 +1,4 @@
+import { ColourSet } from './../../core/components/';
 import * as _ from "../../core/helpers/underscore";
 //import { ColourSet } from "../components/colour-picker/colour-picker-ion";
 
@@ -57,6 +58,7 @@ export class Car {
 		}		
 	}
 	
+// TODO: Resolve from app state	
 	static getTypes(): Array<string> {
 		return new Array<string>(
 			"CAR", 
@@ -65,6 +67,48 @@ export class Car {
 		);
 	}
 	
+	private static COLOURS: ColourSet = null;
+
+
+// TODO: This should be in and resolved via the app state!
+	static getAvailableColours(): ColourSet {
+		if (!_.isNull(Car.COLOURS))	{
+			// already setup
+			return Car.COLOURS;
+		}
+
+		let offBlue: string = "#A6AFF7";
+		let trans: string = "transparent";
+		let cols: ColourSet = new Map<string, string>();
+
+		cols = new Map<string,string>([
+			[ "black", trans ],
+			[ "white", offBlue ],
+			[ "grey", trans ],
+			[ "blue", trans ],
+			[ "red", trans ],
+			[ "darkorange", trans ],
+			[ "yellow", offBlue ],
+			[ "green", trans ],
+			[ "brown", trans ],
+			[ "blueviolet", trans ],
+			[ "firebrick", trans ],
+			[ "hotpink", trans ],
+			[ "cadetblue", trans ],
+			[ "darkslateblue", trans ],
+			[ "crimson", trans ],
+			[ "darkgoldenrod", trans ],
+			[ "gold", trans ],
+			[ "lemonchiffon", offBlue ],
+			[ "orangered", trans ],
+			[ "sienna", trans ]
+		]);		
+
+		Car.COLOURS = cols;
+
+		return Car.COLOURS;
+	}
+
 	// HACK: Sadly static initialisation doesn't seem to work
 	//private static COLOURS: ColourSet = null;
 
@@ -105,11 +149,11 @@ export class Car {
 	// 	return Car.COLOURS;
 	// }
 	
-	// static getBackgroundColour(forForegroundColour: string): string {
-	// 	let bg: string = "";
-	// 	bg = Car.getAvailableColours().get(forForegroundColour);
-	// 	return bg;
-	// }
+	static getBackgroundColour(forForegroundColour: string): string {
+		let bg: string = "";
+		bg = Car.getAvailableColours().get(forForegroundColour);
+		return bg;
+	}
 	
 	static createDefault(): Car {
 		let c: Car = new Car();

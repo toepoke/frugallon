@@ -10,7 +10,8 @@ import {
 	SegmentListIon, 
 	WizardIon, WizardStep, 
 	ColourPickerIon, 
-	InputHintIon 
+	InputHintIon,
+	ColourSet
 } from './components/'
 
 const COMPONENTS: any[] = [

@@ -12,7 +12,8 @@ export { WizardStep } from './wizard-ion/wizard-step';
 export { StepChangeEvent } from './wizard-ion/step-change-event';
 export { WizardIon } from './wizard-ion/wizard-ion';
 
-export { ColourPickerIon, ColourSet } from './colour-picker-ion/colour-picker-ion';
+export { ColourPickerIon } from './colour-picker-ion/colour-picker-ion';
+export { ColourSet } from './colour-picker-ion/colour-set';
 
 export { InputHintIon } from './input-hint-ion/input-hint-ion';
 

@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ColourSet } from './colour-set';
 import * as _ from "../../../core/helpers/underscore";
 
 @Component({
@@ -33,7 +34,7 @@ import * as _ from "../../../core/helpers/underscore";
 	template:`
 		<div class="container">
 			<ul class="colour-list">
-				<li *ngFor="let colour of getColours()" (click)="_onSelect(colour)" [class.selected-colour]="isSelectedColour(colour)" class="colour-list-item">
+				<li *ngFor="let colour of getColours()" (click)="onSelect(colour)" [class.selected-colour]="isSelectedColour(colour)" class="colour-list-item">
 					<button ion-button large [style.background-color]="colour" class="colour-name-selector">
 					</button>
 				</li>
@@ -45,7 +46,7 @@ import * as _ from "../../../core/helpers/underscore";
 export class ColourPickerIon implements OnInit {
 	@Input() colours: ColourSet = null;
 	@Input("selected-colour") selectedColour: string = "";
-	@Output("on-select") onSelect: EventEmitter<string> = new EventEmitter<string>();
+	@Output("on-select") onSelectEvent: EventEmitter<string> = new EventEmitter<string>();
 
 	ngOnInit() {
 		if (this.selectedColour == null) {
@@ -79,15 +80,12 @@ export class ColourPickerIon implements OnInit {
 	 * Fired when the user selects a colour
 	 * (fires the selected colour back to the callee)
 	 */
-	_onSelect(colour: string) {
+	protected onSelect(colour: string) {
 		this.selectedColour = colour;
 		// Inform the caller of the new value		
-		this.onSelect.emit(colour);
+		this.onSelectEvent.emit(colour);
 	}
 
 }
 
 
-export interface ColourSet extends Map<string, string> {
-	
-}
