@@ -5,7 +5,7 @@ import { Car } from "../../models";
 
 @Component({
 	selector: 'car-list-ion', 
-	changeDetection: ChangeDetectionStrategy.Default,
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template:
 `
 	<ion-list>
