@@ -1,4 +1,4 @@
-import { FillUp, Car } from "../models";
+import { FillUp, Car, eFillUpType } from "../models";
 
 export interface IAppState {
 	appVersion: string;
@@ -21,6 +21,9 @@ export interface IAppState {
 
 	/** @description - Car being edited */
 	editingCar: Car;
+
+	/** Possible fill-up types (motorway, commute, etc) */
+	fillTypes: Array<eFillUpType>;
 
 	measurement: boolean;
 	measurementType: string;

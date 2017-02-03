@@ -5,7 +5,7 @@ import * as ditto from "../../../core/helpers/ditto";
 
 // Dependencies
 import { IAppState } from "../iapp.state";
-import { Car, FillUp } from "../../models";
+import { Car, FillUp, eFillUpType } from "../../models";
 import { AppActions } from '../actions/app.actions'
 
 export const INITALISE_NGRX: string = "@@ngrx/INIT";
@@ -39,7 +39,8 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 				measurement: false,
 				measurementType: "",
 				action: action.type,
-				showFills: new Array<number>()
+				showFills: new Array<number>(),
+				fillTypes: new Array<eFillUpType>()
 			};
 		return newState;
 			
@@ -52,7 +53,8 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 				selectedYear: action.payload.selectedYear,
 				fills: action.payload.fills,
 				measurement: action.payload.measurement,
-				measurementType: action.payload.measurementType
+				measurementType: action.payload.measurementType,
+				fillTypes: action.payload.fillTypes
 			});
 			return newState;
 

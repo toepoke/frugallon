@@ -80,3 +80,60 @@ $colors: (
 .background {
 	background-image: radial-gradient(ellipse farthest-corner at center, #FFFFFF 0%, #9CE5F4 100%);
 }
+.error-message {
+	font-size: smaller;
+	font-weight: bold;
+	background-color: #F3B45B;
+	padding: 0.75em;
+	color: #222; 
+}
+.fl { float: left; }
+.fr { float: right; }
+.fr::after {clear: both;}
+.clr, .clear { clear: both; }
+.ib { display: inline-block; }
+
+.mandatory {
+	color: red;
+	font-size: 3rem;
+	display: inline-block;
+}
+.fru-mandatory ion-input {
+  float: left;
+  width: 94%;
+}
+.fru-mandatory .mandatory {
+  margin-top: 1rem;	/* moves inline with the control */
+  float: right;
+}
+.mpg-bad  { color: red; }
+.mpg-ok   { color: orange; }
+.mpg-good { color: green; }
+
+.mpgbadge-bad  { background-color: #fd5050; color: #fff; }
+.mpgbadge-ok   { background-color: #ff7900; color: #fff; }
+.mpgbadge-good { background-color: #3d7d1e; color: #fff; }
+
+ion-input[type="text"], 
+ion-input[type="number"],
+ion-input[type="tel"] {
+  background-color: #DDF9FF;
+  font-size: 2rem;
+}
+ion-input.number input[type="text"], 
+ion-input.number input[type="number"],
+ion-input.number input[type="tel"] {
+  text-align: right;
+}
+
+ion-input {
+  padding-left: 1em;
+  border: solid 1px #ddd;
+}
+ion-input.ng-valid {
+  border-left: 5px solid #42A948;
+}
+ion-input.ng-invalid {
+  border-left: 5px solid #a94442;
+}
+

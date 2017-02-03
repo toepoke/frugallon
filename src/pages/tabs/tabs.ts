@@ -5,6 +5,13 @@ import { HistoryPage } from '../history/history';
 import { RemindersPage } from '../reminders/reminders';
 import { MyCarsPage } from '../my-cars/my-cars';
 
+export enum ePages {
+	FillUp = 0,
+	History = 1,
+	Stats = 2,
+	Cars = 3
+}
+
 @Component({
   template:
 `

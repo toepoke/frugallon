@@ -19,9 +19,9 @@
 </ion-header>
 
 
-<ion-content class="background">
+<ion-content padding class="background">
 
-	<!--<wizard #wiz 
+	<wizard #wiz 
 		[allow-cancel]="true"
 		(step-changed)="onStepChange($event)"
 		(step-skipped)="onStepSkip($event)" 
@@ -34,9 +34,9 @@
 			</ion-label>
 
 			<car-list-ion
-				[cars]="_myCars"
+				[cars]="(_app|async)?.cars"
 				[allow-select]="true"
-				(on-select)="_onSelectCar($event)">
+				(on-select)="onSelectCar($event)">
 			</car-list-ion>
 			
 			<p *ngIf="_currentCar" text-center>
@@ -49,18 +49,18 @@
 			</div>
 			
 		</wizard-step>
-
+		
 		<wizard-step [name]="'MILES'" [is-valid]="_milesForm.valid">
 			<form [formGroup]="_milesForm" novalidate>
 				<div class="fru-mandatory">					
 					<ion-label [class.error]="!_miles.valid">
 						Miles this trip:
 					</ion-label>
-					/*
+					<!--
 						Note this is type="tel" rather than "number" because ag2 will barf if
 						we enter "12." in the digit picker because it sees "12." as an invalid number
 						when applying the model to the view
-					*/
+					-->
 					<ion-input type="tel" class="number" formControlName="_miles"></ion-input>
 					<span class="mandatory">*</span>
 					<div class="clr"></div>
@@ -168,8 +168,8 @@
 					</div>
 				</ion-label>
 				<ion-list>
-					<ion-item *ngFor="let t of _fillTypes" (click)="_onSelectType(t)">
-						{{_getFillTypeDescription(t)}}
+					<ion-item *ngFor="let t of (_app|async)?.fillTypes" (click)="onSelectType(t)">
+						{{getFillTypeDescription(t)}}
 						<ion-icon *ngIf="t === _selectedFillUpType" name="checkmark" item-right></ion-icon>
 					</ion-item>
 				</ion-list>
@@ -183,19 +183,22 @@
 				[measurement]="_measurement"
 			></fill-summary-ion>
 		</wizard-step>
+
 	</wizard>
+
 
 	<ion-row style="margin-top: 10rem" center>
 		<ion-col>
-			<button small (click)="cheat(wiz)">Cheat</button>
+			<button ion-button small (click)="cheat(wiz)">Cheat</button>
 		</ion-col>
 		<ion-col></ion-col>
 		<ion-col>
-			<button small danger (click)="fillHistory(wiz)">Add history</button>
+			<button ion-button small danger (click)="fillHistory(wiz)">Add history</button>
 		</ion-col>
 		<ion-col>
-			<button small danger (click)="fillCars(wiz)">Add cars</button>
+			<button ion-button small danger (click)="fillCars(wiz)">Add cars</button>
 		</ion-col>
-	</ion-row>-->
+	</ion-row>
+
 
 </ion-content>		
