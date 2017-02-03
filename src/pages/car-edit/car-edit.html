@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Edit car</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="container background">
+	<wizard #wiz 
+		[allow-cancel]="true" 
+		[show-navigation]="_showNavigation" 
+		(step-changed)="onStepChanged($event)"
+		(finished)="onFinish($event)"
+		(cancelled)="onCancel($event)">
+
+		<wizard-step [name]="'TYPE'" [is-valid]="_selectedType !== ''">
+			<ion-label>What type of vehicle?</ion-label>
+			<ion-list>
+				<ion-item *ngFor="let t of _vehicleTypes" (click)="onSelectType(t)">
+					<ion-icon name="{{getIconName(t)}}" item-left></ion-icon>
+					{{getTypeDescription(t)}}
+					<ion-icon *ngIf="t === _selectedType" name="checkmark" item-right></ion-icon>
+				</ion-item>
+			</ion-list>
+		</wizard-step>
+	
+		<wizard-step [name]="'MAKE'" [is-valid]="isMakeStepValid()">
+			<ion-list>
+				<ion-item *ngIf="showMakePicker()" (click)="onMakerNotListed()">
+					Not Listed
+				</ion-item>
+			</ion-list>
+			<form *ngIf="!showMakePicker()" [formGroup]="_makeForm" novalidate>
+				<div class="fru-mandatory">					
+					<ion-label [class.error]="!_make.valid">What make is it?</ion-label>
+					<ion-input type="text" clearInput formControlName="_make"></ion-input>
+					<span class="mandatory">*</span>
+					<div class="clr"></div>
+				</div>
+				<div>					
+					<p *ngIf="_make.hasError('required')" class="error-message">
+						Make is required.
+					</p>
+				</div>
+			</form>
+			<alpha-list *ngIf="showMakePicker()" [items]="_makes" (onSelect)="onSelectedMake($event)"></alpha-list>
+		</wizard-step>
+
+		<wizard-step [name]="'MODEL'" [is-valid]="isModelStepValid()">
+			<ion-list>
+				<ion-item *ngIf="showModelPicker()" (click)="onModelNotListed()">
+					Not Listed
+				</ion-item>
+			</ion-list>
+			<form *ngIf="!showModelPicker()" [formGroup]="_modelForm" novalidate>
+				<div class="fru-mandatory">
+					<ion-label [class.error]="!_model.valid">What model is it?</ion-label>
+					<ion-input type="text" clearInput formControlName="_model"></ion-input>
+					<span class="mandatory">*</span>
+					<div class="clr"></div>
+				</div>
+				<div>					
+					<p *ngIf="_model.hasError('required')" class="error-message">
+						Model is required.
+					</p>
+				</div>
+			</form>
+			<alpha-list *ngIf="showModelPicker()" [items]="_models" (onSelect)="onSelectedModel($event)"></alpha-list>
+		</wizard-step>			
+
+		<wizard-step [name]="'COLOUR'" [is-valid]="isColourStepValid()">
+			<ion-label>Pick a colour to identify your {{_selectedType.toLowerCase()}}?</ion-label>
+			<colour-picker-ion [colours]="_colours" [selected-colour]="_selectedColour" (on-select)="onColourSelect($event)"></colour-picker-ion>
+		</wizard-step>
+		
+		<wizard-step [name]="'MILEAGE'" [is-valid]="_mileageForm.valid">
+			<form [formGroup]="_mileageForm" novalidate>
+				<div>					
+					<ion-label>What's the mileage? (optional)</ion-label>
+					<ion-input type="tel" class="number" formControlName="_mileage"></ion-input>
+				</div>
+				<div>
+					<digit-picker [value]="_mileage.value" (changed)="onMileageChange($event)"></digit-picker>
+				</div>
+				<div>					
+					<p *ngIf="_mileage.hasError('range')" class="error-message">
+						Between <strong>1</strong> and <strong>3,000,000</strong>.
+					</p>
+					<p *ngIf="_mileage.hasError('maxdecimals')" class="error-message">
+						Only to 2 decimal places.
+					</p>
+				</div>
+			</form>
+		</wizard-step>
+		
+	</wizard>	
+</ion-content>
