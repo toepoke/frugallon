@@ -18,15 +18,6 @@ import * as _ from "../../helpers/underscore";
 			display: inline-block;
 			min-width: 3.9em;
 		}
-		.not-visible {
-			visibility: hidden;
-		}
-		.make-smaller {
-			/*
-				Reduce padding on the backspace icon so it lines
-				up with the other numbers
-			*/
-		}
 	`],	
 	template:`
 		<div class="container">
