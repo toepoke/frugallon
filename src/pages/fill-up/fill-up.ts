@@ -36,7 +36,7 @@ enum WIZARD_STEP {
 export class FillUpPage {
   @ViewChild(WizardIon) _wizard: WizardIon = null;
 
-  private _app: Observable<IAppState> = null;
+  private _app$: Observable<IAppState> = null;
 	private _currentCar: Car = null;
 
 	_milesForm: FormGroup = null;
@@ -257,7 +257,7 @@ export class FillUpPage {
   }
 
   private wireUpState(): void {
-    this._app = <Observable<IAppState>> this._store.select("appState");
+    this._app$ = <Observable<IAppState>> this._store.select("appState");
     // this._app.subscribe((data: IAppState) => {
     //   console.log("data", data);
     // });
@@ -270,7 +270,7 @@ export class FillUpPage {
 /** HACKY TEST DATA STUFF HERE */
 
 	cheat(w: WizardIon) {
-		this._app
+		this._app$
 			.subscribe((appState: IAppState) => {
 				let c: Car = appState.cars[0];
 
@@ -289,7 +289,7 @@ export class FillUpPage {
 	
 
 	fillHistory(w: WizardIon) {
-		this._app
+		this._app$
 			.subscribe((appState: IAppState) => {
 				let START_YEAR: number = 2013;
 				let END_YEAR: number = 2017; 

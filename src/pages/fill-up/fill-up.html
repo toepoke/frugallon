@@ -34,7 +34,7 @@
 			</ion-label>
 
 			<car-list-ion
-				[cars]="(_app|async)?.cars"
+				[cars]="(_app$|async)?.cars"
 				[allow-select]="true"
 				(on-select)="onSelectCar($event)">
 			</car-list-ion>
@@ -168,7 +168,7 @@
 					</div>
 				</ion-label>
 				<ion-list>
-					<ion-item *ngFor="let t of (_app|async)?.fillTypes" (click)="onSelectType(t)">
+					<ion-item *ngFor="let t of (_app$|async)?.fillTypes" (click)="onSelectType(t)">
 						{{getFillTypeDescription(t)}}
 						<ion-icon *ngIf="t === _selectedFillUpType" name="checkmark" item-right></ion-icon>
 					</ion-item>
