@@ -2,10 +2,20 @@
  * Module: "ditto" (coz the module delivers new objects, and uber [kinda used to] sounds cool!)
  * Description: Set of [generic] helper methods for doing [very simple!] immutable type for TypeScript/ES6
  * Tests: See set of noddy tests at ????
+ * Source: https://gist.github.com/toepoke/fafa3cbe7f8592d6286237bebe43af19
  * Usage: 
  * 	"import * as ditto from './ditto';"
  *  ...
  *  ditto.updateItem( ... )
+ * Revisions:
+ * 	#1	- Initial version
+ *  #2	- Added further methods
+ * 	#3	- Added Object.assign inline polyfill.
+ * 			- Added "replaceAll" method 
+ * 			- "updateItem" now copies methods too 
+ * 			- Fixed quotes and tabs
+ * 	#3	- Added revision history (yup, this bit)
+ * 	#4	- Fix for "updateItem" not handling null current input
  */
 
 /**
@@ -15,15 +25,20 @@
  */
 export function updateItem<T>(current: T, updates: any): T {
 	let propItems: T = null;
-	
+
+	if (current == null || current == undefined) {
+		// just return the updated version
+		return updates;
+	}
+
 	// This whole __proto__ thang copies over the methods too :-)
 	// http://www.2ality.com/2014/01/object-assign.html
-	propItems = Object.assign( 
-		{__proto__: (<any>current).__proto__}, 
-		current, 
-		updates 
+	propItems = Object.assign(
+		{__proto__: (<any>current).__proto__},
+		current,
+		updates
 	);
-			
+
 	return propItems;
 }
 
@@ -47,7 +62,7 @@ export function any<T>(items: Array<T>): boolean {
 	if (isNull(items))
 		// might be null, but there still aren't any items!
 		return false;
-	
+
 	return items.length > 0;
 }
 
@@ -59,7 +74,7 @@ export function any<T>(items: Array<T>): boolean {
 export function empty<T>(items: Array<T>): boolean {
 	if (isNull(items))
 		return true;
-		
+
 	return items.length === 0;
 }
 
@@ -71,9 +86,9 @@ export function empty<T>(items: Array<T>): boolean {
  */
 export function last<T>(items: Array<T>): T {
 	if (any(items)) {
-		return items[items.length-1];
+		return items[items.length - 1];
 	}
-	
+
 	return null;
 }
 
@@ -87,7 +102,7 @@ export function first<T>(items: Array<T>): T {
 	if (any(items)) {
 		return items[0];
 	}
-	
+
 	return null;
 }
 
@@ -105,26 +120,26 @@ export function updateList<T>(items: Array<T>, predicate: any, itemUpdates: any 
 	let index: number = 0;
 	let newItem: T = null;
 	let replacement: T = newItem;
-	
-	if (typeof predicate === "number") {
+
+	if (typeof predicate === 'number') {
 		index = Number(predicate);
 	} else {
 		index = indexOf(items, predicate);
 	}
-	
+
 	newItem = items[index];
 
 	// make a pure copy of the original list
- 	newList.push(...items);
+	newList.push(...items);
 
 	if (!isNull(itemUpdates)) {
 		replacement = updateItem(newItem, itemUpdates);
 	}
-	 
+
 	// replace the affected item
 	newList.splice(index, 1, replacement);
-	
-	return newList;	
+
+	return newList;
 }
 
 
@@ -151,7 +166,7 @@ export function prepend<T>(items: Array<T>, itemToInsert: T): Array<T> {
 	return newList;
 }
 
-	
+
 /**
  * Returns a new array with 'n' items deleted.
  * @param items - Array to have elements removed from.
@@ -161,25 +176,25 @@ export function prepend<T>(items: Array<T>, itemToInsert: T): Array<T> {
 export function deleteItems<T>(items: Array<T>, predicate: any): Array<T> {
 	let deletedItems: Array<T> = new Array<T>();
 	let index: number = 0;
-	
-	if (typeof predicate === "number") {
+
+	if (typeof predicate === 'number') {
 		index = Number(predicate);
 	} else {
 		index = indexOf(items, predicate);
 	}
-	
+
 	if (index === -1) {
 		// no match, no change was made to the list, so send back the original
 		// ... this should prevent ui updates (e.g. ag2 OnPush) when no changes have happened
 		return items;
 	}
-	
+
 	// make a pure copy of the original list
 	deletedItems.push(...items);
-	
+
 	// delete the offending index
 	deletedItems.splice(index, 1);
-	
+
 	return deletedItems;
 }
 
@@ -217,32 +232,30 @@ function isPresent(o: any): boolean {
 
 
 interface ObjectConstructor {
-    assign(target: any, ...sources: any[]): any;
+	assign(target: any, ...sources: any[]): any;
 }
 
-if (typeof Object.assign != 'function') {
-  (function () {
-    Object.assign = function (target) {
-      'use strict';
-      if (target === undefined || target === null) {
-        throw new TypeError('Cannot convert undefined or null to object');
-      }
+if (typeof Object.assign !== 'function') {
+	(function () {
+		Object.assign = function (target) {
+			'use strict';
+			if (target === undefined || target === null) {
+				throw new TypeError('Cannot convert undefined or null to object');
+			}
 
-      var output = Object(target);
-      for (var index = 1; index < arguments.length; index++) {
-        var source = arguments[index];
-        if (source !== undefined && source !== null) {
-          for (var nextKey in source) {
-            if (source.hasOwnProperty(nextKey)) {
-              output[nextKey] = source[nextKey];
-            }
-          }
-        }
-      }
-      return output;
-    };
-  })();
+			let output = Object(target);
+			for (let index = 1; index < arguments.length; index++) {
+				let source = arguments[index];
+				if (source !== undefined && source !== null) {
+					for (let nextKey in source) {
+						if (source.hasOwnProperty(nextKey)) {
+							output[nextKey] = source[nextKey];
+						}
+					}
+				}
+			}
+			return output;
+		};
+	})();
 }
-
-
 
