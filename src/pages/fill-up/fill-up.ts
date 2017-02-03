@@ -37,6 +37,7 @@ export class FillUpPage {
   @ViewChild(WizardIon) _wizard: WizardIon = null;
 
   private _app$: Observable<IAppState> = null;
+	private _app: IAppState = null;
 	private _currentCar: Car = null;
 
 	_milesForm: FormGroup = null;
@@ -258,6 +259,12 @@ export class FillUpPage {
 
   private wireUpState(): void {
     this._app$ = <Observable<IAppState>> this._store.select("appState");
+		this._app$.subscribe((appState: IAppState) => {
+			if (_.isPresent(appState)) {
+				this._app = appState;
+			}
+		});
+
     // this._app.subscribe((data: IAppState) => {
     //   console.log("data", data);
     // });
@@ -270,81 +277,69 @@ export class FillUpPage {
 /** HACKY TEST DATA STUFF HERE */
 
 	cheat(w: WizardIon) {
-		this._app$
-			.subscribe((appState: IAppState) => {
-				let c: Car = appState.cars[0];
+		let c: Car = this._app.cars[0];
 
-				this._currentCar = c;
-				this._miles.setValue(302);
-				this._litres.setValue(35);
-				this._mileage.setValue(16847);
-				this._price.setValue(102); // £1.02
+		this._currentCar = c;
+		this._miles.setValue(302);
+		this._litres.setValue(35);
+		this._mileage.setValue(16847);
+		this._price.setValue(102); // £1.02
 
-				w.selectStep(5);
-			})
-			.unsubscribe()
-		;
+		w.selectStep(5);
 
 	} // cheat
 	
 
 	fillHistory(w: WizardIon) {
-		this._app$
-			.subscribe((appState: IAppState) => {
-				let START_YEAR: number = 2013;
-				let END_YEAR: number = 2017; 
-				let MIN_ENTRIES: number = 5, MAX_ENTRIES: number = 7;
-				let carIndex: number = 0;
-				let cars: Array<Car> = appState.cars;
+		let START_YEAR: number = 2013;
+		let END_YEAR: number = 2017; 
+		let MIN_ENTRIES: number = 5, MAX_ENTRIES: number = 7;
+		let carIndex: number = 0;
+		let cars: Array<Car> = this._app.cars;
+		
+		for (var year=START_YEAR; year <= END_YEAR; year++) {
+			
+			// random number of entries between 5 and 50
+			let numEntries = _.getRandom(MIN_ENTRIES, MAX_ENTRIES);
+			for (var i=0; i < numEntries; i++) {
+				let month: number = _.getRandom(1, 12);
+				let day: number = _.getRandom(1, 28);
+				let hour: number = _.getRandom(8, 22);
+				let min: number = _.getRandom(0, 59);
+				let f: FillUp = new FillUp();
+				let c: Car = null;
+
+				// Fills -> Cars FK				
+				c = cars[carIndex];
+				f.car = c;
+				f.carId = c.id;
 				
-				for (var year=START_YEAR; year <= END_YEAR; year++) {
+				f.miles = _.getRandom(100, 400);
+				f.fillType = _.getRandom(1,3);	// commute/motorway/mix
+				if (c.mileage = 0)
+					// start with a sensible amount
+					c.mileage = 16378; // TODO: Action should find the previous entry and
+				else 
+					c.mileage += f.miles;
 					
-					// random number of entries between 5 and 50
-					let numEntries = _.getRandom(MIN_ENTRIES, MAX_ENTRIES);
-					for (var i=0; i < numEntries; i++) {
-						let month: number = _.getRandom(1, 12);
-						let day: number = _.getRandom(1, 28);
-						let hour: number = _.getRandom(8, 22);
-						let min: number = _.getRandom(0, 59);
-						let f: FillUp = new FillUp();
-						let c: Car = null;
+				f.litres = _.getRandom(30, 35);
+				f.price = _.toPounds( _.getRandom(50, 120) );	// 50p - £1.20
+				f.when = new Date(year, month, day, hour, min);
+				
+				this._fillUpService.addFillUp(f);
 
-						// Fills -> Cars FK				
-						c = cars[carIndex];
-						f.car = c;
-						f.carId = c.id;
-						
-						f.miles = _.getRandom(100, 400);
-						f.fillType = _.getRandom(1,3);	// commute/motorway/mix
-						if (c.mileage = 0)
-							// start with a sensible amount
-							c.mileage = 16378; // TODO: Action should find the previous entry and
-						else 
-							c.mileage += f.miles;
-							
-						f.litres = _.getRandom(30, 35);
-						f.price = _.toPounds( _.getRandom(50, 120) );	// 50p - £1.20
-						f.when = new Date(year, month, day, hour, min);
-						
-						this._fillUpService.addFillUp(f);
+				// use a different car next time if we can
+				carIndex++;
+				if (carIndex >= cars.length) {
+					// start at beginning again
+					carIndex = 0;
+				}
 
-						// use a different car next time if we can
-						carIndex++;
-						if (carIndex >= cars.length) {
-							// start at beginning again
-							carIndex = 0;
-						}
+			} // for i
+			
+		} // for year
 
-					} // for i
-					
-				} // for year
-
-				this._tabs.select(ePages.History);
-
-			})
-			.unsubscribe()
-		;
-
+		this._tabs.select(ePages.History);
 
 	} // fillHistory
 
