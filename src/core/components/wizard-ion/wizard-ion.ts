@@ -41,8 +41,7 @@ import { WizardStep } from "./wizard-step";
 			<!-- rhs -->
 			<div>
 				<button ion-button type="submit" [hidden]="!showBack()" (click)="goBack()">
-					<ion-icon name="arrow-back"></ion-icon>
-					Back
+					<ion-icon name="arrow-back"></ion-icon>&nbsp;Back
 				</button>				
 
 				<button ion-button light type="submit" [hidden]="!showSkip()" (click)="goSkip()">
@@ -50,8 +49,7 @@ import { WizardStep } from "./wizard-step";
 				</button>				
 			
 				<button ion-button [disabled]="!isStepValid()" type="submit" [hidden]="!showNext()" (click)="goNext()">
-					Next
-					<ion-icon name="arrow-forward"></ion-icon>
+					Next&nbsp;<ion-icon name="arrow-forward"></ion-icon>
 				</button>				
 
 				<button ion-button secondary type="submit" [disabled]="!isStepValid()" [hidden]="!showFinish()" (click)="onFinish()">
