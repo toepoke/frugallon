@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from '../../core/typed-db/';
-import { FillUp } from '../models';
-import { eFillUpType } from '../models';
+import { FillUp, eFillUpType } from '../models';
 import * as ditto from '../../core/helpers/ditto';
 
 @Injectable()

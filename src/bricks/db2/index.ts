@@ -1,5 +1,6 @@
+export { DbCmdSuccess, DbCmdFailure, DbProviders } from '../../core/typed-db';
+
 export { AppDatabase } from './app-database';
-export { DbProviders } from './db-providers';
 export { CarMakerDb } from './car-maker-db';
 export { CarDb } from './car-db';
 export { SettingDb } from './setting-db';

@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { Store, Action } from "@ngrx/store";
 
 // Core
-import { DbCmdFailure } from "../../core/typed-db/";
 import * as _ from "../../core/helpers/underscore";
 import * as ditto from "../../core/helpers/ditto";
 
 import { IAppState, AppActions, IFilterState } from "../stores";
 import { FillUp, Car, MpgStat } from "../models";
-import { FillUpDb, CarDb, MpgStatDb } from "../db2/";
+import { FillUpDb, CarDb, MpgStatDb, DbCmdFailure } from "../db2/";
 
 @Injectable()
 export class FillUpService {

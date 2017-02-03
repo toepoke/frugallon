@@ -3,11 +3,8 @@ import { Store } from "@ngrx/store";
 
 // Core
 import { TimeService } from '../../core/services/time.service';
-// import * as ditto from '../../core/helpers/ditto';
-// import * as _ from '../../core/helpers/underscore';
-import { DbCmdFailure } from '../../core/typed-db';
 
-import { FiltersDb, FillUpDb } from "../db2";
+import { FiltersDb, FillUpDb, DbCmdFailure } from "../db2";
 import { FillUp, Filters } from '../models';
 import { FillUpService } from './fill-up.service';
 import { IFilterState } from '../stores';
