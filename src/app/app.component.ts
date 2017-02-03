@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
@@ -40,9 +41,10 @@ export class MyApp {
   // _rootPage = CoreIllustrationsPage;
 	// _rootPage = BricksIllustrationsPage;
 
-	_filter$: Observable<IFilterState> = null;
-	_app$: Observable<IAppState> = null;
-  _filters$: Observable<IFilterState> = null;
+	protected _app$: Observable<IAppState> = null;
+	protected _app$subscription: Subscription = null;
+	protected _filter$: Observable<IFilterState> = null;
+	protected _filter$subscription: Subscription = null;
 
   constructor(
     platform: Platform,

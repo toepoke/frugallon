@@ -2,6 +2,7 @@ import { FillUp } from './../../bricks/models/fill-up';
 import { Store } from '@ngrx/store';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { NavController, Tabs } from 'ionic-angular';
 import { FilterService, FillUpService } from './../../bricks/services';
 import { TimeService } from './../../core/services';
@@ -97,8 +98,10 @@ import * as _ from '../../core/helpers/underscore';
 })
 export class HistoryPage {
 	private _app$: Observable<IAppState> = null;
+	private _app$subscription: Subscription = null;
 	private _app: IAppState = null;
 	private _filters$: Observable<IFilterState> = null;
+	private _filters$subscription: Subscription = null;
 	private _currFilters: IFilterState = null;
 
   constructor(
@@ -110,19 +113,28 @@ export class HistoryPage {
 		private _timeService: TimeService
 	) {
 		this._app$ = <Observable<IAppState>> _store.select("appState");
-		this._app$.subscribe((appState: IAppState) => {
+		this._app$subscription = this._app$.subscribe((appState: IAppState) => {
 			if (_.isPresent(appState)) {
 				this._app = appState;
 			}
 		});
 
 		this._filters$ = <Observable<IFilterState>> _store.select("fitlerState");
-		this._filters$.subscribe((filterState: IFilterState) => {
+		this._filters$subscription = this._filters$.subscribe((filterState: IFilterState) => {
 			if (_.isPresent(filterState)) {
 				this._currFilters = filterState;
 			}
 		});
   }
+
+	/**
+	 * Ensure subscription is destroyed when view is removed from the DOM
+	 * (otherwise => memory leaks!)
+	 */
+	protected ionViewDidUnload(): void {
+		this._app$subscription.unsubscribe();
+		this._filters$subscription.unsubscribe();
+	}	
 
 	/**
 	 * The SegmentList control gets confused if we use a real number (which "selectedYear" is)

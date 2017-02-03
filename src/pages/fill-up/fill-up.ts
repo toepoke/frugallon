@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { MenuController, Tabs } from 'ionic-angular';
 import { WizardIon, WizardStep, StepChangeEvent, eStepDirection } from '../../core/components';
@@ -37,6 +38,7 @@ export class FillUpPage {
   @ViewChild(WizardIon) _wizard: WizardIon = null;
 
   private _app$: Observable<IAppState> = null;
+	private _app$subscription: Subscription = null;
 	private _app: IAppState = null;
 	private _currentCar: Car = null;
 
@@ -259,7 +261,7 @@ export class FillUpPage {
 
   private wireUpState(): void {
     this._app$ = <Observable<IAppState>> this._store.select("appState");
-		this._app$.subscribe((appState: IAppState) => {
+		this._app$subscription = this._app$.subscribe((appState: IAppState) => {
 			if (_.isPresent(appState)) {
 				this._app = appState;
 			}
@@ -271,6 +273,13 @@ export class FillUpPage {
     this._currentFillUp = new FillUp();
   }
 
+	/**
+	 * Ensure subscription is destroyed when view is removed from the DOM
+	 * (otherwise => memory leaks!)
+	 */
+	protected ionViewDidUnload(): void {
+		this._app$subscription.unsubscribe();
+	}	
 
 
 
