@@ -37,24 +37,24 @@ import * as _ from "../../../core/helpers/underscore";
 				
 				<ion-item *ngIf="showMiles">
 					<ion-icon name="speedometer" item-left></ion-icon>
-					<span class="stat-value">{{fillUp.miles | commafy}}</span> miles travelled
+					<span class="stat-value">{{fillUp?.miles | commafy}}</span> miles travelled
 				</ion-item>
 
 				<ion-item *ngIf="showFillType">
 					<ion-icon name="car" item-left></ion-icon>
-					<span class="stat-value">{{getFillTypeDescription(fillUp.fillType)}}</span>
+					<span class="stat-value">{{getFillTypeDescription(fillUp?.fillType)}}</span>
 				</ion-item>
 				
 				<ion-item *ngIf="showLitres">
 					<ion-icon name="color-fill" item-left></ion-icon>
-					<span class="stat-value">{{fillUp.litres | commafy}}</span> litres filled
+					<span class="stat-value">{{fillUp?.litres | commafy}}</span> litres filled
 				</ion-item>
 
 				<ion-item *ngIf="showCost">
 					<ion-icon name="cash" item-left></ion-icon>
-					<span class="stat-value">{{fillUp.price | nan | poundify | commafy}}</span> per litre
-					<span *ngIf="fillUp.litres">
-						(<span class="stat-value">{{fillUp.getTotal() | poundify | commafy}}</span>)
+					<span class="stat-value">{{fillUp?.price | nan | poundify | commafy}}</span> per litre
+					<span *ngIf="fillUp?.litres">
+						(<span class="stat-value">{{fillUp?.getTotal() | poundify | commafy}}</span>)
 					</span>
 				</ion-item>
 				
