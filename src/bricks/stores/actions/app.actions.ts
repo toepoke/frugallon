@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Car, FillUp, MpgStats } from "../../models";
+import { IAppState } from '../iapp.state';
 
 /**
  * Set of actions for acting upon the application UI state.
  */
 @Injectable()
 export class AppActions {
+
+	static INITIALISE_APP: string = "INITIALISE_APP";
+	public InitialiseApp(initialState: IAppState): Action {
+		return {
+			type: AppActions.INITIALISE_APP,
+			payload: initialState
+		}
+	}
 
 	static CHANGE_MEASUREMENT: string = 'CHANGE_MEASUREMENT';
 	public ChangeMeasurement(measurement: boolean): Action {

@@ -68,7 +68,10 @@ export class MyApp {
       .then(() => console.log("database primed."))
       .then(() => this.getInitialState() )
       .then((initState: IAppState) => {
-				console.warn("Initial state:", initState);
+				console.log("Initial state:", initState);
+
+				this._store.dispatch( this._appActions.InitialiseApp(initState) );
+
         return null;
       })
       .catch((err: any) => console.error(err))
@@ -108,6 +111,10 @@ export class MyApp {
 			})
 			.then((fills: Array<FillUp>) => {
 				initState.fills = fills;
+				return initState;
+			})
+			.then((initState: IAppState) => {
+				initState.fillTypes = FillUp.getFillTypes();
 				return initState;
 			})
 			.catch((err: any) => console.error(err))
