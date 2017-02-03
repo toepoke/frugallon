@@ -26,8 +26,6 @@ import * as _ from "../../helpers/underscore";
 				Reduce padding on the backspace icon so it lines
 				up with the other numbers
 			*/
-			padding-right: 0.3em;
-			padding-left: 0.3em;
 		}
 	`],	
 	template:`
@@ -49,9 +47,7 @@ import * as _ from "../../helpers/underscore";
 				<button ion-button large (click)="onDigitPress('0')">0</button>
 				<button *ngIf="!wholeNumbersOnly" ion-button large (click)="onDigitPress('.')">&nbsp;.</button>
 				<div *ngIf="wholeNumbersOnly" class="spacer" (click)="onDigitPress('.')"></div>				
-				<button ion-button large (click)="onDigitPress('bs')">
-					<ion-icon name="backspace" class="make-smaller"></ion-icon>
-				</button>
+				<button ion-button large (click)="onDigitPress('bs')">&lt;</button>
 			</div>
 		</div>
 `,
