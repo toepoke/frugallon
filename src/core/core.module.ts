@@ -2,8 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from 'ionic-angular';
 
-import { AzListIon, DigitPickerIon, SegmentListIon, WizardIon, WizardStep, ColourPickerIon } from './components/'
 import { CommafyPipe, FixedPipe, NanPipe, PoundifyPipe } from './pipes';
+
+import { 
+	AzListIon, 
+	DigitPickerIon, 
+	SegmentListIon, 
+	WizardIon, WizardStep, 
+	ColourPickerIon, 
+	InputHintIon 
+} from './components/'
 
 const COMPONENTS: any[] = [
 	AzListIon,
@@ -11,7 +19,8 @@ const COMPONENTS: any[] = [
 	SegmentListIon,
 	WizardIon,
 	WizardStep,
-	ColourPickerIon
+	ColourPickerIon,
+	InputHintIon
 ];
 
 const PIPES: any[] = [

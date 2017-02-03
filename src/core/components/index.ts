@@ -13,3 +13,6 @@ export { StepChangeEvent } from './wizard-ion/step-change-event';
 export { WizardIon } from './wizard-ion/wizard-ion';
 
 export { ColourPickerIon, ColourSet } from './colour-picker-ion/colour-picker-ion';
+
+export { InputHintIon } from './input-hint-ion/input-hint-ion';
+
