@@ -5,11 +5,6 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 	// Note: We're not using "OnPush" as the changes between the wizard, steps and the calling
 	// UI are too complex - read I've gave up :-)
 	changeDetection: ChangeDetectionStrategy.Default,
-	styles: [`
-		.pane {
-			margin: 2rem 1rem;
-		}
-	`], 
 	template:`
 		<div [hidden]="!active" class="pane">
 			<ng-content></ng-content>
