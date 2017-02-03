@@ -14,7 +14,7 @@ import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '
 import { AppDatabase, DbProviders } from '../bricks/db2';
 import { FilterService, FillUpService } from '../bricks/services/';
 import { CarMakerDb, CarDb, SettingDb, MpgStatDb, FillUpDb, FiltersDb } from '../bricks/db2';
-import { CoreIllustrationsPage, BricksIllustrationsPage, AboutPage, FillUpPage, HistoryPage, RemindersPage, MyCarsPage, TabsPage } from '../pages';
+import { CoreIllustrationsPage, BricksIllustrationsPage, AboutPage, CarEditPage, FillUpPage, HistoryPage, MyCarsPage, RemindersPage, TabsPage } from '../pages';
 import { MyApp } from './app.component';
 
 
@@ -40,10 +40,11 @@ const PAGES: any[] = [
   CoreIllustrationsPage,
   BricksIllustrationsPage,
   AboutPage,
+  CarEditPage,
   FillUpPage,
   HistoryPage,
-  RemindersPage,
   MyCarsPage,
+  RemindersPage,
   TabsPage
 ];
 
