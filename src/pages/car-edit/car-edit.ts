@@ -6,9 +6,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { NavController, Content, NavParams } from 'ionic-angular';
 
 import { CoreValidators } from './../../core/validators';
-import { WizardIon, WizardStep, StepChangeEvent, eStepDirection, ColourSet, AzSelectedItem } from '../../core/components';
+import { WizardIon, StepChangeEvent, eStepDirection, ColourSet, AzSelectedItem } from '../../core/components';
 import { IAppState, AppActions } from '../../bricks/stores';
-import { Car, CarMaker, FillUp, eFillUpType } from '../../bricks/models';
+import { Car, CarMaker } from '../../bricks/models';
 import { CarDb, CarMakerDb, DbCmdFailure } from '../../bricks/db2';
 import * as _ from '../../core/helpers/underscore';
 
@@ -107,7 +107,7 @@ export class CarEditPage {
 		this._app$subscription.unsubscribe();
 	}	
 
-	private loadCar(): void {
+	protected loadCar(): void {
 		
 		// update the UI to reflect he selected car
 		this._selectedType = this._car.type;
@@ -130,7 +130,7 @@ export class CarEditPage {
 	/**
 	 * Fired when the wizard step changes.
 	 */
-	private onStepChanged(newStep: StepChangeEvent): void {
+	protected onStepChanged(newStep: StepChangeEvent): void {
 		this.setTitle(newStep.currStep.name);
 
 		if (newStep.prevStep.name === "COLOUR" && newStep.direction === eStepDirection.eBackward && this._knownModel) {
@@ -154,10 +154,7 @@ export class CarEditPage {
 	/**
 	 * Fired when the user finishes the wizard
 	 */	
-	private onFinish(): void {
-		// Pass data back
-		let action: string = "";
-		
+	protected onFinish(): void {
 		this._car.type = this._selectedType;
 		this._car.make = this._make.value;
 		this._car.model = this._model.value;
@@ -189,7 +186,7 @@ export class CarEditPage {
 	/**
 	 * Fired when the user cancels the wizard (via the cancel button). 
 	 */	
-	private onCancel(): void {
+	protected onCancel(): void {
 		this._nav.pop();
 	
 	} // onCancel
@@ -201,7 +198,7 @@ export class CarEditPage {
 	/**
 	 * Fired when the type of vehicle is selected. 
 	 */	
-	private onSelectType(type: string): void {
+	protected onSelectType(type: string): void {
 		if (this._selectedType === type)
 			// untoggle
 			this._selectedType = "";
@@ -233,9 +230,7 @@ export class CarEditPage {
 	// **************************
 	// Wizard Step: Vehicle Make
 
-	private onSelectedMake(selected: AzSelectedItem): void {
-		let selectedManufacturer: CarMaker = null;
-		
+	protected onSelectedMake(selected: AzSelectedItem): void {
 		this._make.setValue(selected.selectedValue);
 		
 		this._carMakerDb.getByMaker(this._selectedType, selected.selectedValue)
@@ -258,7 +253,7 @@ export class CarEditPage {
 	} // onSelectedMake	
 
 
-	private isMakeStepValid(): boolean {
+	protected isMakeStepValid(): boolean {
 		if (this._knownMake) 
 			return true;
 		else 
@@ -267,13 +262,13 @@ export class CarEditPage {
 	} // isMakeStepValid
 
 
-	private showMakePicker(): boolean {
+	protected showMakePicker(): boolean {
 		return this._knownMake;
 	
 	} // showMakePicker 
 
 
-	private onMakerNotListed(): void {
+	protected onMakerNotListed(): void {
 		this._knownMake = false;
 		this._showNavigation = true;
 		
@@ -287,7 +282,7 @@ export class CarEditPage {
 	// **************************
 	// Wizard Step: Vehicle Model
 
-	private onSelectedModel(selected: AzSelectedItem): void {
+	protected onSelectedModel(selected: AzSelectedItem): void {
 		// Make & model selected, so we're done!
 		this._model.setValue(selected.selectedValue);
 		
@@ -296,7 +291,7 @@ export class CarEditPage {
 	} // onSelectedModel
 	
 	
-	private isModelStepValid(): boolean {
+	protected isModelStepValid(): boolean {
 		if (this._knownModel) 
 			return true;
 		else 
@@ -305,13 +300,13 @@ export class CarEditPage {
 	} // isModelStepValid
 
 
-	private showModelPicker(): boolean {
+	protected showModelPicker(): boolean {
 		return this._knownModel;
 		
 	} // showModelPicker
 
 
-	private onModelNotListed(): void {
+	protected onModelNotListed(): void {
 		this._knownModel = false;
 		this._showNavigation = true;
 		// TODO: Nav to past the selection process
@@ -322,13 +317,13 @@ export class CarEditPage {
 	// ***************************
 	// Wizard Step: Vehicle Colour
 
-	private isColourStepValid(): boolean {
+	protected isColourStepValid(): boolean {
 		return this._selectedColour && this._selectedColour.length > 0;
 		
 	} // isColourStepValid
 	
 	
-	private onColourSelect(colour: string): void {
+	protected onColourSelect(colour: string): void {
 		this._selectedColour = colour;
 	
 	} // _onColourSelect
@@ -336,7 +331,7 @@ export class CarEditPage {
 	
 	// ***************************
 	// Wizard Step: Vehicle Mileage
-	private onMileageChange(value): void {
+	protected onMileageChange(value): void {
 		// we only use one numeric picker in this wizard
 		this._mileage.setValue(value);
 		
@@ -346,7 +341,7 @@ export class CarEditPage {
 	/**
 	 * Wires up the validators for the form steps
 	 */
-	private createForms(): void {
+	protected createForms(): void {
 		// define FormControls separately so we can short-cut references in the component view
 		this._make = new FormControl("", [<any>Validators.required]);
 		this._model = new FormControl("", [<any>Validators.required]);
@@ -367,7 +362,7 @@ export class CarEditPage {
 	/**
 	 * Sets the toolbar title, appropriate for the step we're on.
 	 */
-	private setTitle(forStepName: string): void {
+	protected setTitle(forStepName: string): void {
 		let vehicleType: string = this._selectedType.toLowerCase();
 		
 		switch (forStepName) {

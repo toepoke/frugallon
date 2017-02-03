@@ -49,10 +49,10 @@ export class FillUpPage {
 	_litres: FormControl = null;
 	_price: FormControl = null;
 	_mileage: FormControl = null; 
-	private _fillTypes: Array<eFillUpType> = null;
+	// private _fillTypes: Array<eFillUpType> = null;
 	private _selectedFillUpType: eFillUpType = null;
 	private _currentFillUp: FillUp = null;
-	private _measurement: boolean = true;   
+	protected _measurement: boolean = true;   
 
   constructor(
     private _menu: MenuController,

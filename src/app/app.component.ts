@@ -12,7 +12,7 @@ import * as ditto from '../core/helpers/ditto';
 import { IAppState, IFilterState, AppActions, FilterActions } from '../bricks/stores';
 import { FilterService, FillUpService } from '../bricks/services';
 import { Car, FillUp, Settings, Filters } from '../bricks/models';
-import { MainMenuIon, FilterMenuIon } from '../bricks/components';
+// import { MainMenuIon, FilterMenuIon } from '../bricks/components';
 import { TabsPage } from '../pages/tabs/tabs';
 // import { CoreIllustrationsPage } from '../pages/_illustrations/core-illustrations';
 // import { BricksIllustrationsPage } from '../pages/_illustrations/bricks-illustrations';

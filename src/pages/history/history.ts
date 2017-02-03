@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { NavController, Tabs } from 'ionic-angular';
+import { Tabs } from 'ionic-angular';
 import { FilterService, FillUpService } from './../../bricks/services';
 import { TimeService } from './../../core/services';
 import { AppActions, IAppState, IFilterState } from './../../bricks/stores';
