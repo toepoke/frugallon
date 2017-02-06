@@ -10,8 +10,8 @@ import { CoreModule } from '../core/core.module';
 import { BricksModule } from '../bricks/bricks.module';
 
 import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '../bricks/stores';
-import { AppDatabase, DbProviders } from '../bricks/db2';
-import { FilterService, FillUpService } from '../bricks/services/';
+import { DbProviders } from '../bricks/db2';
+import { AppService, FilterService, FillUpService } from '../bricks/services/';
 import { CarMakerDb, CarDb, SettingDb, MpgStatDb, FillUpDb, FiltersDb } from '../bricks/db2';
 import { CoreIllustrationsPage, BricksIllustrationsPage, AboutPage, SettingsPage, CarEditPage, FillUpPage, HistoryPage, MyCarsPage, RemindersPage, TabsPage } from '../pages';
 import { MyApp } from './app.component';
@@ -76,7 +76,7 @@ const PAGES: any[] = [
     { provide: MpgStatDb, useValue: mpgStatDb },
     { provide: FillUpDb, useValue: fillUpDb },
     { provide: FiltersDb, useValue: filtersDb },
-    AppDatabase,
+    AppService,
     AppActions, FilterActions,
     TimeService, FilterService, FillUpService    
   ]

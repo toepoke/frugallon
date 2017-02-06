@@ -10,13 +10,12 @@ import { TimeService } from '../core/services';
 import * as ditto from '../core/helpers/ditto';
 
 import { IAppState, IFilterState, AppActions, FilterActions } from '../bricks/stores';
-import { FilterService, FillUpService } from '../bricks/services';
+import { FilterService, FillUpService, AppService } from '../bricks/services';
 import { Car, FillUp, Settings, Filters } from '../bricks/models';
 import { TabsPage, AboutPage, SettingsPage } from '../pages';
 // import { CoreIllustrationsPage } from '../pages/_illustrations/core-illustrations';
 // import { BricksIllustrationsPage } from '../pages/_illustrations/bricks-illustrations';
 
-import { AppDatabase } from '../bricks/db2/app-database';
 
 @Component({
   template: 
@@ -52,7 +51,6 @@ import { AppDatabase } from '../bricks/db2/app-database';
 })
 export class MyApp {
 	@ViewChild(Nav) _nav;
-	static APP_VERSION: string = "0.0.1";
 
 	_rootPage = TabsPage;
   // _rootPage = CoreIllustrationsPage;
@@ -68,8 +66,8 @@ export class MyApp {
     private _store: Store<any>,
 		private _menuCtrl: MenuController,
     private _appActions: AppActions, private _filterActions: FilterActions,
-    private _timeService: TimeService, private _filterService: FilterService, private _fillUpService: FillUpService,
-    private _appDb: AppDatabase
+    private _timeService: TimeService, private _filterService: FilterService, private _fillUpService: FillUpService,		
+    private _appService: AppService
   ) {
     _platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -84,61 +82,59 @@ export class MyApp {
     this._app$ = <Observable<IAppState>> this._store.select("appState");
     this._filter$ = <Observable<IFilterState>> this._store.select("filterState");
 
-    this._appDb.primeDb()
+    this._appService.primeDb()
       .then(() => console.log("database primed."))
-      .then(() => this.getInitialState() )
+			.then(() => this._appService.getInitialUiState() )
       .then((initState: IAppState) => {
 				this._store.dispatch( this._appActions.InitialiseApp(initState) );
-
-        return null;
       })
       .catch((err: any) => console.error(err))
     ;
   }
 
-	private getInitialState(): Promise<any> {
-		let initState: any = {};
+	// private getInitialState(): Promise<any> {
+	// 	let initState: any = {};
 
-		return this._fillUpService.getYears()
-			.then((years: Array<number>) => {
-				initState.years = years;
-				return this._appDb._carDb.getAll();
-			})
-			.then((cars: Array<Car>) => {
-				initState.cars = cars;
-				return this._appDb._filtersDb.load();
-			})
-			.then((filters: Filters) => {
-				initState.filters = filters;
-				return this._appDb._settingDb.load();
-			})
-			.then((settings: Settings) => {
-				// These don't really belong in settings table
-				initState.appVersion = MyApp.APP_VERSION;
-				initState.dbVersion = settings.dbVersion;
-				initState.measurement = settings.measurement;
-				initState.measurementType = (settings.measurement ? 'UK' : 'US');
+	// 	return this._fillUpService.getYears()
+	// 		.then((years: Array<number>) => {
+	// 			initState.years = years;
+	// 			return this._appService._carDb.getAll();
+	// 		})
+	// 		.then((cars: Array<Car>) => {
+	// 			initState.cars = cars;
+	// 			return this._appService._filtersDb.load();
+	// 		})
+	// 		.then((filters: Filters) => {
+	// 			initState.filters = filters;
+	// 			return this._appService._settingDb.load();
+	// 		})
+	// 		.then((settings: Settings) => {
+	// 			// These don't really belong in settings table
+	// 			initState.appVersion = MyApp.APP_VERSION;
+	// 			initState.dbVersion = settings.dbVersion;
+	// 			initState.measurement = settings.measurement;
+	// 			initState.measurementType = (settings.measurement ? 'UK' : 'US');
 				
-				let selectedYear: number = this._timeService.getCurrentTime().getFullYear();
-				if (!initState.filters.filtersActive && ditto.any(initState.years)) {
-					selectedYear = <number> ditto.last(initState.years);
-				}
-				initState.selectedYear = selectedYear;
+	// 			let selectedYear: number = this._timeService.getCurrentTime().getFullYear();
+	// 			if (!initState.filters.filtersActive && ditto.any(initState.years)) {
+	// 				selectedYear = <number> ditto.last(initState.years);
+	// 			}
+	// 			initState.selectedYear = selectedYear;
 
-				return this._fillUpService.getForYear(selectedYear);
-			})
-			.then((fills: Array<FillUp>) => {
-				initState.fills = fills;
-				return initState;
-			})
-			.then((initState: IAppState) => {
-				initState.fillTypes = FillUp.getFillTypes();
-				return initState;
-			})
-			.catch((err: any) => console.error(err))
-		;
+	// 			return this._fillUpService.getForYear(selectedYear);
+	// 		})
+	// 		.then((fills: Array<FillUp>) => {
+	// 			initState.fills = fills;
+	// 			return initState;
+	// 		})
+	// 		.then((initState: IAppState) => {
+	// 			initState.fillTypes = FillUp.getFillTypes();
+	// 			return initState;
+	// 		})
+	// 		.catch((err: any) => console.error(err))
+	// 	;
 
-	} // getInitialState
+	// } // getInitialState
 
 	protected openSettings(): void {
 		this._menuCtrl.close("menu1");
