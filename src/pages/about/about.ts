@@ -6,12 +6,13 @@ import { NavController } from 'ionic-angular';
   selector: 'page-about',
   template:
 `
+  <ion-header>
+    <ion-navbar>
+      <ion-title>About</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
   <ion-content padding>
-    <ion-header>
-      <ion-navbar>
-        <ion-title>About</ion-title>
-      </ion-navbar>
-    </ion-header>
 
     
   </ion-content>
