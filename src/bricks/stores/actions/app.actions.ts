@@ -9,10 +9,6 @@ import { IAppState } from '../iapp.state';
 @Injectable()
 export class AppActions {
 
-	// Fired by ngrx
-	static INITIALISE_NGRX: string = "@ngrx/store/init";
-
-
 	static INITIALISE_APP: string = "INITIALISE_APP";
 	public InitialiseApp(initialState: IAppState): Action {
 		return {
@@ -50,6 +46,7 @@ export class AppActions {
 					make: car.make,
 					model: car.model,
 					colour: car.colour,
+					backgroundColour: car.backgroundColour,
 					mileage: car.mileage
 				}
 			}

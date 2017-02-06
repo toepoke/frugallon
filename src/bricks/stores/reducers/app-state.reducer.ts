@@ -1,3 +1,4 @@
+import { ColourSet } from './../../../core/components/colour-picker-ion/colour-set';
 // System
 import { Action, ActionReducer } from "@ngrx/store";
 import * as ditto from "../../../core/helpers/ditto";
@@ -8,51 +9,28 @@ import { IAppState } from "../iapp.state";
 import { Car, FillUp, eFillUpType } from "../../models";
 import { AppActions } from '../actions/app.actions'
 
-// Data Shape Reminder
-// ====================
-// class AppState {
-// 	appVersion: string = "";
-//	cars: Array<Car> = new Array<Car>();
-// 	dbVersion: string = "";
-// 	fills: Array<FillUp> = new Array<FillUp>();
-// 	selectedYear: number = null;
-//  editingCar: Car = null;
-// 	years: Array<number> = new Array<number>();
-// }
-
 export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, action: Action) => {
 	let newState: IAppState = null;
 
 	switch (action.type) {
-		case AppActions.INITIALISE_NGRX:
-			newState = {
-				appVersion: "",
-				dbVersion: "",
-				years: new Array<number>(),
-				cars: new Array<Car>(),
-				fills: new Array<FillUp>(),
-				selectedYear: 0,
-				editingCar: null,
-				measurement: false,
-				measurementType: "",
-				action: action.type,
-				showFills: new Array<number>(),
-				fillTypes: new Array<eFillUpType>()
-			};
-		return newState;
-			
 		case AppActions.INITIALISE_APP:
-			newState = ditto.updateItem(oldState, {
+			newState = {
 				appVersion: action.payload.appVersion,
 				dbVersion: action.payload.dbVersion,
 				years: <Array<number>>action.payload.years,
 				cars: action.payload.cars,
-				selectedYear: action.payload.selectedYear,
 				fills: action.payload.fills,
+				selectedYear: action.payload.selectedYear,
+				editingCar: action.payload.editingCar,
 				measurement: action.payload.measurement,
 				measurementType: action.payload.measurementType,
-				fillTypes: action.payload.fillTypes
-			});
+				action: action.payload.action,
+				showFills: new Array<number>(),
+				fillTypes: action.payload.fillTypes,
+				colours: getDefaultColours()
+			};
+			console.log("INITIALISED: ", newState);
+			
 			return newState;
 
 		case AppActions.CHANGE_MEASUREMENT:
@@ -84,6 +62,7 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 					make: action.payload.car.make,
 					model: action.payload.car.model,
 					colour: action.payload.car.colour,
+					backgroundColour: action.payload.car.backgroundColour,
 					mileage: action.payload.car.mileage
 				})
 			});			
@@ -119,3 +98,33 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 } // appStateReducer
 
 
+function getDefaultColours(): ColourSet {
+	let offBlue: string = "#A6AFF7";
+	let trans: string = "transparent";
+	let cols: ColourSet = new Map<string, string>();
+
+	cols = new Map<string,string>([
+		[ "black", trans ],
+		[ "white", offBlue ],
+		[ "grey", trans ],
+		[ "blue", trans ],
+		[ "red", trans ],
+		[ "darkorange", trans ],
+		[ "yellow", offBlue ],
+		[ "green", trans ],
+		[ "brown", trans ],
+		[ "blueviolet", trans ],
+		[ "firebrick", trans ],
+		[ "hotpink", trans ],
+		[ "cadetblue", trans ],
+		[ "darkslateblue", trans ],
+		[ "crimson", trans ],
+		[ "darkgoldenrod", trans ],
+		[ "gold", trans ],
+		[ "lemonchiffon", offBlue ],
+		[ "orangered", trans ],
+		[ "sienna", trans ]
+	]);		
+
+	return cols;
+}

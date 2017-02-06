@@ -13,24 +13,14 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 	let newState: IFilterState = null;
 
 	switch (action.type) {
-		case AppActions.INITIALISE_NGRX:
-			newState = {
-				filtersActive: false,
-				filteredYears: new Array<number>(),
-				filteredJourneyTypes: new Array<eFillUpType>(),
-				filteredMpgAverages: new Array<number>(),
-				filteredCarIds: new Array<number>()
-			}
-			break;
-
 		case AppActions.INITIALISE_APP:
-			newState = ditto.updateItem(oldState, {
+			newState = {
 				filtersActive: action.payload.filters.filtersActive,
 				filteredYears: action.payload.filters.filteredYears,
 				filteredJourneyTypes: action.payload.filters.filteredJourneyTypes,
 				filteredMpgAverages: action.payload.filters.filteredMpgAverages,
 				filteredCarIds: action.payload.filters.filteredCarIds
-			})
+			}
 			break;
 
 		case AppActions.SHOW_YEAR_VIEW:

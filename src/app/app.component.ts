@@ -70,8 +70,6 @@ export class MyApp {
       .then(() => console.log("database primed."))
       .then(() => this.getInitialState() )
       .then((initState: IAppState) => {
-				console.log("Initial state:", initState);
-
 				this._store.dispatch( this._appActions.InitialiseApp(initState) );
 
         return null;
