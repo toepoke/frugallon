@@ -1,8 +1,8 @@
+import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, Nav, MenuController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 // Core
@@ -12,8 +12,7 @@ import * as ditto from '../core/helpers/ditto';
 import { IAppState, IFilterState, AppActions, FilterActions } from '../bricks/stores';
 import { FilterService, FillUpService } from '../bricks/services';
 import { Car, FillUp, Settings, Filters } from '../bricks/models';
-// import { MainMenuIon, FilterMenuIon } from '../bricks/components';
-import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage, AboutPage, SettingsPage } from '../pages';
 // import { CoreIllustrationsPage } from '../pages/_illustrations/core-illustrations';
 // import { BricksIllustrationsPage } from '../pages/_illustrations/bricks-illustrations';
 
@@ -22,19 +21,37 @@ import { AppDatabase } from '../bricks/db2/app-database';
 @Component({
   template: 
 `
-	<ion-menu [content]="content" id="menu1">
-		<main-menu-ion></main-menu-ion>
+	<ion-menu [content]="nav" id="menu1">
+		<ion-header>
+			<ion-toolbar>
+				<ion-title>Menu</ion-title>
+			</ion-toolbar>
+		</ion-header>	
+		<ion-content>	
+			<ion-list>
+				<button ion-item (click)="openAbout()">About</button>
+				<button ion-item (click)="openSettings()">Settings</button>
+			</ion-list>
+		</ion-content>		
 	</ion-menu>
 
-	<ion-menu [content]="content" id="menu2" side="right">
-		<filter-menu-ion></filter-menu-ion>
+	<ion-menu [content]="nav" id="menu2" side="right">
+		<ion-header>
+			<ion-toolbar>
+				<ion-title>Filters</ion-title>
+			</ion-toolbar>
+		</ion-header>	
+		<ion-content>
+
+		</ion-content>		
 	</ion-menu>
 	
 
-	<ion-nav [root]="_rootPage" #content></ion-nav>
+	<ion-nav [root]="_rootPage" #nav></ion-nav>
 `
 })
 export class MyApp {
+	@ViewChild(Nav) _nav;
 	static APP_VERSION: string = "0.0.1";
 
 	_rootPage = TabsPage;
@@ -47,13 +64,14 @@ export class MyApp {
 	protected _filter$subscription: Subscription = null;
 
   constructor(
-    platform: Platform,
+    private _platform: Platform,
     private _store: Store<any>,
+		private _menuCtrl: MenuController,
     private _appActions: AppActions, private _filterActions: FilterActions,
     private _timeService: TimeService, private _filterService: FilterService, private _fillUpService: FillUpService,
     private _appDb: AppDatabase
   ) {
-    platform.ready().then(() => {
+    _platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
@@ -121,4 +139,15 @@ export class MyApp {
 		;
 
 	} // getInitialState
+
+	protected openSettings(): void {
+		this._menuCtrl.close("menu1");
+		this._nav.push(SettingsPage);
+	}
+
+	protected openAbout(): void {
+		this._menuCtrl.close("menu1");
+		this._nav.push(AboutPage);
+	}
+
 }

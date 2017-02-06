@@ -6,7 +6,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { TimeService } from '../core/services';
 
 // Components
-//import { ProductNameIon, AppHeaderIon } from '../bricks/components';
 import { CoreModule } from '../core/core.module';
 import { BricksModule } from '../bricks/bricks.module';
 
@@ -14,7 +13,7 @@ import { appStateReducer, AppActions, filterStateReducer, FilterActions } from '
 import { AppDatabase, DbProviders } from '../bricks/db2';
 import { FilterService, FillUpService } from '../bricks/services/';
 import { CarMakerDb, CarDb, SettingDb, MpgStatDb, FillUpDb, FiltersDb } from '../bricks/db2';
-import { CoreIllustrationsPage, BricksIllustrationsPage, AboutPage, CarEditPage, FillUpPage, HistoryPage, MyCarsPage, RemindersPage, TabsPage } from '../pages';
+import { CoreIllustrationsPage, BricksIllustrationsPage, AboutPage, SettingsPage, CarEditPage, FillUpPage, HistoryPage, MyCarsPage, RemindersPage, TabsPage } from '../pages';
 import { MyApp } from './app.component';
 
 
@@ -40,6 +39,7 @@ const PAGES: any[] = [
   CoreIllustrationsPage,
   BricksIllustrationsPage,
   AboutPage,
+  SettingsPage,
   CarEditPage,
   FillUpPage,
   HistoryPage,

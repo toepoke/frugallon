@@ -1,6 +1,7 @@
 export { CoreIllustrationsPage } from './_illustrations/core-illustrations';
 export { BricksIllustrationsPage } from './_illustrations/bricks-illustrations';
 export { AboutPage } from './about/about';
+export { SettingsPage } from './settings/settings';
 export { CarEditPage } from './car-edit/car-edit';
 export { FillUpPage } from './fill-up/fill-up';
 export { HistoryPage } from './history/history';
