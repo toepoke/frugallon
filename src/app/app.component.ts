@@ -7,11 +7,9 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 // Core
 import { TimeService } from '../core/services';
-import * as ditto from '../core/helpers/ditto';
 
 import { IAppState, IFilterState, AppActions, FilterActions } from '../bricks/stores';
 import { FilterService, FillUpService, AppService } from '../bricks/services';
-import { Car, FillUp, Settings, Filters } from '../bricks/models';
 import { TabsPage, AboutPage, SettingsPage } from '../pages';
 // import { CoreIllustrationsPage } from '../pages/_illustrations/core-illustrations';
 // import { BricksIllustrationsPage } from '../pages/_illustrations/bricks-illustrations';
@@ -91,50 +89,6 @@ export class MyApp {
       .catch((err: any) => console.error(err))
     ;
   }
-
-	// private getInitialState(): Promise<any> {
-	// 	let initState: any = {};
-
-	// 	return this._fillUpService.getYears()
-	// 		.then((years: Array<number>) => {
-	// 			initState.years = years;
-	// 			return this._appService._carDb.getAll();
-	// 		})
-	// 		.then((cars: Array<Car>) => {
-	// 			initState.cars = cars;
-	// 			return this._appService._filtersDb.load();
-	// 		})
-	// 		.then((filters: Filters) => {
-	// 			initState.filters = filters;
-	// 			return this._appService._settingDb.load();
-	// 		})
-	// 		.then((settings: Settings) => {
-	// 			// These don't really belong in settings table
-	// 			initState.appVersion = MyApp.APP_VERSION;
-	// 			initState.dbVersion = settings.dbVersion;
-	// 			initState.measurement = settings.measurement;
-	// 			initState.measurementType = (settings.measurement ? 'UK' : 'US');
-				
-	// 			let selectedYear: number = this._timeService.getCurrentTime().getFullYear();
-	// 			if (!initState.filters.filtersActive && ditto.any(initState.years)) {
-	// 				selectedYear = <number> ditto.last(initState.years);
-	// 			}
-	// 			initState.selectedYear = selectedYear;
-
-	// 			return this._fillUpService.getForYear(selectedYear);
-	// 		})
-	// 		.then((fills: Array<FillUp>) => {
-	// 			initState.fills = fills;
-	// 			return initState;
-	// 		})
-	// 		.then((initState: IAppState) => {
-	// 			initState.fillTypes = FillUp.getFillTypes();
-	// 			return initState;
-	// 		})
-	// 		.catch((err: any) => console.error(err))
-	// 	;
-
-	// } // getInitialState
 
 	protected openSettings(): void {
 		this._menuCtrl.close("menu1");
