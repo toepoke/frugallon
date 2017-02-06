@@ -131,6 +131,7 @@ export class BricksIllustrationsPage {
     let c: Car = new Car();
     c.id = 1;
     c.colour = "#bada55";
+    c.backgroundColour = "white";
     c.make = "Vauxhall";
     c.model = "Corsa";
     c.mileage = 23456;

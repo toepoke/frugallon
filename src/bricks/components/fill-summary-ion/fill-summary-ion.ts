@@ -2,8 +2,6 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FillUp, eFillUpType, Car, MpgStat } from "../../models";
 import * as _ from "../../../core/helpers/underscore";
 
-// TODO: [style.backgroundColor]="car.backgroundColour()" 
-
 @Component({
 	selector: 'fill-summary-ion', 
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,7 +20,7 @@ import * as _ from "../../../core/helpers/underscore";
 			
 			<ion-list>
 				<ion-item *ngIf="showCar">
-					<ion-icon [style.color]="car.colour" name="car" item-left></ion-icon>
+					<ion-icon [style.color]="car.colour" [style.backgroundColor]="car.backgroundColour"  name="car" item-left></ion-icon>
 					<span class="stat-value">{{car.make}} {{car.model}}</span>
 				</ion-item>
 

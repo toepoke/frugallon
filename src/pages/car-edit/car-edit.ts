@@ -85,12 +85,14 @@ export class CarEditPage {
 		fb: FormBuilder
 	) {
 		this._vehicleTypes = Car.getTypes();
-		this._colours = Car.getAvailableColours();
 
 		this.createForms();
 
 		this._app$ = <Observable<IAppState>> _store.select("appState");
 		this._app$.subscribe((data: IAppState) => {
+			if (_.isPresent(data)) {
+				this._colours = data.colours;
+			}
       if (_.isNull(this._car)) {
 				this._car = data.editingCar;
 				this.loadCar();
@@ -111,7 +113,7 @@ export class CarEditPage {
 		
 		// update the UI to reflect he selected car
 		this._selectedType = this._car.type;
-		this._selectedColour = this._car.colour;
+		this._selectedColour = this._car.colour;		
 		this._make.setValue(this._car.make);
 		this._model.setValue(this._car.model);
 		// as we're editing, just let them edit the underlying string
@@ -159,6 +161,7 @@ export class CarEditPage {
 		this._car.make = this._make.value;
 		this._car.model = this._model.value;
 		this._car.colour = this._selectedColour;
+		this._car.backgroundColour = this._colours.get(this._selectedColour);
 		this._car.mileage = Number(this._mileage.value);		
 
 		let isNew: boolean = false;

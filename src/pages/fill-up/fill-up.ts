@@ -369,6 +369,7 @@ export class FillUpPage {
 		c.make = make;
 		c.model = model;
 		c.colour = colour;
+		c.backgroundColour = "white";
 		c.mileage = mileage;
 
 		return c;		

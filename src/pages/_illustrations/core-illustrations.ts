@@ -79,11 +79,11 @@ import { CoreValidators } from '../../core/validators/'
 
   <div class="separator">
     <ion-title>Segment List</ion-title>
-    <segment-list 
+    <segment-list-ion 
       [segments]="_years"
       [selected-value]="'2015'"
       (select)="onSegmentList_ChangeYear($event)">
-    </segment-list>
+    </segment-list-ion>
   </div>
 
   <div class="separator">

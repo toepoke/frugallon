@@ -25,6 +25,7 @@ export class CarDb extends TypedDb<Car> {
 			'make': DbTypes.STRING,
 			'model': DbTypes.STRING,
 			'colour': DbTypes.STRING,
+			'backgroundColour': DbTypes.STRING,
 			'mileage': DbTypes.DECIMAL
 		}		
 	}

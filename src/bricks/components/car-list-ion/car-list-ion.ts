@@ -1,8 +1,6 @@
 import { Component, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
 import { Car } from "../../models";
 
-// [style.backgroundColor]="c.backgroundColour()"
-
 @Component({
 	selector: 'car-list-ion', 
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,7 +8,7 @@ import { Car } from "../../models";
 `
 	<ion-list>
 		<ion-item *ngFor="let c of cars">
-			<ion-icon class="large" [style.color]="c.colour" name="car" item-left></ion-icon>
+			<ion-icon class="large" [style.color]="c.colour" [style.backgroundColor]="c.backgroundColour" name="car" item-left></ion-icon>
 			<ion-label class="no-left-offset">
 				{{c.make}} {{c.model}} {{c.mileage | commafy:' - ({0} miles)'}}
 			</ion-label>

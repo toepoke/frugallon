@@ -6,7 +6,6 @@ import * as ditto from "../../../core/helpers/ditto";
 
 // Dependencies
 import { IAppState } from "../iapp.state";
-import { Car, FillUp, eFillUpType } from "../../models";
 import { AppActions } from '../actions/app.actions'
 
 export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, action: Action) => {

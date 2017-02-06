@@ -1,6 +1,4 @@
-import { ColourSet } from './../../core/components/';
 import * as _ from "../../core/helpers/underscore";
-//import { ColourSet } from "../components/colour-picker/colour-picker-ion";
 
 /**
  * Models a car the user wants to record trips against 
@@ -25,8 +23,11 @@ export class Car {
 	/** Escort, A4, etc. */
 	model: string = "";
 	
-	/** This is the colour we show in the UI, not the colour of the car! */
+	/** Colour picked to represent the colour of the car */
 	colour: string = "";
+
+	/** Colour to use as a background for this.colour - ensuring white car icon can be seen */
+	backgroundColour: string = "";
 
 	/** @description Total mileage of the car when filling up */
 	mileage: number = null;
@@ -34,11 +35,6 @@ export class Car {
 	toString(): string {
 		return `${this.make} ${this.model}`;
 	} 
-	
-	/** Gets an appropriate background colour, given the colour of the car */
-	// backgroundColour(): string {
-	// 	return Car.getBackgroundColour(this.colour);
-	// }
 	
 	static getIconName(type: string): string {
 		switch (type) {
@@ -67,94 +63,6 @@ export class Car {
 		);
 	}
 	
-	private static COLOURS: ColourSet = null;
-
-
-// TODO: This should be in and resolved via the app state!
-	static getAvailableColours(): ColourSet {
-		if (!_.isNull(Car.COLOURS))	{
-			// already setup
-			return Car.COLOURS;
-		}
-
-		let offBlue: string = "#A6AFF7";
-		let trans: string = "transparent";
-		let cols: ColourSet = new Map<string, string>();
-
-		cols = new Map<string,string>([
-			[ "black", trans ],
-			[ "white", offBlue ],
-			[ "grey", trans ],
-			[ "blue", trans ],
-			[ "red", trans ],
-			[ "darkorange", trans ],
-			[ "yellow", offBlue ],
-			[ "green", trans ],
-			[ "brown", trans ],
-			[ "blueviolet", trans ],
-			[ "firebrick", trans ],
-			[ "hotpink", trans ],
-			[ "cadetblue", trans ],
-			[ "darkslateblue", trans ],
-			[ "crimson", trans ],
-			[ "darkgoldenrod", trans ],
-			[ "gold", trans ],
-			[ "lemonchiffon", offBlue ],
-			[ "orangered", trans ],
-			[ "sienna", trans ]
-		]);		
-
-		Car.COLOURS = cols;
-
-		return Car.COLOURS;
-	}
-
-	// HACK: Sadly static initialisation doesn't seem to work
-	//private static COLOURS: ColourSet = null;
-
-	/**
-	 * Set of colours used by default (can be overriden) 
-	 */	
-	// static getAvailableColours(): ColourSet {
-	// 	if (!_.isNull(Car.COLOURS))
-	// 		return Car.COLOURS;
-			
-	// 	let offBlue: string = "#A6AFF7";
-	// 	let trans: string = "transparent";
-	// 	let cols: ColourSet = new Map<string, string>();
-
-	// 	cols.set( "black", trans );
-	// 	cols.set( "white", offBlue );
-	// 	cols.set( "grey", trans );
-	// 	cols.set( "blue", trans );
-	// 	cols.set( "red", trans );
-	// 	cols.set( "darkorange", trans );
-	// 	cols.set( "yellow", offBlue );
-	// 	cols.set( "green", trans );
-	// 	cols.set( "brown", trans );
-	// 	cols.set( "blueviolet", trans );
-	// 	cols.set( "firebrick", trans );
-	// 	cols.set( "hotpink", trans );
-	// 	cols.set( "cadetblue", trans );
-	// 	cols.set( "darkslateblue", trans );
-	// 	cols.set( "crimson", trans );
-	// 	cols.set( "darkgoldenrod", trans );
-	// 	cols.set( "gold", trans );
-	// 	cols.set( "lemonchiffon", offBlue );
-	// 	cols.set( "orangered", trans );
-	// 	cols.set( "sienna", trans );
-		
-	// 	Car.COLOURS = cols;	
-		
-	// 	return Car.COLOURS;
-	// }
-	
-	static getBackgroundColour(forForegroundColour: string): string {
-		let bg: string = "";
-		bg = Car.getAvailableColours().get(forForegroundColour);
-		return bg;
-	}
-	
 	static createDefault(): Car {
 		let c: Car = new Car();
 		c.isDefault = true;
@@ -162,6 +70,7 @@ export class Car {
 		c.make = "My";
 		c.model = "Car";
 		c.colour = "cadetblue";
+		c.backgroundColour = "white";
 		c.mileage = 0;
 		return c;
 	}
@@ -174,6 +83,7 @@ export class Car {
 		c.make = src.make;
 		c.model = src.model;
 		c.colour = src.colour;
+		c.backgroundColour = src.backgroundColour;
 		c.mileage = Number(src.mileage);
 		return c;
 	}

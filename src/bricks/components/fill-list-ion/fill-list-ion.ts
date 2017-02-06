@@ -16,8 +16,8 @@ import * as _ from "../../../core/helpers/underscore";
 			<ion-card *ngFor="let f of _history" (click)="itemTapped($event, f)">
 				<ion-item>
 					<div item-left>
-						<ion-icon class="large" [style.color]="f.car.colour" 
-							[style.backgroundColor]="f.car.backgroundColour()" name="car"></ion-icon>	
+						<ion-icon class="large" [style.color]="f.car.colour" [style.backgroundColor]="f.car.backgroundColour"
+							name="car"></ion-icon>	
 					</div>
 					<div item-center>
 						{{getPrettyDate(f.when)}}

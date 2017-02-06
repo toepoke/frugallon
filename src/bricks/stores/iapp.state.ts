@@ -28,6 +28,8 @@ export interface IAppState {
 	measurement: boolean;
 	measurementType: string;
 
+	colours: Map<string, string>;
+
 	action: string;
 }
 
