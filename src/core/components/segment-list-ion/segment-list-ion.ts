@@ -4,7 +4,7 @@ import { KeyItem } from "./key-item";
 import * as _ from "../../helpers/underscore";
 
 @Component({
-	selector: "segment-list",
+	selector: "segment-list-ion",
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styles: [``],
 	template: `

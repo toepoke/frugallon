@@ -44,11 +44,12 @@ import * as _ from '../../core/helpers/underscore';
 			[selectedValue] _has_to_be_a_string_
 			in the segment-list.
 		-->
-		<segment-list *ngIf="!hasFiltersActive(_currFilters)"
+		<segment-list-ion *ngIf="!hasFiltersActive(_currFilters)"
 			[segments]="(_app$|async)?.years"
 			[selected-value]="getSelectedYearAsString( (_app$|async)?.selectedYear )"
+			[show-when-single]="false"
 			(select)="onChangeYear($event)">
-		</segment-list>
+		</segment-list-ion>
 
 		<ion-segment *ngIf="hasFiltersActive(_currFilters)">
 			<ion-segment-button (click)="onRemoveFilters()">
