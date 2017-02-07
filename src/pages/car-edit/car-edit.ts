@@ -8,7 +8,7 @@ import { NavController, Content, NavParams } from 'ionic-angular';
 import { CoreValidators } from './../../core/validators';
 import { WizardIon, StepChangeEvent, eStepDirection, ColourSet, AzSelectedItem } from '../../core/components';
 import { IAppState, AppActions } from '../../bricks/stores';
-import { Car, CarMaker } from '../../bricks/models';
+import { Car, CarMaker, VehicleType } from '../../bricks/models';
 import { CarDb, CarMakerDb, DbCmdFailure } from '../../bricks/db2';
 import * as _ from '../../core/helpers/underscore';
 
@@ -51,7 +51,7 @@ export class CarEditPage {
 	private _editMode: boolean = false;
 
 	// Type
-	private _vehicleTypes: Array<string> = null;
+	private _vehicleTypes: Array<VehicleType> = null;
 	private _selectedType: string = "";
 	
 	// Make
@@ -83,15 +83,14 @@ export class CarEditPage {
 		private _carDb: CarDb,
 		private _appActions: AppActions,
 		fb: FormBuilder
-	) {
-		this._vehicleTypes = Car.getTypes();
-
+	) {		
 		this.createForms();
 
 		this._app$ = <Observable<IAppState>> _store.select("appState");
 		this._app$.subscribe((data: IAppState) => {
 			if (_.isPresent(data)) {
 				this._colours = data.colours;
+				this._vehicleTypes = data.vehicleTypes;
 			}
       if (_.isNull(this._car)) {
 				this._car = data.editingCar;
@@ -201,13 +200,13 @@ export class CarEditPage {
 	/**
 	 * Fired when the type of vehicle is selected. 
 	 */	
-	protected onSelectType(type: string): void {
-		if (this._selectedType === type)
+	protected onSelectType(vehicle: VehicleType): void {
+		if (this._selectedType === vehicle.type)
 			// untoggle
 			this._selectedType = "";
 		else
 			// toggle on 
-			this._selectedType = type;
+			this._selectedType = vehicle.type;
 		
 		this._carMakerDb.getByType(this._selectedType)
 			.then((makers: Array<CarMaker>) => {
@@ -366,14 +365,14 @@ export class CarEditPage {
 	 * Sets the toolbar title, appropriate for the step we're on.
 	 */
 	protected setTitle(forStepName: string): void {
-		let vehicleType: string = this._selectedType.toLowerCase();
+		let make: string = this._make.value;
 		
 		switch (forStepName) {
-			case    "TYPE": this._title = `Type of vehicle?`;                                            break;
-			case    "MAKE": this._title = `What make of ${vehicleType}?`;                                break;
-			case   "MODEL": this._title = `What model of ${this._make.value} Model?`;                    break;
-			case  "COLOUR": this._title = `Pick a colour for your ${this._selectedType.toLowerCase()}:`; break;
-			case "MILEAGE": this._title = `Current mileage (optional):`;                                 break;
+			case    "TYPE": this._title = `Type of vehicle?`;                       break;
+			case    "MAKE": this._title = `What make of vehicle?`;                  break;
+			case   "MODEL": this._title = `What model of ${make} Model?`;           break;
+			case  "COLOUR": this._title = `What colour?`;                           break;
+			case "MILEAGE": this._title = `Current mileage (optional):`;            break;
 		}
 		
 	} // setTitle

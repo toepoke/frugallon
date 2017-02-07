@@ -2,11 +2,11 @@ import { ColourSet } from './../../../core/components/colour-picker-ion/colour-s
 // System
 import { Action, ActionReducer } from "@ngrx/store";
 import * as ditto from "../../../core/helpers/ditto";
-// import * as _ from "../../../core/helpers/underscore";
 
 // Dependencies
 import { IAppState } from "../iapp.state";
 import { AppActions } from '../actions/app.actions'
+import { VehicleType } from '../../models';
 
 export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, action: Action) => {
 	let newState: IAppState = null;
@@ -26,7 +26,8 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 				action: action.payload.action,
 				showFills: new Array<number>(),
 				fillTypes: action.payload.fillTypes,
-				colours: getDefaultColours()
+				colours: getDefaultColours(),
+				vehicleTypes: VehicleType.getVehicleTypes()
 			};
 			console.log("INITIALISED: ", newState);
 			

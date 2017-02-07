@@ -16,9 +16,9 @@
 			<ion-label>What type of vehicle?</ion-label>
 			<ion-list>
 				<ion-item *ngFor="let t of _vehicleTypes" (click)="onSelectType(t)">
-					<ion-icon name="{{getIconName(t)}}" item-left></ion-icon>
-					{{getTypeDescription(t)}}
-					<ion-icon *ngIf="t === _selectedType" name="checkmark" item-right></ion-icon>
+					<ion-icon name="{{t.iconName}}" item-left></ion-icon>
+					{{t.description}}
+					<ion-icon *ngIf="t.type === _selectedType" name="checkmark" item-right></ion-icon>
 				</ion-item>
 			</ion-list>
 		</wizard-step>
@@ -68,7 +68,7 @@
 		</wizard-step>			
 
 		<wizard-step [name]="'COLOUR'" [is-valid]="isColourStepValid()">
-			<ion-label>Pick a colour to identify your {{_selectedType.toLowerCase()}}?</ion-label>
+			<ion-label>What colour?</ion-label>
 			<colour-picker-ion [colours]="_colours" [selected-colour]="_selectedColour" (on-select)="onColourSelect($event)"></colour-picker-ion>
 		</wizard-step>
 		

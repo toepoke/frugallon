@@ -6,3 +6,5 @@ export { MpgStat } from './mpg-stat';
 export { MpgStats } from './mpg-stats';
 export { Settings } from './settings';
 export { Filters } from './filters';
+export { VehicleType } from './vehicle-types';
+

@@ -1,4 +1,4 @@
-import { FillUp, Car, eFillUpType } from "../models";
+import { FillUp, Car, eFillUpType, VehicleType } from "../models";
 
 export interface IAppState {
 	appVersion: string;
@@ -29,6 +29,9 @@ export interface IAppState {
 	measurementType: string;
 
 	colours: Map<string, string>;
+
+	/** @description - set of supported types of vehicle */
+	vehicleTypes: Array<VehicleType>;
 
 	action: string;
 }
