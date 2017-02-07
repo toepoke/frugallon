@@ -76,7 +76,7 @@ import * as _ from '../../core/helpers/underscore';
 					You haven't recorded any fills up yet.
 				</p>
 				<div text-right style="padding-top: 10rem">
-					<button secondary text-right (click)="gotoFillUp()">Fill Up</button>
+					<button ion-button secondary text-right (click)="gotoFillUp()">Fill Up</button>
 				</div>
 			</ion-card-content>
 		</ion-card>
@@ -90,7 +90,7 @@ import * as _ from '../../core/helpers/underscore';
 					Filter shows no results.
 				</p>
 				<div text-right style="padding-top: 10rem">
-					<button secondary text-right (click)="onRemoveFilters()">Turn off filters</button>
+					<button ion-button secondary text-right (click)="onRemoveFilters()">Turn off filters</button>
 				</div>
 			</ion-card-content>
 		</ion-card>
