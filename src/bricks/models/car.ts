@@ -35,34 +35,7 @@ export class Car {
 	toString(): string {
 		return `${this.make} ${this.model}`;
 	} 
-	
-	static getIconName(type: string): string {
-		switch (type) {
-			case "CAR": return "car";
-			case "BIKE": return "bicycle";	
-			case "LORRY": return "bus";
-			default: throw new Error(`Car::getIconName - Unknown vehicle type of "${type}""`);
-		}
-	}
-	
-	static getTypeDescription(type: string): string {
-		switch (type) {
-			case "CAR": return "Car";
-			case "BIKE": return "Motorbike";	
-			case "LORRY": return "Lorry";
-			default: throw new Error(`Car::getTypeDescription - Unknown vehicle type of "${type}""`);
-		}		
-	}
-	
-// TODO: Resolve from app state	
-	static getTypes(): Array<string> {
-		return new Array<string>(
-			"CAR", 
-			"BIKE", 
-			"LORRY"
-		);
-	}
-	
+
 	static createDefault(): Car {
 		let c: Car = new Car();
 		c.isDefault = true;

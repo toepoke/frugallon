@@ -377,16 +377,4 @@ export class CarEditPage {
 		
 	} // setTitle
 	
-	
-	protected getIconName(forType: string): string {
-		return Car.getIconName(forType);
-		
-	} // _getIconName
-	
-	
-	protected getTypeDescription(forType: string): string {
-		return Car.getTypeDescription(forType);
-		
-	} // _getTypeDescription
-
 } // EditCarPage
