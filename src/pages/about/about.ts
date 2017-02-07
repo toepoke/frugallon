@@ -40,11 +40,11 @@ export class AboutPage {
     private _settingDb: SettingDb
   ) {
 		this._app$ = <Observable<IAppState>> _store.select("appState");
-		this._app$.subscribe((data: IAppState) => {
-			if (_.isPresent(data)) {
+		// this._app$.subscribe((data: IAppState) => {
+		// 	if (_.isPresent(data)) {
 
-			}
-		});
+		// 	}
+		// });
     this._dbType = DbProviders.getDescription( this._settingDb.getActiveProvider() );
     this._platformNames = this._platform.platforms();
   }
