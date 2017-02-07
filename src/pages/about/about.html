@@ -1,0 +1,80 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>About</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding class="background">
+
+		<ion-list>
+			<ion-item-group>				
+				<ion-item-divider>						
+					<div class="divider-header">Frugallon</div>
+					<div class="divider-icon">
+						<img src="assets/img/car-x64.png" width="40px" />
+					</div>
+					<div class="clear"></div>
+				</ion-item-divider>
+				
+				<ion-item>
+					<div>
+						<ul class="points">
+							<li>Easily track your MPG.
+							<li>Remind you when your service is due.
+							<li>Pretty graph stats too.
+						</ul>
+						<p>
+							We've built other things too, like<br/>
+							<a href="https://toepoke.co.uk">toepoke.co.uk</a>.
+						</p>
+					</div>	
+				</ion-item>
+			</ion-item-group>
+		</ion-list>
+		
+		<ion-list>
+			<ion-item-group>				
+				<ion-item-divider>
+					<div class="divider-header">Info</div>
+					<div class="divider-icon">
+						<ion-icon name="information-circle"></ion-icon>
+					</div>
+					<div class="clear"></div>
+				</ion-item-divider>
+				
+				<ion-item>
+					<span item-left>Application Version</span>
+					<ion-badge item-right class="badge">
+						{{(_app$|async)?.appVersion}}
+					</ion-badge>					
+				</ion-item>
+				
+				<ion-item>
+					<span item-left>Database Version</span>
+					<ion-badge item-right class="badge">
+						{{(_app$|async)?.dbVersion}}
+					</ion-badge>					
+				</ion-item>
+
+				<ion-item>
+					<span item-left>Database Type</span>
+					<ion-badge item-right class="badge">
+						{{_dbType}}
+					</ion-badge>					
+				</ion-item>
+				
+				<ion-item>
+					<span item-left>Platforms</span>
+					<div item-right>
+						<div text-right *ngFor="let p of _platformNames">
+							<ion-badge class="badge">
+								{{p}}
+							</ion-badge>
+						</div>
+					</div>
+				</ion-item>
+				
+			</ion-item-group>
+		</ion-list>    
+	
+</ion-content>
