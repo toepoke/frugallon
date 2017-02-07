@@ -7,7 +7,7 @@ import { SettingDb, DbCmdFailure } from './../../bricks/db2';
 import { AppActions, IAppState } from '../../bricks/stores';
 import { AppService } from '../../bricks/services';
 
-import { NavController, Alert, AlertController } from 'ionic-angular';
+import { NavController, Alert, AlertController, Toast, ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-settings',
@@ -42,6 +42,7 @@ export class SettingsPage {
   constructor(
     protected _navCtrl: NavController,
     protected _alertCtrl: AlertController,
+    protected _toastCtrl: ToastController,
     protected _appService: AppService,
     protected _settingDb: SettingDb,
 		protected _store: Store<IAppState>,
@@ -64,7 +65,12 @@ export class SettingsPage {
         this._store.dispatch(
           this._appActions.ChangeMeasurement( newMeasurement )
         );
-      })
+        let toast: Toast = this._toastCtrl.create({
+          message: 'Setting saved',
+          duration: 1500
+        });
+        toast.present();
+      })      
       .catch((fail: DbCmdFailure) => {
         // TODO:
       })
