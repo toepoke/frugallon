@@ -16,36 +16,7 @@ import { TabsPage, AboutPage, SettingsPage } from '../pages';
 
 
 @Component({
-  template: 
-`
-	<ion-menu [content]="nav" id="menu1">
-		<ion-header>
-			<ion-toolbar>
-				<ion-title>Menu</ion-title>
-			</ion-toolbar>
-		</ion-header>	
-		<ion-content>	
-			<ion-list>
-				<button ion-item (click)="openAbout()">About</button>
-				<button ion-item (click)="openSettings()">Settings</button>
-			</ion-list>
-		</ion-content>		
-	</ion-menu>
-
-	<ion-menu [content]="nav" id="menu2" side="right">
-		<ion-header>
-			<ion-toolbar>
-				<ion-title>Filters</ion-title>
-			</ion-toolbar>
-		</ion-header>	
-		<ion-content>
-
-		</ion-content>		
-	</ion-menu>
-	
-
-	<ion-nav [root]="_rootPage" #nav></ion-nav>
-`
+	templateUrl: 'app.html'
 })
 export class MyApp {
 	@ViewChild(Nav) _nav;
