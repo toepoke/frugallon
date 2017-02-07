@@ -31,6 +31,11 @@ enum WIZARD_STEP {
 @Component({
   selector: 'page-fill-up',
   changeDetection: ChangeDetectionStrategy.OnPush,
+	styles: [`
+		.label-shift {
+			margin-top: 0.5rem;
+		}
+	`],
   templateUrl: "fill-up.html"
 })
 export class FillUpPage {

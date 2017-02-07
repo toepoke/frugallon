@@ -113,7 +113,7 @@
 			<form [formGroup]="_priceForm" novalidate>
 				<div>					
 					<ion-label [class.error]="!_price.valid">
-						<div class="fl ib">Price per litre:</div>
+						<div class="fl ib label-shift">Price per litre:</div>
 						<div class="fr ib">
 							<input-hint-ion>optional (pence)</input-hint-ion>
 						</div>
@@ -136,11 +136,11 @@
 
 		<wizard-step [name]="'MILEAGE'" [allow-skip]="true" [is-valid]="_mileageForm.valid">
 			<form [formGroup]="_mileageForm" novalidate>
-				<div>					
+				<div>
 					<ion-label>
-						<div class="fl ib">Mileage:</div>
+						<div class="fl ib label-shift">Mileage:</div>
 						<div class="fr ib">
-							<input-hint-ion>optional (includes {{_mileage.value | commafy}} fill-up miles)</input-hint-ion>
+							<input-hint-ion>optional (includes {{_miles.value | commafy}} fill-up miles)</input-hint-ion>
 						</div>
 					</ion-label>
 					<ion-input type="tel" class="number" formControlName="_mileage"></ion-input>
@@ -162,7 +162,7 @@
 		<wizard-step [name]="'TYPE'" [allow-skip]="true">
 			<div>
 				<ion-label>
-					<div class="fl ib">Type of trip?</div>
+					<div class="fl ib label-shift">Type of trip?</div>
 					<div class="fr ib">
 						<input-hint-ion>optional (pence)</input-hint-ion>
 					</div>
