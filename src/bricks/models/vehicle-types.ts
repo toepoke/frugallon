@@ -27,8 +27,6 @@ export class VehicleType {
 	}
 
 	static getVehicleTypes(): Array<VehicleType> {
-		let offBlue: string = "#A6AFF7";
-		let trans: string = "transparent";
 		let types: Array<VehicleType> = new Array<VehicleType>();
 
 		types.push( VehicleType.create("CAR", "car", "Car") );

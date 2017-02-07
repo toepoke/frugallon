@@ -1,13 +1,11 @@
-import { DbCmdFailure } from './../../core/typed-db/db-responses';
-import { Settings } from './../../bricks/models/settings';
-import { SettingDb } from './../../bricks/db2/setting-db';
-import { AppActions } from './../../bricks/stores/actions/app.actions';
-import { IAppState } from './../../bricks/stores/iapp.state';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { AppService } from './../../bricks/services/app.service';
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+
+import { Settings } from '../../bricks/models';
+import { SettingDb, DbCmdFailure } from './../../bricks/db2';
+import { AppActions, IAppState } from '../../bricks/stores';
+import { AppService } from '../../bricks/services';
 
 import { NavController, Alert, AlertController } from 'ionic-angular';
 
@@ -40,7 +38,6 @@ import { NavController, Alert, AlertController } from 'ionic-angular';
 })
 export class SettingsPage {
 	private _app$: Observable<IAppState> = null;
-  private _app$subscription: Subscription = null;
 
   constructor(
     protected _navCtrl: NavController,
