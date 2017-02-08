@@ -1,0 +1,70 @@
+<ion-content>
+	<div [class.disabler]="!filters?.filtersActive">
+		<ion-card>
+			<ion-card-header>
+				<div class="filter-header-title">Years</div>
+				<div class="filter-header-buttons">
+					<button ion-button small light (click)="onAllYears()">All</button>
+					<button ion-button small light (click)="onClearYears()">Clear</button>
+				</div>						
+			</ion-card-header>
+			<ion-list>
+				<ion-item *ngFor="let y of years" (click)="onSelectYear(y)">
+					{{y}}
+					<ion-icon *ngIf="showFilterItem(filters?.filteredYears, y)" name="checkmark" item-right></ion-icon>
+				</ion-item> 
+			</ion-list>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-header>
+				<div class="filter-header-title">Cars</div>
+				<div class="filter-header-buttons">
+					<button ion-button small light (click)="onAllCars()">All</button>
+					<button ion-button small light (click)="onClearCars()">Clear</button>
+				</div>						
+			</ion-card-header>
+			<ion-list>
+				<ion-item *ngFor="let c of cars" item-right (click)="onSelectCar(c)">
+					<ion-icon class="large" [style.color]="c.colour" [style.backgroundColor]="c.backgroundColour" name="car" item-left></ion-icon>
+					<span>&nbsp;<!-- Removes margin between icon and text --></span>
+					<ion-label class="no-left-offset">{{c}}</ion-label>
+					<ion-icon *ngIf="showFilterItem(filters?.filteredCarIds, c.id)" name="checkmark" item-right></ion-icon>
+				</ion-item>
+			</ion-list>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-header>
+				<div class="filter-header-title">Journey Types</div>
+				<div class="filter-header-buttons">
+					<button ion-button small light (click)="onAllJourneys()">All</button>
+					<button ion-button small light (click)="onClearJourneys()">Clear</button>
+				</div>						
+			</ion-card-header>
+			<ion-list>
+				<ion-item *ngFor="let t of _fillTypes" item-right (click)="onSelectJourneyType(t)">
+					{{getJourneyTypeDescription(t)}}
+					<ion-icon *ngIf="showFilterItem(filters?.filteredJourneyTypes, t)" name="checkmark" item-right></ion-icon>
+				</ion-item>
+			</ion-list>
+		</ion-card>
+
+		<ion-card>
+			<ion-card-header>
+				<div class="filter-header-title">MPG Averages</div>
+				<div class="filter-header-buttons">
+					<button ion-button small light (click)="onAllMpgAverages()">All</button>
+					<button ion-button small light (click)="onClearMpgAverages()">Clear</button>
+				</div>						
+			</ion-card-header>
+			<ion-list>
+				<ion-item *ngFor="let mo of _mpgOperators" item-right (click)="onSelectMpgOperator(mo)">
+					{{getMpgOperatorDescription(mo)}}
+					<ion-icon *ngIf="showFilterItem(filters?.filteredMpgAverages, mo)" name="checkmark" item-right></ion-icon>
+				</ion-item>
+			</ion-list>
+		</ion-card>
+
+	</div>
+</ion-content>

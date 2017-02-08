@@ -9,7 +9,7 @@ import { IAppState } from '../iapp.state';
 @Injectable()
 export class AppActions {
 
-	static INITIALISE_APP: string = "INITIALISE_APP";
+	static INITIALISE_APP: string = "App::INITIALISE_APP";
 	public InitialiseApp(initialState: IAppState): Action {
 		return {
 			type: AppActions.INITIALISE_APP,
@@ -17,7 +17,7 @@ export class AppActions {
 		}
 	}
 
-	static CHANGE_MEASUREMENT: string = 'CHANGE_MEASUREMENT';
+	static CHANGE_MEASUREMENT: string = 'App::CHANGE_MEASUREMENT';
 	public ChangeMeasurement(measurement: boolean): Action {
 		return {
 			type: AppActions.CHANGE_MEASUREMENT,
@@ -25,7 +25,7 @@ export class AppActions {
 		}
 	}
 
-	static CAR_ADD: string = 'CAR_ADD';
+	static CAR_ADD: string = 'App::CAR_ADD';
 	public CarAdd(car: Car): Action {
 		return {
 			type: AppActions.CAR_ADD,
@@ -35,7 +35,7 @@ export class AppActions {
 		}
 	}
 
-	static CAR_SAVE: string = 'CAR_SAVE';
+	static CAR_SAVE: string = 'App::CAR_SAVE';
 	public CarSave(car: Car): Action {
 		return {
 			type: AppActions.CAR_SAVE,
@@ -53,7 +53,7 @@ export class AppActions {
 		}
 	} // CarSave
 
-	static CAR_EDIT: string = 'CAR_EDIT';
+	static CAR_EDIT: string = 'App::CAR_EDIT';
 	public CarEdit(car: Car): Action {
 		return {
 			type: AppActions.CAR_EDIT,
@@ -62,7 +62,7 @@ export class AppActions {
 
 	} // CarEdit
 
-	static TOGGLE_HISTORY_ITEM: string = 'TOGGLE_HISTORY_ITEM';
+	static TOGGLE_HISTORY_ITEM: string = 'App::TOGGLE_HISTORY_ITEM';
 	public ToggleHistoryItem(carId: number): Action {
 		return {
 			type: AppActions.TOGGLE_HISTORY_ITEM,
@@ -70,7 +70,7 @@ export class AppActions {
 		}
 	}
 
-	static SHOW_YEAR_VIEW: string = 'SHOW_YEAR_VIEW';
+	static SHOW_YEAR_VIEW: string = 'App::SHOW_YEAR_VIEW';
 	public ShowYearView(fills: Array<FillUp>, years?: Array<number>, selectedYear?: number): Action {
 		return {
 			type: AppActions.SHOW_YEAR_VIEW,
@@ -84,7 +84,7 @@ export class AppActions {
 
 	}
 
-	static SHOW_FILTERED_VIEW: string = 'SHOW_FILTERED_VIEW';
+	static SHOW_FILTERED_VIEW: string = 'App::SHOW_FILTERED_VIEW';
 	public ShowFilteredView(filteredFills: Array<FillUp>, years: Array<number>): Action {
 		return {
 			type: AppActions.SHOW_YEAR_VIEW,
@@ -96,7 +96,7 @@ export class AppActions {
 		}
 	}
 
-	static SHOW_MESSAGE: string = 'SHOW_MESSAGE';
+	static SHOW_MESSAGE: string = 'App::SHOW_MESSAGE';
 	public ShowMessage(msg: string): Action {
 		return {
 			type: AppActions.SHOW_MESSAGE,
@@ -104,7 +104,7 @@ export class AppActions {
 		}
 	}
 
-	static HIDE_MESSAGE: string = 'HIDE_MESSAGE';
+	static HIDE_MESSAGE: string = 'App::HIDE_MESSAGE';
 	public HideMessage(): Action {
 		return {
 			type: AppActions.HIDE_MESSAGE
@@ -115,8 +115,8 @@ export class AppActions {
 
 	// Note:
 	// The following aren't subject to reducers.  They _could_ be, they just aren't
-	// These are probably "side effects" in ngrx v2
-	static ADD_FILL_UP: string = 'ADD_FILL_UP';
+	// TODO: These are probably "side effects" in ngrx v2
+	static ADD_FILL_UP: string = 'App::ADD_FILL_UP';
 	public AddFillUp(fillUp: FillUp): Action {
 		return {
 			type: AppActions.ADD_FILL_UP,
@@ -124,7 +124,7 @@ export class AppActions {
 		}
 	}
 
-	static ADD_STATS: string = 'ADD_STATS';
+	static ADD_STATS: string = 'App::ADD_STATS';
 	public AddStats(stats: MpgStats): Action {
 		return {
 			type: AppActions.ADD_STATS,
@@ -134,7 +134,7 @@ export class AppActions {
 		}
 	}
 
-	static SAVE_STATS: string = 'SAVE_STATS';
+	static SAVE_STATS: string = 'App::SAVE_STATS';
 	public SaveStats(stats: MpgStats): Action {
 		return {
 			type: AppActions.SAVE_STATS,

@@ -13,14 +13,9 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 	let newState: IFilterState = null;
 
 	switch (action.type) {
-		case AppActions.INITIALISE_APP:
-			newState = {
-				filtersActive: action.payload.filters.filtersActive,
-				filteredYears: action.payload.filters.filteredYears,
-				filteredJourneyTypes: action.payload.filters.filteredJourneyTypes,
-				filteredMpgAverages: action.payload.filters.filteredMpgAverages,
-				filteredCarIds: action.payload.filters.filteredCarIds
-			}
+		case FilterActions.INITIALISE_APP:
+			// payload is the same shape => just take as is
+			newState = action.payload;
 			break;
 
 		case AppActions.SHOW_YEAR_VIEW:

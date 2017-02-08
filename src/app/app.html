@@ -1,27 +1,39 @@
-	<ion-menu [content]="nav" id="menu1">
-		<ion-header>
-			<ion-toolbar>
-				<ion-title>Menu</ion-title>
-			</ion-toolbar>
-		</ion-header>	
-		<ion-content>	
+<ion-menu [content]="nav" id="menu1">
+	<ion-header>
+		<ion-toolbar>
+			<ion-title>Menu</ion-title>
+		</ion-toolbar>
+	</ion-header>	
+	<ion-content>	
+		<ion-list>
+			<button ion-item (click)="openAbout()">About</button>
+			<button ion-item (click)="openSettings()">Settings</button>
+		</ion-list>
+	</ion-content>		
+</ion-menu>
+
+<ion-menu [content]="nav" id="menu2" side="right">
+	<ion-header>
+		<ion-toolbar>
 			<ion-list>
-				<button ion-item (click)="openAbout()">About</button>
-				<button ion-item (click)="openSettings()">Settings</button>
+				<ion-item>
+					<ion-label item-left>Filters</ion-label>
+					<ion-toggle item-right (ionChange)="onToggleFilters($event)" [checked]='(_filter$|async)?.filtersActive'></ion-toggle>
+				</ion-item>
 			</ion-list>
-		</ion-content>		
-	</ion-menu>
+		</ion-toolbar>
+	</ion-header>	
+	<ion-content>
+		<filter-menu-ion
+			[content]="nav"
+			[years]="(_app$|async)?.years"
+			[cars]="(_app$|async)?.cars"
+			[filters]="(_filter$|async)"
+			(on-change-filter)="onFilterChange($event)">
+		</filter-menu-ion>			
+	</ion-content>		
+</ion-menu>
 
-	<ion-menu [content]="nav" id="menu2" side="right">
-		<ion-header>
-			<ion-toolbar>
-				<ion-title>Filters</ion-title>
-			</ion-toolbar>
-		</ion-header>	
-		<ion-content>
+<ion-nav [root]="_rootPage" #nav></ion-nav>
 
-		</ion-content>		
-	</ion-menu>
-	
 
-	<ion-nav [root]="_rootPage" #nav></ion-nav>

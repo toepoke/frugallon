@@ -1,3 +1,4 @@
+import { IFilterState } from './../ifilter.state';
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Car, eFillUpType } from "../../models";
@@ -9,8 +10,15 @@ import { Car, eFillUpType } from "../../models";
 export class FilterActions {
 
 	// TODO: SHOW_HISTORY
+	static INITIALISE_APP: string = 'Filters::INITIALISE_APP';
+	public InitialiseApp(initialFilterState: IFilterState): Action {
+		return {
+			type: FilterActions.INITIALISE_APP,
+			payload: initialFilterState
+		}
+	}
 
-	static FILTERS_ACTIVE_UPDATE: string = 'FILTERS_ACTIVE_UPDATE';
+	static FILTERS_ACTIVE_UPDATE: string = 'Filters::FILTERS_ACTIVE_UPDATE';
 	public FiltersActiveUpdate(filtersOn: boolean): Action {
 		return {
 			type: FilterActions.FILTERS_ACTIVE_UPDATE,
@@ -18,7 +26,7 @@ export class FilterActions {
 		}
 	}
 
-	static TOGGLE_YEAR_FILTER: string = 'TOGGLE_YEAR_FILTER';
+	static TOGGLE_YEAR_FILTER: string = 'Filters::TOGGLE_YEAR_FILTER';
 	public ToggleYearFilter(year: number): Action {
 		return {
 			type: FilterActions.TOGGLE_YEAR_FILTER,
@@ -26,7 +34,7 @@ export class FilterActions {
 		}
 	}
 
-	static SHOW_ALL_YEARS: string = 'SHOW_ALL_YEARS';
+	static SHOW_ALL_YEARS: string = 'Filters::SHOW_ALL_YEARS';
 	public ShowAllYears(allYears: Array<number>): Action {
 		return {
 			type: FilterActions.SHOW_ALL_YEARS,
@@ -34,7 +42,7 @@ export class FilterActions {
 		}
 	}
 
-	static CLEAR_ALL_YEARS: string = 'CLEAR_ALL_YEARS';
+	static CLEAR_ALL_YEARS: string = 'Filters::CLEAR_ALL_YEARS';
 	public ClearAllYears(): Action {
 		return {
 			type: FilterActions.CLEAR_ALL_YEARS,
@@ -43,7 +51,7 @@ export class FilterActions {
 	}	
 
 
-	static TOGGLE_JOURNEY_FILTER: string = 'TOGGLE_JOURNEY_FILTER';
+	static TOGGLE_JOURNEY_FILTER: string = 'Filters::TOGGLE_JOURNEY_FILTER';
 	public ToggleJourneyFilter(journeyType: eFillUpType): Action {
 		return {
 			type: FilterActions.TOGGLE_JOURNEY_FILTER,
@@ -51,7 +59,7 @@ export class FilterActions {
 		}
 	}
 
-	static SHOW_ALL_JOURNEY_TYPES: string = 'SHOW_ALL_JOURNEY_TYPES';
+	static SHOW_ALL_JOURNEY_TYPES: string = 'Filters::SHOW_ALL_JOURNEY_TYPES';
 	public ShowAllJourneyTypes(allJourneyTypes: Array<eFillUpType>): Action {
 		return {
 			type: FilterActions.SHOW_ALL_JOURNEY_TYPES,
@@ -59,7 +67,7 @@ export class FilterActions {
 		}
 	}
 
-	static CLEAR_ALL_JOURNEY_TYPES: string = 'CLEAR_ALL_JOURNEY_TYPES';
+	static CLEAR_ALL_JOURNEY_TYPES: string = 'Filters::CLEAR_ALL_JOURNEY_TYPES';
 	public ClearAllJourneyTypes(): Action {
 		return {
 			type: FilterActions.CLEAR_ALL_JOURNEY_TYPES,
@@ -68,7 +76,7 @@ export class FilterActions {
 	}
 
 
-	static TOGGLE_MPG_AVERAGE_FILTER: string = 'TOGGLE_MPG_AVERAGE_FILTER';
+	static TOGGLE_MPG_AVERAGE_FILTER: string = 'Filters::TOGGLE_MPG_AVERAGE_FILTER';
 	public ToggleMpgAverageFilter(mpgAverage: number): Action {
 		return {
 			type: FilterActions.TOGGLE_MPG_AVERAGE_FILTER,
@@ -76,7 +84,7 @@ export class FilterActions {
 		}
 	}
 
-	static SHOW_ALL_MPG_AVERAGES: string = 'SHOW_ALL_MPG_AVERAGES';
+	static SHOW_ALL_MPG_AVERAGES: string = 'Filters::SHOW_ALL_MPG_AVERAGES';
 	public ShowAllMpgAverages(allMpgAverages: Array<number>): Action {
 		return {
 			type: FilterActions.SHOW_ALL_MPG_AVERAGES,
@@ -84,7 +92,7 @@ export class FilterActions {
 		}
 	}
 
-	static CLEAR_ALL_MPG_AVERAGES: string = 'CLEAR_ALL_MPG_AVERAGES';
+	static CLEAR_ALL_MPG_AVERAGES: string = 'Filters::CLEAR_ALL_MPG_AVERAGES';
 	public ClearAllMpgAverages(): Action {
 		return {
 			type: FilterActions.CLEAR_ALL_MPG_AVERAGES,
@@ -93,7 +101,7 @@ export class FilterActions {
 	}
 
 
-	static TOGGLE_CAR_FILTER: string = 'TOGGLE_CAR_FILTER';
+	static TOGGLE_CAR_FILTER: string = 'Filters::TOGGLE_CAR_FILTER';
 	public ToggleCarFilter(car: Car): Action {
 		return {
 			type: FilterActions.TOGGLE_CAR_FILTER,
@@ -101,7 +109,7 @@ export class FilterActions {
 		}
 	}
 
-	static SHOW_ALL_CARS: string = 'SHOW_ALL_CARS';
+	static SHOW_ALL_CARS: string = 'Filters::SHOW_ALL_CARS';
 	public ShowAllCars(cars: Array<Car>): Action {
 		return {
 			type: FilterActions.SHOW_ALL_CARS,
@@ -109,7 +117,7 @@ export class FilterActions {
 		}
 	}
 
-	static CLEAR_ALL_CARS: string = 'CLEAR_ALL_CARS';
+	static CLEAR_ALL_CARS: string = 'Filters::CLEAR_ALL_CARS';
 	public ClearAllCars(): Action {
 		return {
 			type: FilterActions.CLEAR_ALL_CARS,

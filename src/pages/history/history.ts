@@ -66,7 +66,7 @@ import * as _ from '../../core/helpers/underscore';
 
 	</ion-content>
 
-	<ion-content class="content" *ngIf="!hasFills((_app$|async).fills)" class="background animated fadeIn medium" padding>
+	<ion-content class="content" *ngIf="!hasFills((_app$|async).fills)" class="background container animated fadeIn medium" padding>
 		<ion-card *ngIf="!hasFiltersActive(_currFilters)">
 			<ion-card-header>
 				No History
@@ -120,7 +120,7 @@ export class HistoryPage {
 			}
 		});
 
-		this._filters$ = <Observable<IFilterState>> _store.select("fitlerState");
+		this._filters$ = <Observable<IFilterState>> _store.select("filterState");
 		this._filters$subscription = this._filters$.subscribe((filterState: IFilterState) => {
 			if (_.isPresent(filterState)) {
 				this._currFilters = filterState;
@@ -244,9 +244,7 @@ export class HistoryPage {
 		if (_.isNull(fills))
 			return false;
 			
-		return ditto.any(fills)
-			&& ditto.any(fills)
-		;
+		return ditto.any(fills);
 	}
 
 

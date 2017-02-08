@@ -8,7 +8,8 @@ import {
 	CarListIon, 
 	CarPickerIon, 
 	FillSummaryIon, 
-	FillListIon
+	FillListIon,
+	FilterMenuIon
 } from './components';
 
 const COMPONENTS: any[] = [
@@ -16,7 +17,8 @@ const COMPONENTS: any[] = [
 	CarListIon,
 	CarPickerIon,
 	FillSummaryIon,
-	FillListIon
+	FillListIon,
+	FilterMenuIon
 ];
 
 @NgModule({

@@ -54,10 +54,10 @@ const PAGES: any[] = [
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    StoreModule.provideStore(
-      { appState: appStateReducer },
-      { filterState: filterStateReducer }
-    ),
+    StoreModule.provideStore({
+      appState: appStateReducer,
+      filterState: filterStateReducer
+    }),
     CoreModule,
     BricksModule
   ],

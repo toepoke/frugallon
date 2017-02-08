@@ -1,3 +1,4 @@
+import { IFilterState } from './../stores/ifilter.state';
 import { Injectable } from '@angular/core';
 import { Car } from './../models/car';
 import { Filters, Settings, FillUp } from './../models';
@@ -90,5 +91,21 @@ export class AppService {
 		;
 
 	} // getInitialState	
+
+
+	public getInitialFiltersState(): Promise<IFilterState> {
+		let startingFilterState: IFilterState = null;
+
+		return this._filtersDb.load()
+			.then((filters: Filters) => {
+				startingFilterState = filters;
+				return startingFilterState;
+			})
+			.catch((err: any) => {
+				// TODO:
+				console.error(err);
+			})
+		;			
+	} // getInitialFiltersState
 
 }
