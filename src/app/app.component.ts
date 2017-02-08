@@ -126,9 +126,11 @@ export class MyApp {
 	} // onToggleFilters
 
 
-	private refreshHistoryView(selectedYear: number = null): void {
-		let filteredFills: Array<FillUp> = null;
-
+	/**
+	 * If filters are active => apply latest filters
+	 * If filters are not active => show the "selectedYear" or the current year (if "selectedYear" isn't specified)
+	 */
+	protected refreshHistoryView(selectedYear: number = null): void {
 		if (this._currentFilters.filtersActive) {
 			this._filterService.getFilteredFills(this._currentFilters, this._currentAppState.measurement)
 				.then((filteredFills: Array<FillUp>) => {

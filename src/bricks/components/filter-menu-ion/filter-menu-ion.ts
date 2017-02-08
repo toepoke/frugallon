@@ -57,13 +57,9 @@ export class FilterMenuIon {
 		this._fillTypes = FillUp.getFillTypes();
 	}
 
-private ngOnChanges(value: any): void {
-	// debugger;
-}
-
 /**** Year filters actions *****/
 
-	private onSelectYear(yearToToggle: number): void {
+	protected onSelectYear(yearToToggle: number): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ToggleYearFilter(yearToToggle)
 		);
@@ -71,14 +67,14 @@ private ngOnChanges(value: any): void {
 	}
 
 
-	private onAllYears(): void {
+	protected onAllYears(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ShowAllYears(this.years)
 		);
 		
 	}
 
-	private onClearYears(): void {
+	protected onClearYears(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ClearAllYears()
 		);
@@ -88,19 +84,19 @@ private ngOnChanges(value: any): void {
 
 /**** Car filters actions *****/
 
-	private onSelectCar(c: Car): void {
+	protected onSelectCar(c: Car): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ToggleCarFilter(c)
 		)
 	}
 
-	private onAllCars(): void {
+	protected onAllCars(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ShowAllCars(this.cars)
 		)
 	}
 
-	private onClearCars(): void {
+	protected onClearCars(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ClearAllCars()
 		)
@@ -109,24 +105,24 @@ private ngOnChanges(value: any): void {
 
 /**** Journey filters actions *****/
 
-	private getJourneyTypeDescription(fillType: eFillUpType): string {
+	protected getJourneyTypeDescription(fillType: eFillUpType): string {
 		return FillUp.getFillTypeDescription(fillType);
 	}	
 
-	private onSelectJourneyType(ft: eFillUpType): void {
+	protected onSelectJourneyType(ft: eFillUpType): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ToggleJourneyFilter(ft)
 		);
 		
 	}
 
-	private onAllJourneys(): void {
+	protected onAllJourneys(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ShowAllJourneyTypes(this._fillTypes)
 		);
 				
 	}
-	private onClearJourneys(): void {
+	protected onClearJourneys(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ClearAllJourneyTypes()
 		);
@@ -136,7 +132,7 @@ private ngOnChanges(value: any): void {
 
 /**** MPG filters actions *****/
 
-	private getMpgOperatorDescription(mpgOperator: number): string {
+	protected getMpgOperatorDescription(mpgOperator: number): string {
 		if (mpgOperator < 0)
 			return "Below average";
 		else if (mpgOperator > 0)
@@ -145,21 +141,21 @@ private ngOnChanges(value: any): void {
 			return "Average (+/-10%)";
 	}
 
-	private onSelectMpgOperator(mpgOperator: number): void {
+	protected onSelectMpgOperator(mpgOperator: number): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ToggleMpgAverageFilter(mpgOperator)
 		);
 		
 	}
 
-	private onAllMpgAverages(): void {
+	protected onAllMpgAverages(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ShowAllMpgAverages(this._mpgOperators)
 		);
 		
 	}
 
-	private onClearMpgAverages(): void {
+	protected onClearMpgAverages(): void {
 		this.onChangeFilter.emit(
 			this._filterActions.ClearAllMpgAverages()
 		);
@@ -171,7 +167,7 @@ private ngOnChanges(value: any): void {
 	 * Flags whether a given filter in a list of filters is active or not.
 	 * This is used to display a checkbox next to the relevant filtered value. 
 	 */
-	private showFilterItem(items: Array<any>, currItem: any): boolean {
+	protected showFilterItem(items: Array<any>, currItem: any): boolean {
 		if (_.isNull(items)) {
 			return false;
 		}		
