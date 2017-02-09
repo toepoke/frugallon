@@ -33,8 +33,8 @@
 	</segment-list-ion>
 
 	<ion-segment *ngIf="hasFiltersActive(_currFilters)">
-		<ion-segment-button (click)="onRemoveFilters()">
-			Turn off filters
+		<ion-segment-button (click)="onRemoveFilters()" value="stop-filtering">
+			Turn off filtering
 		</ion-segment-button>
 	</ion-segment>
 
