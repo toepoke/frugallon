@@ -6,12 +6,13 @@ import * as _ from "../../core/helpers/underscore";
 
 @Injectable() 
 export class CarDb extends TypedDb<Car> {
+	static TABLE_NAME: string = 'cars';
 
 	constructor(
 		dbName: string,
 		provider: number
 	) {
-		super(CarDb.getSchema(), dbName, 'cars', provider);
+		super(CarDb.getSchema(), dbName, CarDb.TABLE_NAME, provider);
 	}
 
 	/** 

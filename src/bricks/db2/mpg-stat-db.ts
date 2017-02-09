@@ -5,12 +5,13 @@ import * as ditto from "../../core/helpers/ditto";
 
 @Injectable()
 export class MpgStatDb extends TypedDb<MpgStat> {
+	static TABLE_NAME: string = 'mpg_stats';
 
 	constructor(
 		dbName: string,
 		provider: number
 	) {
-		super(MpgStatDb.getSchema(), dbName, 'mpg_stats', provider);
+		super(MpgStatDb.getSchema(), dbName, MpgStatDb.TABLE_NAME, provider);
 	}
 
 	static getSchema(): any {

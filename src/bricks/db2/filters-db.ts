@@ -5,12 +5,13 @@ import * as ditto from "../../core/helpers/ditto";
 
 @Injectable()
 export class FiltersDb extends TypedDb<Filters> {
+	static TABLE_NAME: string = 'filters';
 
 	constructor(
 		dbName: string,
 		provider: number
 	) {
-		super(FiltersDb.getSchema(), dbName, 'filters', provider);
+		super(FiltersDb.getSchema(), dbName, FiltersDb.TABLE_NAME, provider);
 	}
 
 	static getSchema(): any {
