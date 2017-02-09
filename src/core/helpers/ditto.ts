@@ -8,14 +8,15 @@
  *  ...
  *  ditto.updateItem( ... )
  * Revisions:
- * 	#1	- Initial version
- *  #2	- Added further methods
- * 	#3	- Added Object.assign inline polyfill.
- * 			- Added "replaceAll" method 
- * 			- "updateItem" now copies methods too 
- * 			- Fixed quotes and tabs
- * 	#3	- Added revision history (yup, this bit)
- * 	#4	- Fix for "updateItem" not handling null current input
+ *  #1 - Initial version
+ *  #2 - Added further methods
+ *  #3 - Added Object.assign inline polyfill.
+ *     - Added "replaceAll" method 
+ *     - "updateItem" now copies methods too 
+ *     - Fixed quotes and tabs
+ *  #3 - Added revision history (yup, this bit)
+ *  #4 - Fix for "updateItem" not handling null current input
+ *  #5 - Added "atLeast"
  */
 
 /**
@@ -64,6 +65,19 @@ export function any<T>(items: Array<T>): boolean {
 		return false;
 
 	return items.length > 0;
+}
+
+
+/**
+ * Returns true if there is at least "N" items in the given list
+ * Returns false otherwise
+ */
+export function atLeast<T>(items: Array<T>, n: number): boolean {
+	if (!any(items)) {
+		return false;
+	}
+
+	return items.length >= n;
 }
 
 

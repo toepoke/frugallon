@@ -4,6 +4,7 @@ import { Nav } from 'ionic-angular';
 
 import { IFilterState, FilterActions } from './../../stores';
 import { Car, FillUp, eFillUpType } from './../../models';
+import * as ditto from '../../../core/helpers/ditto';
 import * as _ from '../../../core/helpers/underscore';
 
 @Component({
@@ -24,7 +25,13 @@ import * as _ from '../../../core/helpers/underscore';
 	}
 	.filter-header-buttons::after {
 		clear: both;
-	}		
+	}
+	.filter-year-body {
+		margin: 0 1rem 1rem 1rem;
+	}
+		.year-button {
+			width: 8rem;
+		}
 	.disabler {
 		opacity: 0.5;
 		pointer-events: none;
@@ -46,10 +53,9 @@ export class FilterMenuIon {
 
 	@Output("on-change-filter") onChangeFilter: EventEmitter<Action> = new EventEmitter<Action>();
 
+	protected _fillTypes: Array<eFillUpType> = null;
 
-	private _fillTypes: Array<eFillUpType> = null;
-
-	private _mpgOperators: Array<number> = new Array<number>(-1, 0, +1);
+	protected _mpgOperators: Array<number> = new Array<number>(-1, 0, +1);
 	
 	constructor(
 		private _filterActions: FilterActions
@@ -81,6 +87,27 @@ export class FilterMenuIon {
 		
 	}
 
+	protected showYears(): boolean {
+		if (!ditto.any(this.years) || !this.filters || !this.filters.filteredYears) {
+			// no data yet
+			return false;
+		}
+	
+		if (ditto.atLeast(this.years, 2)) {
+			// has at least 2 items, so filtering makes sense
+			return true;
+		}
+
+		if (this.filters.filteredYears.length !== 1) {
+			// Make sure the year is ticked in the filter
+			this.onAllYears();
+		}
+		
+		// only 1 year, so no point showing the filtering
+		return false;
+
+	} // showYears
+
 
 /**** Car filters actions *****/
 
@@ -101,6 +128,27 @@ export class FilterMenuIon {
 			this._filterActions.ClearAllCars()
 		)
 	}
+
+	protected showCars(): boolean {
+		if (!ditto.any(this.cars) || !this.filters || !this.filters.filteredCarIds) {
+			// no data yet
+			return false;
+		}
+
+		if (ditto.atLeast(this.cars, 2)) {
+			// has at least 2 cars, so filtering makes sense
+			return true;
+		}
+
+		if (this.filters.filteredCarIds.length != 1) {
+			// Make sure the car is ticked in the filter
+			this.onAllCars();
+		}
+
+		// only 1 car, so no point showing the filtering
+		return false;
+		 
+	} // showCars
 
 
 /**** Journey filters actions *****/

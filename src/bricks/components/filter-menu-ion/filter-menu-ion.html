@@ -1,6 +1,6 @@
 <ion-content>
 	<div [class.disabler]="!filters?.filtersActive">
-		<ion-card>
+		<ion-card *ngIf="showYears()">
 			<ion-card-header>
 				<div class="filter-header-title">Years</div>
 				<div class="filter-header-buttons">
@@ -8,15 +8,18 @@
 					<button ion-button small light (click)="onClearYears()">Clear</button>
 				</div>						
 			</ion-card-header>
-			<ion-list>
-				<ion-item *ngFor="let y of years" (click)="onSelectYear(y)">
-					{{y}}
-					<ion-icon *ngIf="showFilterItem(filters?.filteredYears, y)" name="checkmark" item-right></ion-icon>
-				</ion-item> 
-			</ion-list>
+			<div class="filter-year-body">
+				<div class="ib" *ngFor="let y of years" (click)="onSelectYear(y)">
+					<button ion-button class="year-button" color="danger">
+						{{y}}&nbsp;&nbsp;
+						<ion-icon *ngIf="showFilterItem(filters?.filteredYears, y)" name="checkmark" item-right></ion-icon>
+						<ion-icon *ngIf="!showFilterItem(filters?.filteredYears, y)" name="" item-right></ion-icon>
+					</button>
+				</div> 
+			</div>
 		</ion-card>
 
-		<ion-card>
+		<ion-card *ngIf="showCars()">
 			<ion-card-header>
 				<div class="filter-header-title">Cars</div>
 				<div class="filter-header-buttons">
