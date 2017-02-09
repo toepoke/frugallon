@@ -114,6 +114,10 @@ $colors: (
 .mpgbadge-ok   { background-color: #ff7900; color: #fff; }
 .mpgbadge-good { background-color: #3d7d1e; color: #fff; }
 
+ion-icon.large:before {
+	font-size: xx-large;
+}
+
 ion-input[type="text"], 
 ion-input[type="number"],
 ion-input[type="tel"] {
