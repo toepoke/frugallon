@@ -136,8 +136,6 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 			newState = oldState;
 	}
 
-console.log("%c" + action.type, 'background: #222; color: #bada55', action.payload, newState);
-
 	return newState;
 
 } // filterStateReducer

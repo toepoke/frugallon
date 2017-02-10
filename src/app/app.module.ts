@@ -1,4 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
@@ -57,6 +58,9 @@ const PAGES: any[] = [
     StoreModule.provideStore({
       appState: appStateReducer,
       filterState: filterStateReducer
+    }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
     }),
     CoreModule,
     BricksModule

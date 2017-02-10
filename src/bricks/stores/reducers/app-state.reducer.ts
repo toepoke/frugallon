@@ -123,8 +123,6 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 			newState = oldState;
 	}
 
-console.log("%c" + action.type, 'background: #222; color: #bada55', action.payload, newState);
-
 	return newState;
 
 } // appStateReducer
