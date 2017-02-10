@@ -27,12 +27,12 @@ let mpgStatDb: MpgStatDb = new MpgStatDb(DB_NAME, DB_PROVIDER);
 let fillUpDb: FillUpDb = new FillUpDb(DB_NAME, DB_PROVIDER);
 let filtersDb: FiltersDb = new FiltersDb(DB_NAME, DB_PROVIDER);
 
-carDb.enableLogging();
-carMakerDb.enableLogging();
-fillUpDb.enableLogging();
-settingDb.enableLogging();
-mpgStatDb.enableLogging();
-filtersDb.enableLogging();
+// carDb.enableLogging();
+// carMakerDb.enableLogging();
+// fillUpDb.enableLogging();
+// settingDb.enableLogging();
+// mpgStatDb.enableLogging();
+// filtersDb.enableLogging();
 
 const PAGES: any[] = [
   MyApp,
