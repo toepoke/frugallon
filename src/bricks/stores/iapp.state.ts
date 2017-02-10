@@ -1,4 +1,4 @@
-import { FillUp, Car, eFillUpType, VehicleType } from "../models";
+import { FillUp, Car, eFillUpType, VehicleType, ePages } from "../models";
 
 export interface IAppState {
 	appVersion: string;
@@ -33,6 +33,17 @@ export interface IAppState {
 	/** @description - set of supported types of vehicle */
 	vehicleTypes: Array<VehicleType>;
 
-	action: string;
+	/** @description - Current active view */
+	currentPage: ePages;
+
+	/** @description - View that was last accessed */
+	previousPage: ePages;
+
+	/** @description - Left side menu is open (or closed) */
+	leftMenuActive: boolean;
+
+	/** @description - Right side menu is open (or closed) */
+	rightMenuActive: boolean;
+
 }
 

@@ -1,4 +1,4 @@
-import { Car } from './../../bricks/models/car';
+import { Car, ePages } from './../../bricks/models';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { IAppState } from './../../bricks/stores/iapp.state';
@@ -6,6 +6,7 @@ import { AppActions } from './../../bricks/stores/actions/app.actions';
 import { Store } from '@ngrx/store';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CarEditPage } from '../';
+import { BasePage } from '../_base-page/base-page';
 import * as _ from '../../core/helpers/underscore';
 
 import { NavController } from 'ionic-angular';
@@ -50,17 +51,19 @@ import { NavController } from 'ionic-angular';
 	</ion-content>
 `  
 })
-export class MyCarsPage {
+export class MyCarsPage extends BasePage {
 	private _app$: Observable<IAppState> = null;
 	private _app$subscription: Subscription = null;
 	protected _app: IAppState = null;
 
   constructor(
+		store: Store<IAppState>,
+		appActions: AppActions,
 		protected _nav: NavController,
-		protected _store: Store<IAppState>,
-		protected _appActions: AppActions
 	) {
-		this._app$ = <Observable<IAppState>> _store.select("appState");
+		super(store, appActions, ePages.MyCars);
+
+		this._app$ = <Observable<IAppState>> store.select("appState");
 		this._app$subscription = this._app$.subscribe((appState: IAppState) => {
 			if (_.isPresent(appState)) {
 				this._app = appState;
@@ -74,6 +77,14 @@ export class MyCarsPage {
 	 */
 	protected ionViewDidUnload(): void {
 		this._app$subscription.unsubscribe();
+	}	
+
+	protected ionViewDidEnter(): void {
+		super.onViewDidEnter();
+	}
+
+	protected ionViewDidLeave(): void {
+		super.onViewDidLeave();
 	}	
 
 	protected onEdit(c: Car): void {

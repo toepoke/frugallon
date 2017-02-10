@@ -1,6 +1,10 @@
+import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 
+import { AppActions, IAppState } from './../../bricks/stores';
 import { NavController } from 'ionic-angular';
+import { ePages } from '../../bricks/models';
+import { BasePage } from '../_base-page/base-page';
 
 @Component({
   selector: 'page-reminders',
@@ -31,10 +35,22 @@ import { NavController } from 'ionic-angular';
   </ion-content>
 `  
 })
-export class RemindersPage {
+export class RemindersPage extends BasePage {
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(
+		store: Store<IAppState>,
+		appActions: AppActions
+	) {
+		super(store, appActions, ePages.Reminders);
   }
+
+	protected ionViewDidEnter(): void {
+		super.onViewDidEnter();
+	}
+
+	protected ionViewDidLeave(): void {
+		super.onViewDidLeave();
+	}	
+
 
 }

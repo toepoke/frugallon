@@ -5,13 +5,6 @@ import { HistoryPage } from '../history/history';
 import { RemindersPage } from '../reminders/reminders';
 import { MyCarsPage } from '../my-cars/my-cars';
 
-export enum ePages {
-	FillUp = 0,
-	History = 1,
-	Stats = 2,
-	Cars = 3
-}
-
 @Component({
   template:
 `
@@ -23,6 +16,7 @@ export enum ePages {
 </ion-tabs>
 `  
 })
+// Tabs aren't really pages, hence we don't inherit from "BasePage".
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page

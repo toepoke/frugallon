@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { Settings } from '../../bricks/models';
+import { Settings, ePages } from '../../bricks/models';
 import { SettingDb, DbCmdFailure } from './../../bricks/db2';
 import { AppActions, IAppState } from '../../bricks/stores';
+import { BasePage } from '../_base-page/base-page';
 import { AppService } from '../../bricks/services';
 
 import { NavController, Alert, AlertController, Toast, ToastController } from 'ionic-angular';
@@ -36,22 +37,32 @@ import { NavController, Alert, AlertController, Toast, ToastController } from 'i
   </ion-content>
 `  
 })
-export class SettingsPage {
+export class SettingsPage extends BasePage {
 	private _app$: Observable<IAppState> = null;
 
   constructor(
+		store: Store<IAppState>,
+    appActions: AppActions,
     protected _navCtrl: NavController,
     protected _alertCtrl: AlertController,
     protected _toastCtrl: ToastController,
     protected _appService: AppService,
-    protected _settingDb: SettingDb,
-		protected _store: Store<IAppState>,
-    protected _appActions: AppActions
+    protected _settingDb: SettingDb
   ) {
-		this._app$ = <Observable<IAppState>> _store.select("appState");
+    super(store, appActions, ePages.Settings);
+
+		this._app$ = <Observable<IAppState>> store.select("appState");
 		this._app$.subscribe((data: IAppState) => {
 		});
   }
+
+	protected ionViewDidEnter(): void {
+		super.onViewDidEnter();
+	}
+
+	protected ionViewDidLeave(): void {
+		super.onViewPop();
+	}	
 
   protected onMeasureChange(evt: any): void {
     let newMeasurement: boolean = evt.checked;

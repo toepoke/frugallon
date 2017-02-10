@@ -55,7 +55,7 @@ export class MyApp {
     this._app$ = <Observable<IAppState>> this._store.select("appState");
 		this._app$subscription = this._app$.subscribe((data: IAppState) => {
 			if (_.isPresent(data)) {
-				this._currentAppState = data;
+				this._currentAppState = data;				
 			}
 		});
     this._filter$ = <Observable<IFilterState>> this._store.select("filterState");
@@ -77,7 +77,8 @@ export class MyApp {
 			})
       .catch((err: any) => console.error(err))
     ;
-  }
+  
+	} // initialiseApp
 
 
 	/**
@@ -89,6 +90,13 @@ export class MyApp {
 		this._filter$subscription.unsubscribe();
 	}		
 
+	protected toggleLeftMenu(evt: any): void {
+		this._store.dispatch(this._appActions.ToggleLeftMenu());
+	}
+
+	protected toggleRightMenu(evt: any): void {
+		this._store.dispatch(this._appActions.ToggleRightMenu());
+	}
 
 	protected openSettings(): void {
 		this._menuCtrl.close("menu1");

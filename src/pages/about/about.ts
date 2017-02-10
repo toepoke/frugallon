@@ -3,8 +3,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Platform } from 'ionic-angular';
 
-import { IAppState } from '../../bricks/stores';
+import { IAppState, AppActions } from '../../bricks/stores';
 import { DbProviders, SettingDb } from '../../bricks/db2';
+import { ePages } from '../../bricks/models';
+import { BasePage } from '../_base-page/base-page';
 
 @Component({
   selector: 'page-about',
@@ -26,19 +28,31 @@ import { DbProviders, SettingDb } from '../../bricks/db2';
 		}
 	`],   
 })
-export class AboutPage {
+export class AboutPage extends BasePage {
 	private _app$: Observable<IAppState> = null;
 	private _dbType: string = '';
 	private _platformNames: Array<string> = null;
   
   constructor(
-		private _store: Store<IAppState>, 
-		private _platform: Platform,
+		store: Store<IAppState>, 
+		appActions: AppActions,
+		private _platform: Platform,		
     private _settingDb: SettingDb
   ) {
-		this._app$ = <Observable<IAppState>> _store.select("appState");
+		super(store, appActions, ePages.About);
+
+		this._app$ = <Observable<IAppState>> this._store.select("appState");
     this._dbType = DbProviders.getDescription( this._settingDb.getActiveProvider() );
     this._platformNames = this._platform.platforms();
   }
+
+	protected ionViewDidEnter(): void {
+		super.onViewDidEnter();
+	}
+
+	protected ionViewDidLeave(): void {
+		super.onViewPop();
+	}	
+
 
 }

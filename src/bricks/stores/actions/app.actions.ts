@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Car, FillUp, MpgStats } from "../../models";
+import { Car, FillUp, MpgStats, ePages, ePagesToString } from "../../models";
 import { IAppState } from '../iapp.state';
 //@ngrx/store/init
 /**
@@ -67,6 +67,20 @@ export class AppActions {
 		return {
 			type: AppActions.TOGGLE_HISTORY_ITEM,
 			payload: carId
+		}
+	}
+
+	static TOGGLE_LEFT_MENU: string = 'App::TOGGLE_LEFT_MENU';
+	public ToggleLeftMenu(): Action {
+		return {
+			type: AppActions.TOGGLE_LEFT_MENU
+		}
+	}
+
+	static TOGGLE_RIGHT_MENU: string = 'App::TOGGLE_RIGHT_MENU';
+	public ToggleRightMenu(): Action {
+		return {
+			type: AppActions.TOGGLE_RIGHT_MENU
 		}
 	}
 
@@ -141,6 +155,27 @@ export class AppActions {
 			payload: {
 				stats: stats
 			}
+		}
+	}
+
+	static PAGE_CHANGE: string = 'App::PAGE_CHANGE';
+	public ChangePage(newPage: ePages): Action {
+		return {
+			type: AppActions.PAGE_CHANGE,
+			payload: {
+				page: newPage,
+				pageName: ePagesToString(newPage)	// for info really
+			}
+		}
+	}
+
+	/**
+	 * Used when going back from a dialog page (e.g. About)
+	 */
+	static POP_PAGE: string = 'App::POP_PAGE';
+	public PopPage(): Action {
+		return {
+			type: AppActions.POP_PAGE
 		}
 	}
 

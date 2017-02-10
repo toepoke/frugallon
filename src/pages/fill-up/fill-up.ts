@@ -8,10 +8,10 @@ import { WizardIon, WizardStep, StepChangeEvent, eStepDirection } from '../../co
 import { TimeService } from '../../core/services';
 import { CoreValidators } from '../../core/validators';
 import { IAppState, AppActions } from '../../bricks/stores';
-import { Car, FillUp, eFillUpType } from '../../bricks/models';
+import { Car, FillUp, eFillUpType, ePages } from '../../bricks/models';
+import { BasePage } from '../_base-page/base-page';
 import { FillUpService } from '../../bricks/services';
 import { CarDb, DbCmdFailure } from '../../bricks/db2';
-import { ePages } from '../tabs/tabs';
 import * as ditto from '../../core/helpers/ditto';
 import * as _ from '../../core/helpers/underscore';
 
@@ -38,7 +38,7 @@ enum WIZARD_STEP {
 	`],
   templateUrl: "fill-up.html"
 })
-export class FillUpPage {
+export class FillUpPage extends BasePage {
   @ViewChild(WizardIon) _wizard: WizardIon = null;
 
   private _app$: Observable<IAppState> = null;
@@ -60,18 +60,29 @@ export class FillUpPage {
 	protected _measurement: boolean = true;   
 
   constructor(
+    store: Store<IAppState>,
+    appActions: AppActions,
     private _menu: MenuController,
     private _tabs: Tabs,
     private _fb: FormBuilder,
-    private _store: Store<IAppState>,
-    private _appActions: AppActions,
     private _timeServer: TimeService,
     private _fillUpService: FillUpService,
     private _carDb: CarDb
   ) {
+		super(store, appActions, ePages.FillUp);
+		
     this.wireUpState();
     this.createForms();
   }
+
+	protected ionViewDidEnter(): void {
+		super.onViewDidEnter();
+	}
+
+	protected ionViewDidLeave(): void {
+		super.onViewDidLeave();
+	}	
+
 
 	/**
 	 * Moves the wizard onto the next stop, once the user has selected a car. 

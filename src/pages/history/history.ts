@@ -7,7 +7,8 @@ import { Tabs } from 'ionic-angular';
 import { FilterService, FillUpService } from './../../bricks/services';
 import { TimeService } from './../../core/services';
 import { AppActions, IAppState, IFilterState } from './../../bricks/stores';
-import { ePages } from '../tabs/tabs';
+import { ePages } from '../../bricks/models';
+import { BasePage } from '../_base-page/base-page';
 import * as ditto from '../../core/helpers/ditto';
 import * as _ from '../../core/helpers/underscore';
 
@@ -16,7 +17,7 @@ import * as _ from '../../core/helpers/underscore';
 	changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'history.html'
 })
-export class HistoryPage {
+export class HistoryPage extends BasePage {
 	private _app$: Observable<IAppState> = null;
 	private _app$subscription: Subscription = null;
 	private _app: IAppState = null;
@@ -25,21 +26,23 @@ export class HistoryPage {
 	private _currFilters: IFilterState = null;
 
   constructor(
-		private _store: Store<IAppState>,
-		private _appActions: AppActions,
-		private _tabs: Tabs,
-		private _fillUpService: FillUpService,
-		private _filterService: FilterService,
-		private _timeService: TimeService
+		store: Store<IAppState>,
+		appActions: AppActions,
+		protected _tabs: Tabs,
+		protected _fillUpService: FillUpService,
+		protected _filterService: FilterService,
+		protected _timeService: TimeService
 	) {
-		this._app$ = <Observable<IAppState>> _store.select("appState");
+		super(store, appActions, ePages.History);
+
+		this._app$ = <Observable<IAppState>> this._store.select("appState");
 		this._app$subscription = this._app$.subscribe((appState: IAppState) => {
 			if (_.isPresent(appState)) {
 				this._app = appState;
 			}
 		});
 
-		this._filters$ = <Observable<IFilterState>> _store.select("filterState");
+		this._filters$ = <Observable<IFilterState>> this._store.select("filterState");
 		this._filters$subscription = this._filters$.subscribe((filterState: IFilterState) => {
 			if (_.isPresent(filterState)) {
 				this._currFilters = filterState;
@@ -47,6 +50,15 @@ export class HistoryPage {
 		});
   }
 
+	protected ionViewDidEnter(): void {
+		super.onViewDidEnter();
+	}
+
+	protected ionViewDidLeave(): void {
+		super.onViewDidLeave();
+	}	
+
+	
 	/**
 	 * Ensure subscription is destroyed when view is removed from the DOM
 	 * (otherwise => memory leaks!)

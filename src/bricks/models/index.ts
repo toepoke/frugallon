@@ -7,4 +7,5 @@ export { MpgStats } from './mpg-stats';
 export { Settings } from './settings';
 export { Filters } from './filters';
 export { VehicleType } from './vehicle-types';
+export { ePages, ePagesToString } from './pages';
 

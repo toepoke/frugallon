@@ -2,11 +2,12 @@ import { ColourSet } from './../../../core/components/colour-picker-ion/colour-s
 // System
 import { Action, ActionReducer } from "@ngrx/store";
 import * as ditto from "../../../core/helpers/ditto";
+import * as _ from "../../../core/helpers/underscore";
 
 // Dependencies
 import { IAppState } from "../iapp.state";
 import { AppActions } from '../actions/app.actions'
-import { VehicleType } from '../../models';
+import { VehicleType, ePages, ePagesToString } from '../../models';
 
 export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, action: Action) => {
 	let newState: IAppState = null;
@@ -23,22 +24,23 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 				editingCar: action.payload.editingCar,
 				measurement: action.payload.measurement,
 				measurementType: action.payload.measurementType,
-				action: action.payload.action,
 				showFills: new Array<number>(),
 				fillTypes: action.payload.fillTypes,
 				colours: getDefaultColours(),
-				vehicleTypes: VehicleType.getVehicleTypes()
+				vehicleTypes: VehicleType.getVehicleTypes(),
+				currentPage: ePages.FillUp,
+				previousPage: null, 
+				leftMenuActive: false,
+				rightMenuActive: false
 			};
-			console.log("INITIALISED: ", newState);
-			
-			return newState;
+		break;
 
 		case AppActions.CHANGE_MEASUREMENT:
 			newState = ditto.updateItem(oldState, {
 				measurement: action.payload,
 				measurementType: (action.payload ? "UK" : "US"),
 			});
-			return newState;
+		break;
 		
 		case AppActions.SHOW_YEAR_VIEW:
 			newState = ditto.updateItem(oldState, {
@@ -47,13 +49,13 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 				fills: action.payload.fills,
 				selectedYear: action.payload.selectedYear
 			});
-			return newState;
+		break;
 
 		case AppActions.CAR_ADD:
 			newState = ditto.updateItem(oldState, {
 				cars: ditto.append(oldState.cars, action.payload.car)
 			});
-			return newState;
+		break;
 
 		case AppActions.CAR_SAVE:
 			newState = ditto.updateItem(oldState, {
@@ -65,14 +67,14 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 					backgroundColour: action.payload.car.backgroundColour,
 					mileage: action.payload.car.mileage
 				})
-			});			
-			return newState;
+			});	
+		break;		
 			
 		case AppActions.CAR_EDIT:
 			newState = ditto.updateItem(oldState, {
 				editingCar: action.payload
 			});
-			return newState;
+		break;
 
 		case AppActions.TOGGLE_HISTORY_ITEM:
 			let id: number = action.payload;
@@ -88,12 +90,42 @@ export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, a
 					showFills: ditto.append(oldState.showFills, id)
 				});
 			}
-			return newState;
+		break;
+
+		case AppActions.PAGE_CHANGE:
+			newState = ditto.updateItem(oldState, {
+				previousPage: (_.isNull(oldState) ? null : oldState.currentPage),
+				currentPage: action.payload.page				
+			});
+		break;
+
+		case AppActions.POP_PAGE:
+			newState = ditto.updateItem(oldState, {
+				previousPage: null,
+				currentPage: oldState.previousPage
+			});
+		break;
+
+		case AppActions.TOGGLE_LEFT_MENU:
+			newState = ditto.updateItem(oldState, {
+				leftMenuActive: !oldState.leftMenuActive
+			});
+		break;
+
+		case AppActions.TOGGLE_RIGHT_MENU:
+			newState = ditto.updateItem(oldState, {
+				rightMenuActive: !oldState.rightMenuActive
+			});
+		break;
 
 		default:
 			// no change for the given action
-			return oldState;
+			newState = oldState;
 	}
+
+console.log("%c" + action.type, 'background: #222; color: #bada55', action.payload, newState);
+
+	return newState;
 
 } // appStateReducer
 

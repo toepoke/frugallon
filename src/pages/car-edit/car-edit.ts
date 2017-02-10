@@ -8,7 +8,8 @@ import { NavController, Content, NavParams } from 'ionic-angular';
 import { CoreValidators } from './../../core/validators';
 import { WizardIon, StepChangeEvent, eStepDirection, ColourSet, AzSelectedItem } from '../../core/components';
 import { IAppState, AppActions } from '../../bricks/stores';
-import { Car, CarMaker, VehicleType } from '../../bricks/models';
+import { Car, CarMaker, VehicleType, ePages } from '../../bricks/models';
+import { BasePage } from '../_base-page/base-page';
 import { CarDb, CarMakerDb, DbCmdFailure } from '../../bricks/db2';
 import * as _ from '../../core/helpers/underscore';
 
@@ -17,7 +18,7 @@ import * as _ from '../../core/helpers/underscore';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: "car-edit.html"
 })
-export class CarEditPage {
+export class CarEditPage extends BasePage {
 
 	// Notes
 	//  - Turn Wizard navigation off, but still re-use the capabilities
@@ -76,17 +77,19 @@ export class CarEditPage {
 
 
 	constructor(
+		store: Store<IAppState>, 
+		appActions: AppActions,
 		private _navParams: NavParams,
 		private _nav: NavController,
-		private _store: Store<IAppState>, 
 		private _carMakerDb: CarMakerDb,
 		private _carDb: CarDb,
-		private _appActions: AppActions,
 		fb: FormBuilder
 	) {		
+		super(store, appActions, ePages.EditCar);
+
 		this.createForms();
 
-		this._app$ = <Observable<IAppState>> _store.select("appState");
+		this._app$ = <Observable<IAppState>> this._store.select("appState");
 		this._app$.subscribe((data: IAppState) => {
 			if (_.isPresent(data)) {
 				this._colours = data.colours;
@@ -107,6 +110,15 @@ export class CarEditPage {
 	protected ionViewDidUnload(): void {
 		this._app$subscription.unsubscribe();
 	}	
+
+	protected ionViewDidEnter(): void {
+		super.onViewDidEnter();
+	}
+
+	protected ionViewDidLeave(): void {
+		super.onViewDidLeave();
+	}	
+	
 
 	protected loadCar(): void {
 		

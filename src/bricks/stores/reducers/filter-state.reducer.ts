@@ -16,19 +16,19 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 		case FilterActions.INITIALISE_APP:
 			// payload is the same shape => just take as is
 			newState = action.payload;
-			break;
+		break;
 
 		case AppActions.SHOW_YEAR_VIEW:
 			newState = ditto.updateItem(oldState, {
 				filtersActive: action.payload.filtersActive
 			});
-			return newState;			
+		break;
 
 		case FilterActions.FILTERS_ACTIVE_UPDATE:
 			newState = ditto.updateItem(oldState, {
 				filtersActive: action.payload
 			});
-			return newState;
+		break;
 
 
 		case FilterActions.TOGGLE_YEAR_FILTER:
@@ -42,7 +42,7 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 					filteredYears: arrayToggle(oldState.filteredYears, action.payload)
 				});
 			}
-			break;
+		break;
 		case FilterActions.SHOW_ALL_YEARS:
 			// clear existing selections
 			newState = ditto.updateItem<IFilterState>(oldState, {
@@ -67,7 +67,7 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 					filteredJourneyTypes: arrayToggle(oldState.filteredJourneyTypes, action.payload)
 				});
 			}
-			break;
+		break;
 		case FilterActions.SHOW_ALL_JOURNEY_TYPES:
 			newState = ditto.updateItem<IFilterState>(oldState, {
 				filteredJourneyTypes: ditto.replaceAll(action.payload)
@@ -91,12 +91,13 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 					filteredMpgAverages: arrayToggle(oldState.filteredMpgAverages, action.payload)
 				});
 			}
-			break;	
+		break;	
 		case FilterActions.SHOW_ALL_MPG_AVERAGES:
 			newState = ditto.updateItem<IFilterState>(oldState, {
 				filteredMpgAverages: ditto.replaceAll(action.payload)
 			});
 		break;
+
 		case FilterActions.CLEAR_ALL_MPG_AVERAGES:
 			newState = ditto.updateItem<IFilterState>(oldState, {
 				filteredMpgAverages: new Array<eFillUpType>()
@@ -116,11 +117,14 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 				});
 			}
 		break;
+
+
 		case FilterActions.SHOW_ALL_CARS:
 			newState = ditto.updateItem<IFilterState>(oldState, {
 				filteredCarIds: ditto.replaceAll(action.payload)
 			});
 		break;
+
 		case FilterActions.CLEAR_ALL_CARS:
 			newState = ditto.updateItem<IFilterState>(oldState, {
 				filteredCarIds: new Array<number>()
@@ -131,6 +135,8 @@ export const filterStateReducer: ActionReducer<IFilterState> = (oldState: IFilte
 			// no change
 			newState = oldState;
 	}
+
+console.log("%c" + action.type, 'background: #222; color: #bada55', action.payload, newState);
 
 	return newState;
 
