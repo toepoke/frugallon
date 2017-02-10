@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Nav } from 'ionic-angular';
+import { Nav, Toast, ToastController } from 'ionic-angular';
 
 import { IFilterState, FilterActions } from './../../stores';
 import { Car, FillUp, eFillUpType } from './../../models';
@@ -50,6 +50,8 @@ export class FilterMenuIon {
 	@Input("years") years: Array<number>;
 	@Input("cars") cars: Array<Car>;
 	@Input("filters") filters: IFilterState;
+	@Input("hit-count") hitCount?: number = 0;
+	@Input("is-active") isActive: boolean = false;
 
 	@Output("on-change-filter") onChangeFilter: EventEmitter<Action> = new EventEmitter<Action>();
 
@@ -58,10 +60,35 @@ export class FilterMenuIon {
 	protected _mpgOperators: Array<number> = new Array<number>(-1, 0, +1);
 	
 	constructor(
-		private _filterActions: FilterActions
+		private _filterActions: FilterActions,
+    protected _toastCtrl: ToastController
 	) {
 		this._fillTypes = FillUp.getFillTypes();
 	}
+
+	ngOnChanges(changes: any): void {
+		if (_.isNull(changes)) return;
+		if (_.isNull(changes.hitCount)) return;
+		if (_.isNull(changes.hitCount.currentValue)) return;		
+		if (!changes.isActive.currentValue) return;
+
+		let current: number = changes.hitCount.currentValue;
+		let last: number = changes.hitCount.previousValue;
+
+		if (current != last) {
+			let msg: string = `Found ${current}`;
+			if (current == 0) {
+				msg = "No results";
+			}
+			let toast: Toast = this._toastCtrl.create({
+				message: msg,
+				duration: 1500
+			});
+			toast.present();				
+		}
+
+	} // ngOnChanges
+
 
 /**** Year filters actions *****/
 
