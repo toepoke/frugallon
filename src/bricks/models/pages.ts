@@ -1,13 +1,17 @@
 
 export enum ePages {
-	Empty = 0,
-	FillUp = 1,
-	History = 2,
-	Reminders = 3,
-	MyCars = 4,
-	EditCar = 5,
-	About = 6,
-	Settings = 7
+	Empty = -1,
+
+	// Note: Tabs pages are zero indexed
+	FillUp = 0,
+	History = 1,
+	Reminders = 2,
+	MyCars = 3,
+	// Note: Tabs pages are zero indexed
+	
+	EditCar = 4,
+	About = 5,
+	Settings = 6
 }
 
 export function ePagesToString(page: ePages): string {
