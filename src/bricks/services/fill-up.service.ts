@@ -22,26 +22,6 @@ export class FillUpService {
 		
 	}
 
-	prime(): Promise<Array<any>> {
-		let promises: Array<any> = [];
-
-		promises.push( this._carDb.prime() );
-		promises.push( this._statsDb.createTable() );
-		promises.push( this._fillDb.createTable() );
-
-		return Promise.all(promises);
-	}
-
-	destroy(): Promise<Array<any>> {
-		let promises: Array<any> = [];
-
-		promises.push( this._carDb.dropTable() );
-		promises.push( this._statsDb.dropTable() );
-		promises.push( this._fillDb.dropTable() );
-
-		return Promise.all(promises);
-	}
-
 	public addFillUp(fu: FillUp): Promise<FillUp> {
 		if (_.isNull(fu))
 			throw new Error("FillsDb::addFillUp - fu cannot be null.");
@@ -86,12 +66,8 @@ export class FillUpService {
 	}
 
 	public getFiltered(filters: IFilterState, activeMeasurement: boolean): Promise<Array<FillUp>> {
-		// TODO: Get MPG filters working again
 		
 		return this._fillDb.getFiltered(filters.filteredYears, filters.filteredJourneyTypes, filters.filteredCarIds, filters.filteredMpgAverages, activeMeasurement)
-			// .then((fills: Array<FillUp>) => {
-			// 	return this.applyMPGFilter(fills, filters.filteredMpgAverages, activeMeasurement);
-			// })
 			.then((fills: Array<FillUp>) => {
 				let promises: Array<any> = [];
 				fills.forEach((fill: FillUp) => {
@@ -102,29 +78,6 @@ export class FillUpService {
 		;
 	}
 
-	// private applyMPGFilter(fills: Array<FillUp>, mpgAverage: Array<number>, measurement: boolean): Array<FillUp> {
-	// 	let filtered: Array<FillUp> = null;
-
-	// 	filtered = fills.filter((f: FillUp) => {
-	// 		let mpg: number = f.getMpg(measurement);
-	// 		let stats: MpgStat = f.getMpgStats(measurement);
-	// 		let include: boolean = false;
-
-	// 		mpgAverage.forEach((avg: number) => {
-	// 			if (avg < 0 && stats.isUnderAverage(mpg))
-	// 				include = true;
-	// 			else if (avg == 0 && stats.isAverage(mpg))
-	// 				include = true;
-	// 			else if (avg > 0 && stats.isAboveAverage(mpg))
-	// 				include = true; 
-	// 		});
-			
-	// 		return include;
-	// 	});
-
-	// 	return filtered;
-	// }
-	
 
 	public getYears(): Promise<Array<number>> {
 		return this._fillDb.getYears();
