@@ -2,7 +2,6 @@ import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 
 import { AppActions, IAppState } from './../../bricks/stores';
-import { NavController } from 'ionic-angular';
 import { ePages } from '../../bricks/models';
 import { BasePage } from '../_base-page/base-page';
 
@@ -51,6 +50,5 @@ export class RemindersPage extends BasePage {
 	protected ionViewDidLeave(): void {
 		super.onViewDidLeave();
 	}	
-
 
 }

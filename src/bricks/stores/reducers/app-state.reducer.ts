@@ -7,7 +7,7 @@ import * as _ from "../../../core/helpers/underscore";
 // Dependencies
 import { IAppState } from "../iapp.state";
 import { AppActions } from '../actions/app.actions'
-import { VehicleType, ePages, ePagesToString } from '../../models';
+import { VehicleType, ePages } from '../../models';
 
 export const appStateReducer: ActionReducer<IAppState> = (oldState: IAppState, action: Action) => {
 	let newState: IAppState = null;
