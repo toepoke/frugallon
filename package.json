@@ -41,7 +41,9 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-device",
     "ionic-plugin-keyboard",
-    "cordova-plugin-splashscreen"
+    "cordova-plugin-splashscreen", 
+    "de.appplant.cordova.plugin.local-notification",
+    "cordova-sqlite-storage"
   ],
   "cordovaPlatforms": [],
   "description": "frugallon: An Ionic project"
