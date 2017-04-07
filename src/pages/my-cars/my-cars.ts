@@ -1,10 +1,10 @@
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Car, ePages } from './../../bricks/models';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { IAppState } from './../../bricks/stores/iapp.state';
 import { AppActions } from './../../bricks/stores/actions/app.actions';
-import { Store } from '@ngrx/store';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CarEditPage } from '../';
 import { BasePage } from '../_base-page/base-page';
 import * as _ from '../../core/helpers/underscore';
@@ -60,6 +60,7 @@ export class MyCarsPage extends BasePage {
 		store: Store<IAppState>,
 		appActions: AppActions,
 		protected _nav: NavController,
+		protected _changeDetector: ChangeDetectorRef
 	) {
 		super(store, appActions, ePages.MyCars);
 
@@ -84,6 +85,7 @@ export class MyCarsPage extends BasePage {
 	}
 
 	protected ionViewDidLeave(): void {
+		this._changeDetector.markForCheck();
 		super.onViewDidLeave();
 	}	
 
