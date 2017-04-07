@@ -155,7 +155,7 @@ export class TypedDb<T> extends BaseDb {
 	public getRowCount(): Promise<number> {
 		let sql: string = '';
 
-		sql = 'SELECT COUNT(1) FROM ' + this._tableName;
+		sql = 'SELECT * FROM ' + this._tableName + ' LIMIT 1;';
 
 		return super.queryAsync(sql, null)
 			.then((success: DbCmdSuccess) => {
