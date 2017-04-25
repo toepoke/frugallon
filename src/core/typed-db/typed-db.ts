@@ -1,3 +1,4 @@
+import { SQLite } from '@ionic-native/sqlite';
 import { BaseDb, DbCmdFailure, DbCmdSuccess } from "./";
 
 /**
@@ -63,8 +64,8 @@ export class TypedDb<T> extends BaseDb {
 	protected _schema: any = null;
 	protected _fields: Array<TypedField> = null;
  
-	constructor(schema: any, dbName: string, tableName: string, provider: number) {
-		super(dbName, provider);
+	constructor(db: SQLite, schema: any, dbName: string, tableName: string, provider: number) {
+		super(db, dbName, provider);
 
 		this._tableName = tableName;
 		this._schema = schema;

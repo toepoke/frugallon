@@ -3,7 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Platform, Nav, MenuController, Toggle } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
 // Core
 import { TimeService } from '../core/services';
@@ -21,7 +22,7 @@ import { TabsPage, AboutPage, SettingsPage } from '../pages';
 	templateUrl: 'app.html'
 })
 export class MyApp {
-	@ViewChild(Nav) _nav;
+	@ViewChild(Nav) _nav: Nav;
 
 	_rootPage = TabsPage;
   // _rootPage = CoreIllustrationsPage;
@@ -36,6 +37,8 @@ export class MyApp {
 
   constructor(
     private _platform: Platform,
+		private _splashScreen: SplashScreen,
+		private _statusBar: StatusBar,
     private _store: Store<any>,
 		private _menuCtrl: MenuController,
     private _appActions: AppActions, private _filterActions: FilterActions,
@@ -45,8 +48,8 @@ export class MyApp {
     _platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      _statusBar.styleDefault();
+      _splashScreen.hide();
       this.initialiseApp();
     });
   }

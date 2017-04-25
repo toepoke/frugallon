@@ -1,5 +1,7 @@
+import { SQLite } from '@ionic-native/sqlite';
 import { Injectable } from "@angular/core";
 import { TypedDb, DbTypes } from "../../core/typed-db/";
+import { DbConfig } from './';
 import { MpgStat } from "../models";
 import * as ditto from "../../core/helpers/ditto";
 
@@ -8,10 +10,13 @@ export class MpgStatDb extends TypedDb<MpgStat> {
 	static TABLE_NAME: string = 'mpg_stats';
 
 	constructor(
-		dbName: string,
-		provider: number
+		db: SQLite,
+		dbConfig: DbConfig
 	) {
-		super(MpgStatDb.getSchema(), dbName, MpgStatDb.TABLE_NAME, provider);
+		super(db, MpgStatDb.getSchema(), dbConfig.dbName, MpgStatDb.TABLE_NAME, <number> dbConfig.dbProvider);
+		if (dbConfig.isLogging) {
+			super.enableLogging();
+		}
 	}
 
 	static getSchema(): any {

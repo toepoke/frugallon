@@ -1,5 +1,7 @@
+import { SQLite } from '@ionic-native/sqlite';
 import { Injectable } from "@angular/core";
 import { TypedDb, DbTypes } from "../../core/typed-db/";
+import { DbConfig } from './';
 import { Filters } from "../models/filters";
 import * as ditto from "../../core/helpers/ditto";
 
@@ -8,10 +10,13 @@ export class FiltersDb extends TypedDb<Filters> {
 	static TABLE_NAME: string = 'filters';
 
 	constructor(
-		dbName: string,
-		provider: number
+		db: SQLite,
+		dbConfig: DbConfig
 	) {
-		super(FiltersDb.getSchema(), dbName, FiltersDb.TABLE_NAME, provider);
+		super(db, FiltersDb.getSchema(), dbConfig.dbName, FiltersDb.TABLE_NAME, <number> dbConfig.dbProvider);
+		if (dbConfig.isLogging) {
+			super.enableLogging();
+		}
 	}
 
 	static getSchema(): any {

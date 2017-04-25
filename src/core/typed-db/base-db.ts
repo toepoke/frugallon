@@ -1,4 +1,4 @@
-import { SQLite } from 'ionic-native';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { DbCmdSuccess, DbCmdFailure } from './';
 import * as ditto from '../helpers/ditto';
 import * as _ from '../helpers/underscore';
@@ -38,20 +38,16 @@ export class DbProviders {
  */
 export abstract class BaseDb {
 	protected _provider: number = DbProviders.DETECT;
+	protected _db: SQLite = null;
 	protected _dbName: string = null;
-	public _db: any = null;
-	protected _isOpen: boolean = false;
 	protected _loggingActive: boolean = false;
 
 	static DB_SIZE: number = 5 * 1024 * 1024;	// 5Mb
 
-	constructor(database: string, provider: number = DbProviders.DETECT) {
+	constructor(db: SQLite, database: string, provider: number = DbProviders.DETECT) {
+		this._db = db;
 		this._dbName = database;
 		this._provider = provider;
-
-		if (!this._isOpen) {
-			this.openDb();
-		}		
 	}
 
 	/**
@@ -79,29 +75,15 @@ export abstract class BaseDb {
 
 
 	/**
-	 * Flags the database has been opened successfully.
-	 */
-	protected get isOpen(): boolean {
-		return this._isOpen;
-	}
-
-
-	/**
 	 * Opens in webSql or SqlLite mode, depending on configuration.
 	 */
-	private openDb(): void {
-		if (!_.isNull(this._db)) {
-			throw new Error('SQLite database is already opened.');
-		}
-		// Ensure any other queries don't come in ... yet 
-		this._isOpen = true;
-
+	protected openDb(): Promise<SQLiteObject> {
 		let activeProvider: number = this.getActiveProvider();
 
 		if (activeProvider == DbProviders.WEB_SQL) {
-			this.useWebSqlProvider();
+			return this.useWebSqlProvider();
 		} else {
-			this.useSqlLiteProvider();
+			return this.useSqlLiteProvider();
 		}
 	}
 
@@ -127,22 +109,11 @@ export abstract class BaseDb {
 	/**
 	 * Opens database using SQLite configuration. 
 	 */
-	private useSqlLiteProvider() {
-		let db: SQLite = new SQLite();
-
-		db.openDatabase({
+	private useSqlLiteProvider(): Promise<any> {
+		return this._db.create({
 			name: this._dbName,
 			location: 'default' // location is required
-		})
-			.then(() => {
-				this._isOpen = true;
-				this._db = db;
-			})
-			.catch((err: Error) => {
-				this._isOpen = false; 
-				throw err; 
-			})
-		;
+		});
 
 	}
 
@@ -150,16 +121,19 @@ export abstract class BaseDb {
 	/**
 	 * Opens database using webSql configuration. 
 	 */
-	private useWebSqlProvider() {
-		this._db = window['openDatabase'](this._dbName, 1.0, 'Frugallon database', BaseDb.DB_SIZE);
+	private useWebSqlProvider(): Promise<any> {
+		return new Promise((resolve, reject) => {
+			this._db = window['openDatabase'](this._dbName, 1.0, 'Frugallon database', BaseDb.DB_SIZE);
 
-		if (this._db) {
-			this._isOpen = true;
-		} else {
-			this._isOpen = false; 
-			throw Error('Failed to open web sql database'); 
-		}
-	}
+			if (this._db) {
+				resolve(this._db);
+			} else {
+				reject(new Error('Failed to open web sql database')); 
+			}
+
+			return <any> this._db;
+		}); // Promise
+	} // useWebSqlProvider
 
 
 	/**
@@ -171,19 +145,26 @@ export abstract class BaseDb {
 			if (_.isNull(parameters)) {
 				parameters = [];
 			}
-			this._db.transaction(function(tx) {
-				tx.executeSql(sql, parameters,
-					(tx, rs) => {
-						if (me._loggingActive) BaseDb.onQuerySuccess(sql, parameters, rs);
-						resolve(new DbCmdSuccess(tx, rs, sql));
+			this.openDb()
+				.then((dbObj: SQLiteObject) => {
+					dbObj.transaction(function(tx) {
+						tx.executeSql(sql, parameters,
+							(tx, rs) => {
+								if (me._loggingActive) BaseDb.onQuerySuccess(sql, parameters, rs);
+								resolve(new DbCmdSuccess(tx, rs, sql));
 
-					}, (err, sqlError) => {
-						if (me._loggingActive) BaseDb.onSqlError(err, sqlError, sql, parameters);
-						reject(new DbCmdFailure(tx, err, sqlError, sql));
-					} // error
-					
-				) // executeSql
-			}); // transaction
+							}, (err, sqlError) => {
+								if (me._loggingActive) BaseDb.onSqlError(err, sqlError, sql, parameters);
+								reject(new DbCmdFailure(tx, err, sqlError, sql));
+							} // error
+							
+						) // executeSql
+					}); // transaction
+				}) 
+				.catch(() => {
+					// TODO: Catch error
+				})
+			; // openDb
 
 		}); // Promise
 	} // queryAsync
@@ -201,17 +182,24 @@ export abstract class BaseDb {
 			if (_.isNull(parameters)) {
 				parameters = [];
 			}
-			this._db.transaction(function(tx) {
-				tx.executeSql(sql, parameters,
-					(tx, rs) => {
-						if (me._loggingActive) BaseDb.onExecSuccess(sql, parameters);
-						resolve(new DbCmdSuccess(tx, rs, sql));
-					}, (err, sqlError) => {
-						if (me._loggingActive) BaseDb.onSqlError(err, sqlError, sql, parameters);
-						reject(new DbCmdFailure(tx, err, sqlError, sql));
-					} // error
-				) // executeSql
-			}); // transaction
+			this.openDb()
+				.then((dbObj: SQLiteObject) => {
+					dbObj.transaction(function(tx) {
+						tx.executeSql(sql, parameters,
+							(tx, rs) => {
+								if (me._loggingActive) BaseDb.onExecSuccess(sql, parameters);
+								resolve(new DbCmdSuccess(tx, rs, sql));
+							}, (err, sqlError) => {
+								if (me._loggingActive) BaseDb.onSqlError(err, sqlError, sql, parameters);
+								reject(new DbCmdFailure(tx, err, sqlError, sql));
+							} // error
+						) // executeSql
+					}); // transaction
+				})
+				.catch(() => {
+					// TODO: Catch error
+				})
+			; // openDb
 
 		}); // Promise
 	

@@ -1,5 +1,7 @@
+import { SQLite } from '@ionic-native/sqlite';
 import { Injectable } from "@angular/core";
 import { TypedDb, DbTypes, DbCmdSuccess } from "../../core/typed-db/";
+import { DbConfig } from './';
 import { CarMaker } from "../models";
 import * as ditto from "../../core/helpers/ditto";
 
@@ -8,10 +10,13 @@ export class CarMakerDb extends TypedDb<CarMaker> {
 	static TABLE_NAME: string = 'car_makers';
 
 	constructor(
-		dbName: string,
-		provider: number
+		db: SQLite,
+		dbConfig: DbConfig
 	) {
-		super(CarMakerDb.getSchema(), dbName, CarMakerDb.TABLE_NAME, provider);
+		super(db, CarMakerDb.getSchema(), dbConfig.dbName, CarMakerDb.TABLE_NAME, <number> dbConfig.dbProvider);
+		if (dbConfig.isLogging) {
+			super.enableLogging();
+		}
 	}
 
 	/**

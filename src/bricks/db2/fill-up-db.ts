@@ -1,5 +1,7 @@
+import { SQLite } from '@ionic-native/sqlite';
 import { Injectable } from '@angular/core';
 import { TypedDb, DbTypes, DbCmdFailure, DbCmdSuccess } from '../../core/typed-db/';
+import { DbConfig } from './';
 import { FillUp, eFillUpType } from '../models';
 import { MpgStatDb } from './mpg-stat-db';
 import * as ditto from '../../core/helpers/ditto';
@@ -9,10 +11,13 @@ export class FillUpDb extends TypedDb<FillUp> {
 	static TABLE_NAME: string = 'fill_ups';
 
 	constructor(
-		dbName: string,
-		provider: number
+		db: SQLite,
+		dbConfig: DbConfig
 	) {
-		super(FillUpDb.getSchema(), dbName, FillUpDb.TABLE_NAME, provider);
+		super(db, FillUpDb.getSchema(), dbConfig.dbName, FillUpDb.TABLE_NAME, <number> dbConfig.dbProvider);
+		if (dbConfig.isLogging) {
+			super.enableLogging();
+		}
 	}
 
 	static getSchema(): any {
