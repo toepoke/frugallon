@@ -6,7 +6,6 @@ import * as _ from "../../helpers/underscore";
 @Component({
 	selector: "segment-list-ion",
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	styles: [``],
 	template: `
 		<ion-segment [hidden]="!showControl()" [(ngModel)]="selectedValue" (click)="onSegmentClick($event)" (ionChange)="onSegmentChanged($event)">
 			<button ion-button clear [hidden]="!showNavigation()" [disabled]="!enablePrev()" (click)="goPrev()">
